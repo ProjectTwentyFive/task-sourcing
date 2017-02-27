@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Taskr\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Task;
+use Taskr\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
@@ -14,7 +15,6 @@ class TasksController extends Controller
     }
 
     public function show(Task $task) {
-
         return view('tasks.show', compact('task'));
     }
 
@@ -23,12 +23,16 @@ class TasksController extends Controller
     }
 
     public function store() {
-        $task = new Task;
+        $ownerId = Auth::id();
+        $defaultStatus = 0;
 
-        $task->title = request('title');
-        $task->description = request('description');
-
-        $task-save();
+        Task::create([
+            'title' => request('title'),
+            'description' => request('description'),
+            'category' => request('category'),
+            'owner' => $ownerId,
+            'status' => $defaultStatus,
+        ]);
 
         return redirect('/');
     }

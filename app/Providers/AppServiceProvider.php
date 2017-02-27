@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Taskr\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
