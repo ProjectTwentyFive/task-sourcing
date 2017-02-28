@@ -18,6 +18,7 @@ class CreateBidsTable extends Migration
             $table->integer('user_id');
             $table->integer('task_id');
             $table->decimal('price', 15, 2);
+            $table->boolean('selected')->default(false);
             $table->timestamps();
 
             /* Schema constraints */

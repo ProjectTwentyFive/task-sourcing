@@ -20,6 +20,8 @@ class CreateTasksTable extends Migration
             $table->text('category');
             $table->integer('owner');
             $table->integer('status');
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->timestamps();
 
             /* Schema constraints */
