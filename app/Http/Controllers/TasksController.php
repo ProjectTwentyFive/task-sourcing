@@ -26,6 +26,11 @@ class TasksController extends Controller
         $ownerId = Auth::id();
         $defaultStatus = 0;
 
+        $this->validate(request(), [
+            'title' => 'required|max:15',
+            'description' => 'required'
+        ]);
+
         Task::create([
             'title' => request('title'),
             'description' => request('description'),

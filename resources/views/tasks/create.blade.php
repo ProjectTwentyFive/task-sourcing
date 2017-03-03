@@ -20,6 +20,8 @@
                         <input type="text" class="form-control" id="category" name="category" placeholder="Craftsmanship">
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
+
+                    @include('layouts.errors')
                 </form>
             </div>
         </div>
