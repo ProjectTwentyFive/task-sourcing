@@ -1,3 +1,17 @@
+# Project Information
+
+## About Project
+
+Taskr is task sourcing platform for people to outsource tasks to others who wants to make a quick living from it. Taskr is currently 
+
+## Setting Your Dev Environment
+In Progress.
+
+## Database Models and Manipulation
+Due to the restrictions against ORMs (Eloquent), the project requires the execution of raw queries instead. To understand how to do that in Laravel, take a look at their [documentation](https://laravel.com/docs/5.4/database#running-queries) to learn more. 
+
+# Laravel Information
+---
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
