@@ -5,7 +5,16 @@
 Taskr is task sourcing platform for people to outsource tasks to others who wants to make a quick living from it. Taskr is currently 
 
 ## Setting Your Dev Environment
-In Progress.
+1. Configure Homestead by following this [guide](https://laravel.com/docs/5.4/homestead).
+2. Start Homestead by `vagrant up` and SSH into it using `vagrant ssh`.
+3. Navigate into the project folder within the SSH session and run `composer install` to get dependencies.
+4. Run `yarn` to get node.js dependencies.
+5. Execute `cp .env.example .env` and modify the .env file using your favourite editor e.g. `nano`, `vim`
+6. From [Laravel Homestead](https://laravel.com/docs/5.4/homestead) guide, put in the username and password of the PostgreSQL into .env.
+7. Login to PostgreSQL database using shell commands or Datagrip and create database called `taskr`.
+8. To generate an application key, run the command `php artisan key:generate`.
+9. Run database migrations to setup the tables using `php artisan migrate:reset`.
+10. If configured properly in step 1, your application should be accessible from your machine through the domain you configured.
 
 ## Database Models and Manipulation
 Due to the restrictions against ORMs (Eloquent), the project requires the execution of raw queries instead. To understand how to do that in Laravel, take a look at their [documentation](https://laravel.com/docs/5.4/database#running-queries) to learn more. 
