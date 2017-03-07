@@ -9,25 +9,30 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+| Example:
+| Controller => TaskController
+| Eloquent Model => Task
+| Migration => create_tasks_table
 */
 
 
-// Laravel Flow
-// Controller => TaskController
-// Eloquent Model => Task
-// Migration => create_tasks_table
 
-Route::get('/tasks', 'TasksController@index');
-Route::get('/tasks/create', 'TasksController@create');
-Route::post('/tasks', 'TasksController@store');
-Route::get('/tasks/{task}', 'TasksController@show');
-Route::get('/tasks/{task}/edit', 'TasksController@edit');
-Route::patch('/tasks/{task}', 'TasksController@update');
-Route::delete('/tasks/{task}', 'TasksController@destroy');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/tasks/create', 'Resources\TasksController@create');
+    Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
+});
 
-Route::post('/tasks/{task}/bids', 'BidsController@store');
-
+/*
+ * Unauthenticated API Routes should be placed here.
+ */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
+Route::get('/tasks', 'Resources\TasksController@index');
+Route::get('/tasks/{task}', 'Resources\TasksController@show');
+Route::get('/tasks/{task}/bids/{bid}', 'Resources\BidsController@show');
+
+Route::get('/users/{user}', 'Resources\UsersController@show');
+
+
 
