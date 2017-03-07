@@ -9,7 +9,8 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="title">Task Title</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Building a cupboard">
+                        <input type="text" class="form-control" id="title" name="title"
+                               placeholder="Building a cupboard">
                     </div>
                     <div class="form-group">
                         <label for="body">Task Description</label>
@@ -17,7 +18,8 @@
                     </div>
                     <div class="form-group">
                         <label for="title">Task Category</label>
-                        <input type="text" class="form-control" id="category" name="category" placeholder="Craftsmanship">
+                        <input type="text" class="form-con  trol" id="category" name="category"
+                               placeholder="Craftsmanship">
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
 

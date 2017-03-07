@@ -13,18 +13,25 @@ class Task extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'category', 'owner', 'status',
+        'title',
+        'description',
+        'category',
+        'owner',
+        'status',
     ];
 
-    public function bids() {
+    public function bids()
+    {
         return $this->hasMany(Bid::class);
     }
 
-    public function owner() {
+    public function owner()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function addBid($price) {
+    public function addBid($price)
+    {
         $this->bids()->create([
             'price' => $price,
             'user_id' => Auth::id(),

@@ -12,14 +12,18 @@ class Bid extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'task_id', 'price',
+        'user_id',
+        'task_id',
+        'price',
     ];
 
-    public function task() {
+    public function task()
+    {
         return $this->belongsTo(Task::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

@@ -16,7 +16,6 @@
 */
 
 
-
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/tasks/create', 'Resources\TasksController@create');
     Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
