@@ -8,7 +8,7 @@ Taskr is task sourcing platform for people to outsource tasks to others who want
 1. Configure Homestead by following this [guide](https://laravel.com/docs/5.4/homestead).
 2. Start Homestead by `vagrant up` and SSH into it using `vagrant ssh`.
 3. Navigate into the project folder within the SSH session and run `composer install` to get dependencies.
-4. Run `yarn` to get node.js dependencies.
+4. Run `yarn` to get javascript dependencies (e.g. jquery, bootstrap, etc.).
 5. Execute `cp .env.example .env` and modify the .env file using your favourite editor e.g. `nano`, `vim`
 6. From [Laravel Homestead](https://laravel.com/docs/5.4/homestead) guide, put in the username and password of the PostgreSQL into .env.
 7. Login to PostgreSQL database using shell commands or Datagrip and create database called `taskr`.
