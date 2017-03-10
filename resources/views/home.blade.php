@@ -20,6 +20,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">Your Tasks</h3>
                     </div>
+                    @if (sizeOf($tasks)>0)
                     <table class="table">
                         <tr>
                             <th>Title</th>
@@ -36,6 +37,13 @@
                         </tr>
                         @endforeach
                     </table>
+                    @else
+                    <div class="panel-body">
+                        You currently have no tasks. Click
+                        <a href="thisgoesnowhere">here</a>
+                        to create a new task.
+                    </div>
+                    @endif
                 </div>
             </div>
             @endif
