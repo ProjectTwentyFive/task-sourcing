@@ -2,6 +2,9 @@
 
 namespace Taskr\Http\Controllers;
 
+use Auth;
+use Taskr\Task;
+
 class HomeController extends Controller
 {
     /**
@@ -11,6 +14,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+		$tasks = [];
+		if (Auth::check())
+		{
+			$id = Auth::id();
+			$tasks = Task::getAllBelongsTo($id);
+		}
+	    return view('home', compact('tasks'));
     }
 }

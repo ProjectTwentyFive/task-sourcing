@@ -5,6 +5,8 @@ namespace Taskr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
+use DB;
+
 class Task extends Model
 {
     /**
@@ -19,6 +21,12 @@ class Task extends Model
         'owner',
         'status',
     ];
+
+    public static function getAllBelongsTo($id)
+    {
+        $tasks = DB::select('SELECT * FROM Tasks WHERE owner=?',[$id]);
+        return $tasks;
+    }
 
     public function bids()
     {
