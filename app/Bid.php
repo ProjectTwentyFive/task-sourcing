@@ -4,6 +4,8 @@ namespace Taskr;
 
 use Illuminate\Database\Eloquent\Model;
 
+use DB;
+
 class Bid extends Model
 {
     /**
@@ -16,6 +18,12 @@ class Bid extends Model
         'task_id',
         'price',
     ];
+
+    public static function getAllBelongsTo($id)
+    {
+        $bids = DB::select('SELECT * FROM Bids WHERE user_id=?', [$id]);
+        return $bids;
+    }
 
     public function task()
     {

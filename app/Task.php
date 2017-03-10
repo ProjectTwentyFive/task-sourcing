@@ -24,7 +24,7 @@ class Task extends Model
 
     public static function getAllBelongsTo($id)
     {
-        $tasks = DB::select('SELECT * FROM Tasks WHERE owner=?',[$id]);
+        $tasks = DB::select('SELECT * FROM Tasks WHERE owner=?', [$id]);
         return $tasks;
     }
 

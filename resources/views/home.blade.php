@@ -15,6 +15,8 @@
                 </div>
             </div>
             @if(Auth::check())
+
+            <!-- YOUR TASKS PANEL -->
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -42,6 +44,40 @@
                         You currently have no tasks. Click
                         <a href="thisgoesnowhere">here</a>
                         to create a new task.
+                    </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- YOUR BIDS PANEL -->
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Your Bids</h3>
+                    </div>
+                    @if (sizeOf($bids)>0)
+                    <table class="table">
+                        <tr>
+                            <th>Task ID</th>
+                            <th>Title</th>
+                            <th>Owner</th>
+                            <th>Price</th>
+                            <th>Selected</th>
+                        </tr>
+                        @foreach ($bids as $bid)
+                        <tr>
+                            <td>{{$bid->task_id}}</td>
+                            <td>[TODO: get title of task]</td>
+                            <td>[TODO: get owner of task]</td>
+                            <td>{{$bid->price}}</td>
+                            <td>{{$bid->selected}}</td>
+                        @endforeach
+                    </table>
+                    @else
+                    <div class="panel-body">
+                        You currently have no bids. Click
+                        <a href="tasks">here</a>
+                        to view other people's tasks.
                     </div>
                     @endif
                 </div>

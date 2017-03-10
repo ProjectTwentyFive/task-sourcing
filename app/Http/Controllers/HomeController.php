@@ -4,6 +4,7 @@ namespace Taskr\Http\Controllers;
 
 use Auth;
 use Taskr\Task;
+use Taskr\Bid;
 
 class HomeController extends Controller
 {
@@ -15,11 +16,13 @@ class HomeController extends Controller
     public function index()
     {
 		$tasks = [];
+		$bids = [];
 		if (Auth::check())
 		{
 			$id = Auth::id();
 			$tasks = Task::getAllBelongsTo($id);
+			$bids = Bid::getAllBelongsTo($id);
 		}
-	    return view('home', compact('tasks'));
+	    return view('home', compact('tasks', 'bids'));
     }
 }
