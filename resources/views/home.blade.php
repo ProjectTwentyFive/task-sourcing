@@ -20,7 +20,10 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Your Tasks</h3>
+                        <h3 class="panel-title">
+                            Your Tasks
+                            <a href="tasks/create" style="color:#3097D1; float:right">Create Task</a>
+                        </h3>
                     </div>
                     @if (sizeOf($tasks)>0)
                     <table class="table">
@@ -53,7 +56,10 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Your Bids</h3>
+                        <h3 class="panel-title">
+                            Your Bids
+                            <a href="tasks" style="color:#3097D1; float:right">View Tasks</a>
+                        </h3>
                     </div>
                     @if (sizeOf($bids)>0)
                     <table class="table">
