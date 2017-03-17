@@ -74,7 +74,7 @@ class RegisterController extends Controller
             'is_admin' => false,
         ]);
 
-        \Mail::to($user)->send(new Welcome($user));
+        //\Mail::to($user)->send(new Welcome($user));
 
         return $user;
     }
