@@ -30,7 +30,7 @@ class UsersController extends Controller
     {
         // Show User Profile
         $user_profile = DB::select('SELECT * FROM users WHERE id = ?', [$user->id]);
-        return view('users.listing', compact('user'));
+        return view('users.show', compact('user'));
     }
 
     public function create()
