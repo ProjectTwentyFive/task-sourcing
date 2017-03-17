@@ -26,9 +26,11 @@ class UsersController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function show($id)
+    public function show(User $user)
     {
         // Show User Profile
+        $user_profile = DB::select('SELECT * FROM users WHERE id = ?', [$user->id]);
+        return view('users.listing', compact('user'));
     }
 
     public function create()
