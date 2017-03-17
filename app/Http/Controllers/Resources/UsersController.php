@@ -22,7 +22,7 @@ class UsersController extends Controller
     public function index()
     {
         // TODO: Restrict to Administrator
-        $users = User::all();
+        $users = DB::select('SELECT * FROM users');
         return view('users.index', compact('users'));
     }
 
@@ -60,10 +60,10 @@ class UsersController extends Controller
     * Parameter: user id
     * e.g. 1
     */
-    public function delete($id)
+    public function destroy($id)
     {
         DB::select('DELETE FROM users where id = ?', [$id]);
-        return "Deleted user id {$id}";
+        return "Deleted user with id {$id}";
     }
 
     // CREATE
