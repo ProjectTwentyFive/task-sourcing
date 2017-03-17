@@ -26,7 +26,7 @@
                         </h3>
                     </div>
                     @if (sizeOf($tasks)>0)
-                    <table class="table">
+                    <table class="table table-hover">
                         <tr>
                             <th>Title</th>
                             <th>Category</th>
@@ -34,7 +34,7 @@
                             <th>End Date</th>
                         </tr>
                         @foreach ($tasks as $task)
-                        <tr>
+                        <tr onclick="window.document.location='tasks/{{$task->id}}';">
                             <td>{{$task->title}}</td>
                             <td>{{$task->category}}</td>
                             <td>{{$task->status}}</td>
@@ -77,6 +77,7 @@
                             <td>[TODO: get owner of task]</td>
                             <td>{{$bid->price}}</td>
                             <td>{{$bid->selected}}</td>
+                        </tr>
                         @endforeach
                     </table>
                     @else
