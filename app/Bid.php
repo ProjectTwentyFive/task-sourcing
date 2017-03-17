@@ -21,7 +21,8 @@ class Bid extends Model
 
     public static function getAllBelongsTo($id)
     {
-        $bids = DB::select('SELECT * FROM Bids WHERE user_id=?', [$id]);
+        $bids = DB::select('SELECT * FROM Bids b, Tasks t, Users u WHERE user_id=?
+            AND b.task_id = t.id AND t.owner = u.id', [$id]);
         return $bids;
     }
 

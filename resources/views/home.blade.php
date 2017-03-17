@@ -73,8 +73,8 @@
                         @foreach ($bids as $bid)
                         <tr>
                             <td>{{$bid->task_id}}</td>
-                            <td>[TODO: get title of task]</td>
-                            <td>[TODO: get owner of task]</td>
+                            <td>{{$bid->title}}</td>
+                            <td>{{$bid->first_name}} {{$bid->last_name}}</td>
                             <td>{{$bid->price}}</td>
                             <td>{{$bid->selected}}</td>
                         </tr>
