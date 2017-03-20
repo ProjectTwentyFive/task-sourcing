@@ -5,6 +5,7 @@ namespace Taskr\Http\Controllers\Resources;
 use Illuminate\Http\Request;
 use Taskr\Bid;
 use Taskr\Http\Controllers\Controller;
+use Taskr\Repositories\Bids;
 use Taskr\Task;
 
 /**
@@ -14,6 +15,13 @@ use Taskr\Task;
  */
 class BidsController extends Controller
 {
+    protected $bidsRepo;
+
+    public function __construct(Bids $bids)
+    {
+        $this->bidsRepo = $bids;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | View Methods

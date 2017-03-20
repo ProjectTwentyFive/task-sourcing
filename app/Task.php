@@ -24,28 +24,6 @@ class Task extends Model
 
     /*
     |--------------------------------------------------------------------------
-    | Static Model Methods
-    |--------------------------------------------------------------------------
-    |
-    | These methods are static methods that are related to the model. Can be
-    | used for code readability and reuse.
-    |
-    */
-
-    public static function getAllBelongsTo($id)
-    {
-        $tasks = DB::select('SELECT * FROM Tasks WHERE owner=?', [$id]);
-        return $tasks;
-    }
-
-    public static function getAll()
-    {
-        $tasks = DB::select('select * from tasks');
-        return $tasks;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
     | Instance Model Methods
     |--------------------------------------------------------------------------
     |
