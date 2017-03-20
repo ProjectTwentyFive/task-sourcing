@@ -22,12 +22,17 @@ class Task extends Model
         'status',
     ];
 
-    public static function getAllBelongsTo($id)
-    {
-        $tasks = DB::select('SELECT * FROM Tasks WHERE owner=?', [$id]);
-        return $tasks;
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Instance Model Methods
+    |--------------------------------------------------------------------------
+    |
+    | These methods can be called from a Task object and should act as helper
+    | methods for code readability and reuse.
+    |
+    */
 
+    //TODO: Need to change to execute raw queries instead
     public function bids()
     {
         return $this->hasMany(Bid::class);
