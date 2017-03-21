@@ -25,7 +25,7 @@ class CreateTasksTable extends Migration
             $table->timestamps();
 
             /* Schema constraints */
-            $table->foreign('owner')->references('id')->on('users');
+            $table->foreign('owner')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
