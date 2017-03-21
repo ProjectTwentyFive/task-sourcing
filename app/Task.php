@@ -33,6 +33,7 @@ class Task extends Model
     */
 
     //TODO: Need to change to execute raw queries instead
+    //TODO: Need to access UserID of bid owner
     public function bids()
     {
         return $this->hasMany(Bid::class);
@@ -41,13 +42,5 @@ class Task extends Model
     public function owner()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function addBid($price)
-    {
-        $this->bids()->create([
-            'price' => $price,
-            'user_id' => Auth::id(),
-        ]);
     }
 }
