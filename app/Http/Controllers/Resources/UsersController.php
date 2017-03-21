@@ -64,7 +64,7 @@ class UsersController extends Controller
     */
     public function destroy($id)
     {
-        DB::select('DELETE FROM users where id = ?', [$id]);
+        DB::delete('DELETE FROM users where id = ?', [$id]);
         return "Deleted user with id {$id}";
     }
 

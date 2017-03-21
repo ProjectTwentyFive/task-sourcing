@@ -19,6 +19,7 @@
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/tasks/create', 'Resources\TasksController@create');
     Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
+    Route::delete('/users/{user}', 'Resources\UsersController@destroy')->name('user.destroy');
 });
 
 /*
@@ -35,4 +36,4 @@ Route::get('/users/{user}', 'Resources\UsersController@show');
 Route::get('/users', 'Resources\UsersController@index');
 
 // Placing these requests here for now so that we can access them without authentication
-Route::delete('/users/{user}', 'Resources\UsersController@destroy')->name('user.destroy');
+
