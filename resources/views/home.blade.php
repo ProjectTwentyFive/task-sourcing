@@ -45,7 +45,7 @@
                     @else
                     <div class="panel-body">
                         You currently have no tasks. Click
-                        <a href="thisgoesnowhere">here</a>
+                        <a href="tasks/create">here</a>
                         to create a new task.
                     </div>
                     @endif

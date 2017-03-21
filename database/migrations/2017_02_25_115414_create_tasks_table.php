@@ -22,7 +22,7 @@ class CreateTasksTable extends Migration
             $table->integer('status');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 
             /* Schema constraints */
             $table->foreign('owner')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
