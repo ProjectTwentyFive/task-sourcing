@@ -5,8 +5,6 @@ namespace Taskr\Repositories;
 use Taskr\Task;
 use Illuminate\support\Facades\DB;
 
-use DB;
-
 /**
  * Class Tasks is an repository which contains methods that combines
  * business log and data manipulation for Task objects. It also
