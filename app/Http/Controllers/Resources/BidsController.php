@@ -102,9 +102,10 @@ class BidsController extends Controller
      *
      * @param \Taskr\Bid $bid
      */
-    public function delete(Bid $bid)
+    public function destroy($id)
     {
-        return DB::delete('delete from bids where id = ?', [$bid->id]);
+        DB::delete('DELETE FROM bids WHERE id = ?', [$id]);
+        return redirect('/');
     }
 
     /**
