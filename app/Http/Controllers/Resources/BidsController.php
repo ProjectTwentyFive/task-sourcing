@@ -7,6 +7,7 @@ use Taskr\Bid;
 use Taskr\Http\Controllers\Controller;
 use Taskr\Repositories\Bids;
 use Taskr\Task;
+use DB;
 
 /**
  * Class BidsController
@@ -105,7 +106,7 @@ class BidsController extends Controller
     public function destroy($id)
     {
         DB::delete('DELETE FROM bids WHERE id = ?', [$id]);
-        return redirect('/');
+        return back();
     }
 
     /**
