@@ -20,10 +20,13 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Your Tasks</h3>
+                        <h3 class="panel-title">
+                            Your Tasks
+                            <a href="tasks/create" style="color:#3097D1; float:right">Create Task</a>
+                        </h3>
                     </div>
                     @if (sizeOf($tasks)>0)
-                    <table class="table">
+                    <table class="table table-hover">
                         <tr>
                             <th>Title</th>
                             <th>Category</th>
@@ -31,7 +34,7 @@
                             <th>End Date</th>
                         </tr>
                         @foreach ($tasks as $task)
-                        <tr>
+                        <tr onclick="window.document.location='tasks/{{$task->id}}';">
                             <td>{{$task->title}}</td>
                             <td>{{$task->category}}</td>
                             <td>{{$task->status}}</td>
@@ -53,7 +56,10 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Your Bids</h3>
+                        <h3 class="panel-title">
+                            Your Bids
+                            <a href="tasks" style="color:#3097D1; float:right">View Tasks</a>
+                        </h3>
                     </div>
                     @if (sizeOf($bids)>0)
                     <table class="table">
@@ -67,10 +73,11 @@
                         @foreach ($bids as $bid)
                         <tr>
                             <td>{{$bid->task_id}}</td>
-                            <td>[TODO: get title of task]</td>
-                            <td>[TODO: get owner of task]</td>
+                            <td>{{$bid->title}}</td>
+                            <td>{{$bid->first_name}} {{$bid->last_name}}</td>
                             <td>{{$bid->price}}</td>
                             <td>{{$bid->selected}}</td>
+                        </tr>
                         @endforeach
                     </table>
                     @else

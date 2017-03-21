@@ -22,10 +22,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * API Routes that requires authentication to process. Otherwise, redirected
  * to login page.
  */
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('/tasks', 'Resources\TasksController@store');
-    Route::patch('/tasks/{task}', 'Resources\TasksController@update');
-    Route::delete('/tasks/{task}', 'Resources\TasksController@destroy');
+Route::group(['middleware' => 'auth', 'namespace' => 'Resources'], function () {
+    Route::post('/tasks', 'TasksController@store');
+    Route::patch('/tasks/{task}', 'TasksController@update');
+    Route::delete('/tasks/{task}', 'TasksController@destroy');
 
     Route::post('/tasks/{task}/bids', 'Resources\BidsController@store');
     Route::patch('/tasks/{task}/bids/{bid}', 'Resources\BidsController@update');

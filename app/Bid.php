@@ -19,11 +19,15 @@ class Bid extends Model
         'price',
     ];
 
-    public static function getAllBelongsTo($id)
-    {
-        $bids = DB::select('SELECT * FROM Bids WHERE user_id=?', [$id]);
-        return $bids;
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Instance Model Methods
+    |--------------------------------------------------------------------------
+    |
+    | These methods can be called from a Task object and should act as helper
+    | methods for code readability and reuse.
+    |
+    */
 
     public function task()
     {

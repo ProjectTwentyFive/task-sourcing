@@ -3,11 +3,20 @@
 namespace Taskr\Http\Controllers\Resources;
 
 use Taskr\Http\Controllers\Controller;
+use Taskr\Repositories\Users;
 use Taskr\User;
 use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
+
+    protected $usersRepo;
+
+    public function __construct(Users $users)
+    {
+        $this->usersRepo = $users;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | View Methods
