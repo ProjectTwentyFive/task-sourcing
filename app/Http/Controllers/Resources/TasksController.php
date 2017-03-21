@@ -86,11 +86,11 @@ class TasksController extends Controller
         $category = request('category', null);
 
         DB::insert("INSERT INTO tasks (title, description, category, owner, status) values (
-            {$title}, 
-            {$description}, 
-            {$category}, 
+            '{$title}', 
+            '{$description}', 
+            '{$category}', 
             {$ownerId}, 
-            {$defaultStatus}");
+            {$defaultStatus})");
         // Task::create([
         //     'title' => request('title'),
         //     'description' => request('description'),

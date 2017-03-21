@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label for="title">Task Category</label>
-                        <input type="text" class="form-con  trol" id="category" name="category"
+                        <input type="text" class="form-control" id="category" name="category"
                                placeholder="Craftsmanship">
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>

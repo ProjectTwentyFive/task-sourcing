@@ -17,9 +17,11 @@
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::post('/tasks', 'TasksController@store');
-    Route::patch('/tasks/{task}', 'TasksController@update');
-    Route::delete('/tasks/{task}', 'TasksController@destroy');
+    Route::post('/tasks', 'Resources\TasksController@store');
+    Route::patch('/tasks/{task}', 'Resources\TasksController@update');
+    Route::delete('/tasks/{task}', 'Resources\TasksController@destroy');
+    Route::get('/tasks/create', 'Resources\TasksController@create');
+    Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
 
     Route::post('/tasks/{task}/bids', 'Resources\BidsController@store');
     Route::patch('/tasks/{task}/bids/{bid}', 'Resources\BidsController@update');
@@ -28,9 +30,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/users/{user}', 'Resources\UsersController@destroy')->name('user.destroy');
     Route::post('/users', 'Resources\UsersController@store');
     Route::patch('/users/{user}', 'Resources\UsersController@update');
-
-    Route::get('/tasks/create', 'Resources\TasksController@create');
-    Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
 });
 
 /*
