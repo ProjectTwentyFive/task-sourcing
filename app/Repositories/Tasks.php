@@ -3,7 +3,7 @@
 namespace Taskr\Repositories;
 
 use Taskr\Task;
-use DB;
+use Illuminate\support\Facades\DB;
 
 /**
  * Class Tasks is an repository which contains methods that combines
