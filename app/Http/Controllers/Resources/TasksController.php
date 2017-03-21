@@ -4,6 +4,7 @@ namespace Taskr\Http\Controllers\Resources;
 
 use Illuminate\Support\Facades\Auth;
 use Taskr\Http\Controllers\Controller;
+use Taskr\Repositories\Tasks;
 use Taskr\Task;
 
 /**
@@ -13,6 +14,12 @@ use Taskr\Task;
  */
 class TasksController extends Controller
 {
+    protected $tasksRepo;
+
+    public function __construct(Tasks $tasks)
+    {
+        $this->tasksRepo = $tasks;
+    }
 
     /*
     |--------------------------------------------------------------------------
