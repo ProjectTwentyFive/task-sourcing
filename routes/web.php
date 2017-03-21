@@ -19,7 +19,7 @@
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/tasks', 'Resources\TasksController@store');
     Route::patch('/tasks/{task}', 'Resources\TasksController@update');
-    Route::delete('/tasks/{task}', 'Resources\TasksController@destroy');
+    Route::delete('/tasks/{task}', 'Resources\TasksController@destroy')->name('task.destroy');
     Route::get('/tasks/create', 'Resources\TasksController@create');
     Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
 

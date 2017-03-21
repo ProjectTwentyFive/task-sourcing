@@ -7,7 +7,7 @@ use Taskr\Http\Controllers\Controller;
 use Taskr\Repositories\Tasks;
 use Taskr\Task;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class TasksController
@@ -66,9 +66,10 @@ class TasksController extends Controller
         DB::update("UPDATE Tasks SET ");
     }
 
-    public function delete($taskId)
+    public function destroy($id)
     {
-        DB::delete("DELETE FROM Tasks WHERE Task.id = {$taskId}");
+        DB::delete("DELETE FROM tasks WHERE id = ?", [$id]);
+        return view('home', compact('tasks', 'bids'));
     }
 
     public function store()
@@ -86,10 +87,10 @@ class TasksController extends Controller
         $category = request('category', null);
 
         DB::insert("INSERT INTO tasks (title, description, category, owner, status) values (
-            '{$title}', 
-            '{$description}', 
-            '{$category}', 
-            {$ownerId}, 
+            '{$title}',
+            '{$description}',
+            '{$category}',
+            {$ownerId},
             {$defaultStatus})");
         // Task::create([
         //     'title' => request('title'),
