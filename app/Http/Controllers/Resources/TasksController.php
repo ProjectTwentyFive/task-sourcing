@@ -69,7 +69,7 @@ class TasksController extends Controller
     public function destroy($id)
     {
         DB::delete("DELETE FROM tasks WHERE id = ?", [$id]);
-        return view('home', compact('tasks', 'bids'));
+        return redirect('/');
     }
 
     public function store()
