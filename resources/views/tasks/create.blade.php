@@ -9,8 +9,13 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="title">Task Title</label>
-                        <input type="text" class="form-control" id="title" name="title"
-                               placeholder="Building a cupboard">
+                        <input type="text" class="form-control" id="title" name="title" list="generic_tasks"
+                               placeholder="Building a cupboard" onchange="fillCategory(value)">
+                        <datalist id="generic_tasks">
+                            @foreach($generic_tasks as $task)
+                                <option id="{{ $task->name }}" value="{{ $task->name }}" category="{{ $task->category }}">
+                            @endforeach
+                        </datalist>
                     </div>
                     <div class="form-group">
                         <label for="body">Task Description</label>
@@ -22,7 +27,6 @@
                                placeholder="Craftsmanship">
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
-
                     @include('layouts.errors')
                 </form>
             </div>

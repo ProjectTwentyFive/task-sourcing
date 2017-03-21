@@ -44,7 +44,8 @@ class TasksController extends Controller
 
     public function create()
     {
-        return view('tasks.create');
+        $generic_tasks = (object)DB::select("select * from generic_tasks");
+        return view('tasks.create')->with(compact('generic_tasks'));
     }
 
     public function edit()
