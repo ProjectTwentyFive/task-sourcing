@@ -24,12 +24,12 @@
 
                     <div class="form-group{{ $errors->has('start_date') ? 'has-error' : '' }}">
                         <label for="title">Start Date</label>
-                        <Input type="text" class="form-control" id="start_date" name="start_date">
+                        <Input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD HH:DD:SS">
                     </div>
 
                     <div class="form-group{{ $errors->has('end_date') ? 'has-error' : '' }}">
                         <label for="title">End Date</label>
-                        <Input type="text" class="form-control" id="end_date" name="end_date">
+                        <Input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD HH:DD:SS">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Create</button>
