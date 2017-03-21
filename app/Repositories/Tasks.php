@@ -3,6 +3,7 @@
 namespace Taskr\Repositories;
 
 use Taskr\Task;
+use Illuminate\support\Facades\DB;
 
 use DB;
 

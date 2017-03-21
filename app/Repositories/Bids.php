@@ -3,7 +3,7 @@
 namespace Taskr\Repositories;
 
 use Taskr\Bid;
-use DB;
+use Illuminate\support\Facades\DB;
 
 /**
  * Class Bids is an repository which contains methods that combines
