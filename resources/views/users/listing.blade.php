@@ -7,6 +7,10 @@
                 <p class="list-user-meta">email: {{ $user->email }}</p>
                 <p class="list-user-meta">password: {{ $user->password }}</p>
                 <p class="list-user-meta">admin: {{ $user->is_admin }}</p>
+
+                {{ Form::open(['method' => 'DELETE', 'route' => ['user.destroy', $user->id]]) }}
+                    {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                {{ Form::close() }}
             </div>
         </div>
     </div>

@@ -33,5 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/users', 'Resources\UsersController@store');
     Route::patch('/users/{user}', 'Resources\UsersController@update');
-    Route::delete('/users/{user}', 'Resources\UsersController@destroy');
+    // TODO: handle authenticated requests
+    // Route::delete('/users/{user}', 'Resources\UsersController@destroy');
 });
