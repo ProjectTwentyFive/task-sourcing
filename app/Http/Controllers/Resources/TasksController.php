@@ -100,6 +100,6 @@ class TasksController extends Controller
         //     'status' => $defaultStatus,
         // ]);
 
-        return redirect('/tasks');
+        return redirect('/');
     }
 }
