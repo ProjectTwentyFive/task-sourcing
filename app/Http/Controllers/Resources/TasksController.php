@@ -92,13 +92,6 @@ class TasksController extends Controller
             '{$category}',
             {$ownerId},
             {$defaultStatus})");
-        // Task::create([
-        //     'title' => request('title'),
-        //     'description' => request('description'),
-        //     'category' => request('category'),
-        //     'owner' => $ownerId,
-        //     'status' => $defaultStatus,
-        // ]);
 
         return redirect('/');
     }
