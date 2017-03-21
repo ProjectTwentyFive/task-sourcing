@@ -19,6 +19,9 @@
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/tasks/create', 'Resources\TasksController@create');
     Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
+    Route::delete('/users/{user}', 'Resources\UsersController@destroy')->name('user.destroy');
+    Route::post('/users', 'Resources\UsersController@store');
+    Route::patch('/users/{user}', 'Resources\UsersController@update');
 });
 
 /*
@@ -32,6 +35,4 @@ Route::get('/tasks/{task}', 'Resources\TasksController@show');
 Route::get('/tasks/{task}/bids/{bid}', 'Resources\BidsController@show');
 
 Route::get('/users/{user}', 'Resources\UsersController@show');
-
-
-
+Route::get('/users', 'Resources\UsersController@index');
