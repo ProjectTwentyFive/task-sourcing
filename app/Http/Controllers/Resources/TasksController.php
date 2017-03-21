@@ -24,7 +24,7 @@ class TasksController extends Controller
     */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = DB::select("SELECT * FROM TASKS");
         return view('tasks.index', compact('tasks'));
     }
 
@@ -54,12 +54,12 @@ class TasksController extends Controller
     */
     public function update()
     {
-
+        DB::update("UPDATE Tasks SET ");
     }
 
-    public function delete()
+    public function delete($taskId)
     {
-
+        DB::delete("DELETE FROM Tasks WHERE Task.id = {$taskId}");
     }
 
     public function store()
@@ -72,14 +72,24 @@ class TasksController extends Controller
             'description' => 'required'
         ]);
 
-        Task::create([
-            'title' => request('title'),
-            'description' => request('description'),
-            'category' => request('category'),
-            'owner' => $ownerId,
-            'status' => $defaultStatus,
-        ]);
+        $title = request('title');
+        $description = request('description');
+        $category = request('category', null);
 
-        return redirect('/');
+        DB::insert("INSERT INTO tasks (title, description, category, owner, status) values (
+            {$title}, 
+            {$description}, 
+            {$category}, 
+            {$ownerId}, 
+            {$defaultStatus}");
+        // Task::create([
+        //     'title' => request('title'),
+        //     'description' => request('description'),
+        //     'category' => request('category'),
+        //     'owner' => $ownerId,
+        //     'status' => $defaultStatus,
+        // ]);
+
+        return redirect('/tasks');
     }
 }
