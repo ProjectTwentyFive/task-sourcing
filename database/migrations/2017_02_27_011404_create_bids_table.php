@@ -19,7 +19,7 @@ class CreateBidsTable extends Migration
             $table->integer('task_id');
             $table->decimal('price', 15, 2);
             $table->boolean('selected')->default(false);
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 
             /* Schema constraints */
             $table->foreign('user_id')->references('id')->on('users');
