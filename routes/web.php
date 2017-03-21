@@ -20,6 +20,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tasks/create', 'Resources\TasksController@create');
     Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
     Route::delete('/users/{user}', 'Resources\UsersController@destroy')->name('user.destroy');
+    Route::post('/users', 'Resources\UsersController@store');
+    Route::patch('/users/{user}', 'Resources\UsersController@update');
 });
 
 /*

@@ -30,7 +30,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/tasks/{task}/bids', 'Resources\BidsController@store');
     Route::patch('/tasks/{task}/bids/{bid}', 'Resources\BidsController@update');
     Route::delete('/tasks/{task}/bids/{bid}', 'Resources\BidsController@destroy');
-
-    Route::post('/users', 'Resources\UsersController@store');
-    Route::patch('/users/{user}', 'Resources\UsersController@update');
 });
