@@ -25,6 +25,10 @@
                                 {{ $bid->created_at->diffForHumans() }}: &nbsp;
                             </strong>
                             {{$bid->user_id}} ({{ $bid->price }})
+
+                            {{ Form::open(['method' => 'DELETE', 'route' => ['bid.destroy', $bid->id]]) }}
+                                {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                            {{ Form::close() }}
                         </li>
                     @endforeach
                 </ul>
