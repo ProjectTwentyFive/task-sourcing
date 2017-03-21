@@ -5,6 +5,7 @@ namespace Taskr\Http\Controllers\Resources;
 use Illuminate\Support\Facades\Auth;
 use Taskr\Http\Controllers\Controller;
 use Taskr\Repositories\Tasks;
+use Illuminate\Support\Facades\Validator;
 use Taskr\Task;
 
 use Illuminate\Support\Facades\DB;
@@ -79,19 +80,25 @@ class TasksController extends Controller
 
         $this->validate(request(), [
             'title' => 'required|max:15',
-            'description' => 'required'
+            'description' => 'required',
+            'start_date' => 'date|after_or_equal:today',
+            'end_date' => 'date|after:today'
         ]);
 
         $title = request('title');
         $description = request('description');
         $category = request('category', null);
+        $start_date = request('start_date', null);
+        $end_date = request('end_date', null);
 
-        DB::insert("INSERT INTO tasks (title, description, category, owner, status) values (
+        DB::insert("INSERT INTO tasks (title, description, category, owner, status, start_date, end_date) values (
             '{$title}',
             '{$description}',
             '{$category}',
             {$ownerId},
-            {$defaultStatus})");
+            {$defaultStatus},
+            '{$start_date}',
+            '{$end_date}')");
 
         return redirect('/');
     }
