@@ -8,6 +8,9 @@
                 <p class="list-task-meta">{{ $task->created_at }}</p>
                 <p class="list-task-category">{{ $task->category }}</p>
                 <p>{{ $task->description }}</p>
+                {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
+                    {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                {{ Form::close() }}
             </div>
         </div>
     </div>
