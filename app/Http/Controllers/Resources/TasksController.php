@@ -7,6 +7,8 @@ use Taskr\Http\Controllers\Controller;
 use Taskr\Repositories\Tasks;
 use Taskr\Task;
 
+use DB;
+
 /**
  * Class TasksController
  *

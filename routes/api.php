@@ -23,11 +23,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * to login page.
  */
 Route::group(['middleware' => 'auth', 'namespace' => 'Resources'], function () {
-    Route::post('/tasks', 'TasksController@store');
-    Route::patch('/tasks/{task}', 'TasksController@update');
-    Route::delete('/tasks/{task}', 'TasksController@destroy');
+    // Route::post('/tasks', 'TasksController@store');
+    // Route::patch('/tasks/{task}', 'TasksController@update');
+    // Route::delete('/tasks/{task}', 'TasksController@destroy');
 
-    Route::post('/tasks/{task}/bids', 'Resources\BidsController@store');
-    Route::patch('/tasks/{task}/bids/{bid}', 'Resources\BidsController@update');
-    Route::delete('/tasks/{task}/bids/{bid}', 'Resources\BidsController@destroy');
+    // Route::post('/tasks/{task}/bids', 'Resources\BidsController@store');
+    // Route::patch('/tasks/{task}/bids/{bid}', 'Resources\BidsController@update');
+    // Route::delete('/tasks/{task}/bids/{bid}', 'Resources\BidsController@destroy');
 });
