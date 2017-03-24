@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/tasks/{task}', 'Resources\TasksController@destroy')->name('task.destroy');
     Route::get('/tasks/create', 'Resources\TasksController@create');
     Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
+    Route::get('/tasks/{task}/status/{status}', 'Resources\TasksController@updateStatus')->name('tasks.updateStatus');
 
     Route::post('/bids/{bid}/{selected}', 'Resources\BidsController@update')->name('bid.update');
     Route::post('/tasks/{task}/bids', 'Resources\BidsController@store');

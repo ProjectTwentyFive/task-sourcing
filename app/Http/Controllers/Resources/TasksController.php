@@ -85,6 +85,14 @@ class TasksController extends Controller
         return redirect('/tasks');
     }
 
+    public function updateStatus($id, $status)
+    {
+        if ($status >= 0 && $status <= 2) {
+            $this->tasksRepo->updateStatus($id, $status);
+        }
+        return back();
+    }
+
     public function destroy($id)
     {
         $this->tasksRepo->delete($id);

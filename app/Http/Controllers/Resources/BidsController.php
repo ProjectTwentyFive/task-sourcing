@@ -95,7 +95,10 @@ class BidsController extends Controller
     public function update($id, $isSelected)
     {
         DB::update('UPDATE bids SET selected = ? WHERE id = ?', [$isSelected, $id]);
-        return back();
+        // update the task status
+        $status = ($isSelected == 'true') ? 1: 0;
+
+        return redirect()->action('Resources\TasksController@updateStatus', ['id' => $id, 'status' => $status]);
     }
 
     /**
