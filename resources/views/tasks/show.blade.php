@@ -31,9 +31,15 @@
                             {{$bid->user_id}} ({{ $bid->price }})
 
                             @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
-                            {{ Form::open(['method' => 'POST', 'route' => ['bid.destroy', $bid->id]]) }}
-                                {{ Form::submit('Select', ['class' => 'btn btn-success']) }}
-                            {{ Form::close() }}
+                                @if ($bid->selected)
+                                    {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $bid->id, 'false']]) }}
+                                        {{ Form::submit('Unselect', ['class' => 'btn btn-warning']) }}
+                                    {{ Form::close() }}
+                                @else
+                                    {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $bid->id, 'true']]) }}
+                                        {{ Form::submit('Select', ['class' => 'btn btn-success']) }}
+                                    {{ Form::close() }}
+                                @endif
                             @endif
 
                             @if (Auth::check() && ($user->is_admin || $user->id == $bid->user_id))

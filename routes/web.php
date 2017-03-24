@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tasks/create', 'Resources\TasksController@create');
     Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
 
+    Route::post('/bids/{bid}/{selected}', 'Resources\BidsController@update')->name('bid.update');
     Route::post('/tasks/{task}/bids', 'Resources\BidsController@store');
     Route::patch('/tasks/{task}/bids/{bid}', 'Resources\BidsController@update');
     Route::delete('/bids/{bid}', 'Resources\BidsController@destroy')->name('bid.destroy');

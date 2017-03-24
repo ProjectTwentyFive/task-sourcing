@@ -92,11 +92,10 @@ class BidsController extends Controller
      *
      * @internal param $id
      */
-    public function update(Request $request, Bid $bid)
+    public function update($id, $isSelected)
     {
-        if ($request->has('selected')) {
-            return DB::update('update bids set selected = ? where id = ?', [$request->input('selected'), $bid->id]);
-        }
+        DB::update('UPDATE bids SET selected = ? WHERE id = ?', [$isSelected, $id]);
+        return back();
     }
 
     /**
