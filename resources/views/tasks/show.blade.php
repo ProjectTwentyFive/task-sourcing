@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    @if ($user->id != $task->owner)
+    @if (Auth::check() && ($user->is_admin || $user->id != $task->owner))
     <hr>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
