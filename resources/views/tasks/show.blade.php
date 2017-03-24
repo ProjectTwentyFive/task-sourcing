@@ -30,6 +30,12 @@
                             </strong>
                             {{$bid->user_id}} ({{ $bid->price }})
 
+                            @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
+                            {{ Form::open(['method' => 'POST', 'route' => ['bid.destroy', $bid->id]]) }}
+                                {{ Form::submit('Select', ['class' => 'btn btn-success']) }}
+                            {{ Form::close() }}
+                            @endif
+
                             @if (Auth::check() && ($user->is_admin || $user->id == $bid->user_id))
                             {{ Form::open(['method' => 'DELETE', 'route' => ['bid.destroy', $bid->id]]) }}
                                 {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
