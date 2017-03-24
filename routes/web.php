@@ -30,6 +30,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/users/{user}', 'Resources\UsersController@destroy')->name('user.destroy');
     Route::post('/users', 'Resources\UsersController@store');
     Route::patch('/users/{user}', 'Resources\UsersController@update');
+
+    Route::get('/tasks', 'Resources\TasksController@index');
+    Route::get('/tasks/{task}', 'Resources\TasksController@show');
+    Route::get('/tasks/{task}/bids/{bid}', 'Resources\BidsController@show');
+    Route::get('/users/{user}', 'Resources\UsersController@show');
+    Route::get('/users', 'Resources\UsersController@index');
 });
 
 /*
@@ -38,9 +44,3 @@ Route::group(['middleware' => 'auth'], function () {
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
-Route::get('/tasks', 'Resources\TasksController@index');
-Route::get('/tasks/{task}', 'Resources\TasksController@show');
-Route::get('/tasks/{task}/bids/{bid}', 'Resources\BidsController@show');
-
-Route::get('/users/{user}', 'Resources\UsersController@show');
-Route::get('/users', 'Resources\UsersController@index');
