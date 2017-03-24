@@ -5,6 +5,7 @@ namespace Taskr\Http\Controllers\Resources;
 use Taskr\Http\Controllers\Controller;
 use Taskr\Repositories\Users;
 use Taskr\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
@@ -15,6 +16,13 @@ class UsersController extends Controller
     public function __construct(Users $users)
     {
         $this->usersRepo = $users;
+    }
+
+    // Considered adding an isAdmin attribute to the constructor but we're not able to pick up the user id until after the user has been constructed
+    private function isAdmin() {
+        $id = Auth::id();
+
+        return $this->usersRepo->getUser($id)->is_admin;
     }
 
     /*
@@ -30,16 +38,23 @@ class UsersController extends Controller
     */
     public function index()
     {
-        // TODO: Restrict to Administrator
-        $users = DB::select('SELECT * FROM users');
-        return view('users.index', compact('users'));
+        if (Auth::check() && $this->isAdmin()) {
+            $users = DB::select('SELECT * FROM users');
+            return view('users.index', compact('users'));
+        } else {
+            abort(403);
+        }
     }
 
     public function show(User $user)
     {
         // Show User Profile
-        $user_profile = DB::select('SELECT * FROM users WHERE id = ?', [$user->id]);
-        return view('users.show', compact('user'));
+        if (Auth::check() && $this->isAdmin()) {
+            $user_profile = DB::select('SELECT * FROM users WHERE id = ?', [$user->id]);
+            return view('users.show', compact('user'));
+        } else {
+            abort(403);
+        }
     }
 
     public function create()
