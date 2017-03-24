@@ -31,9 +31,11 @@
                             </strong>
                             {{$bid->user_id}} ({{ $bid->price }})
 
+                            @if (Auth::check() && ($user->is_admin || $user->id == $bid->user_id))
                             {{ Form::open(['method' => 'DELETE', 'route' => ['bid.destroy', $bid->id]]) }}
                                 {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
                             {{ Form::close() }}
+                            @endif
                         </li>
                     @endforeach
                 </ul>
