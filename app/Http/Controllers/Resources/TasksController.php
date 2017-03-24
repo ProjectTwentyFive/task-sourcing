@@ -2,9 +2,11 @@
 
 namespace Taskr\Http\Controllers\Resources;
 
+use \stdClass;
 use Illuminate\Support\Facades\Auth;
 use Taskr\Http\Controllers\Controller;
 use Taskr\Repositories\Tasks;
+use Taskr\Repositories\Users;
 use Illuminate\Support\Facades\Validator;
 use Taskr\Task;
 
@@ -18,10 +20,12 @@ use Illuminate\Support\Facades\DB;
 class TasksController extends Controller
 {
     protected $tasksRepo;
+    protected $usersRepo;
 
-    public function __construct(Tasks $tasks)
+    public function __construct(Tasks $tasks, Users $users)
     {
         $this->tasksRepo = $tasks;
+        $this->usersRepo = $users;
     }
 
     /*
@@ -34,13 +38,23 @@ class TasksController extends Controller
     */
     public function index()
     {
+        $user = new stdClass();
+        if (Auth::check()) {
+            $id = Auth::id();
+            $user = $this->usersRepo->getUser($id);
+        }
         $tasks = DB::select("SELECT * FROM TASKS");
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks', 'user'));
     }
 
     public function show(Task $task)
     {
-        return view('tasks.show', compact('task'));
+        $user = new stdClass();
+        if (Auth::check()) {
+            $id = Auth::id();
+            $user = $this->usersRepo->getUser($id);
+        }
+        return view('tasks.show', compact('task', 'user'));
     }
 
     public function create()

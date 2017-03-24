@@ -7,9 +7,11 @@
                 <p class="list-task-category">{{ $task->category }}</p>
                 <p>{{ $task->description }}</p>
 
+                @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
                 {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
                     {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
                 {{ Form::close() }}
+                @endif
             </div>
         </div>
     </div>
