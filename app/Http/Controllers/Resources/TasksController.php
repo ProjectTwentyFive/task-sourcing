@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Taskr\Http\Controllers\Controller;
 use Taskr\Repositories\Tasks;
 use Taskr\Task;
+use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 
@@ -33,7 +34,7 @@ class TasksController extends Controller
     */
     public function index()
     {
-        $tasks = DB::select("SELECT * FROM TASKS");
+        $tasks = $this->tasksRepo->all();
         return view('tasks.index', compact('tasks'));
     }
 
@@ -47,9 +48,9 @@ class TasksController extends Controller
         return view('tasks.create');
     }
 
-    public function edit()
+    public function edit(Task $task)
     {
-
+        return view('tasks.edit', compact('task'));
     }
 
     /*
@@ -61,38 +62,31 @@ class TasksController extends Controller
     | appropriate actions instead.
     |
     */
-    public function update()
+    public function update(Request $request, Task $task)
     {
-        DB::update("UPDATE Tasks SET ");
+        $this->validateTask($request);
+        $this->tasksRepo->update($task->id, $request->input('title'), $request->input('description'), $request->input('category'));
+        return redirect('/tasks');
     }
 
     public function destroy($id)
     {
-        DB::delete("DELETE FROM tasks WHERE id = ?", [$id]);
-        return redirect('/');
+        $this->tasksRepo->delete($id);
+        return redirect('/tasks');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $ownerId = Auth::id();
-        $defaultStatus = 0;
+        $this->validateTask($request);
+        $this->tasksRepo->insert($request->input('title'), $request->input('description'), $request->input('category', null));
 
-        $this->validate(request(), [
+        return redirect('/tasks');
+    }
+
+    private function validateTask(Request $request) {
+        $this->validate($request, [
             'title' => 'required|max:15',
             'description' => 'required'
         ]);
-
-        $title = request('title');
-        $description = request('description');
-        $category = request('category', null);
-
-        DB::insert("INSERT INTO tasks (title, description, category, owner, status) values (
-            '{$title}',
-            '{$description}',
-            '{$category}',
-            {$ownerId},
-            {$defaultStatus})");
-
-        return redirect('/');
     }
 }

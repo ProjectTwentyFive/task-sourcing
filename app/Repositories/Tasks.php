@@ -26,4 +26,25 @@ class Tasks
         $tasks = DB::select('SELECT * FROM Tasks WHERE owner=?', [$id]);
         return $tasks;
     }
-}
+
+    public function delete($id) {
+        DB::delete("DELETE FROM tasks WHERE id = ?", [$id]);
+    }
+
+    public function insert($title, $description, $category = null) {
+        $defaultStatus = 0;
+        DB::insert("INSERT INTO tasks (title, description, category, owner, status) values (?, ?, ?, ?, ?)",
+            [$title, $description, $category, Auth::id(), $defaultStatus]);
+    }
+
+    public function update($id, $title, $description, $category) {
+        DB::update("update tasks set title = ?, description = ?, category = ? where id = ?", [$title, $description, $category, $id]);
+    }
+
+    public function setStatus($id, $newStatus) {
+        if ($newStatus == 0 || $newStatus == 1 || $newStatus == 2) {
+            DB::update("update tasks set status = ? where id = ?", [$newStatus, $id]);
+        }
+    }
+ 
+ }
