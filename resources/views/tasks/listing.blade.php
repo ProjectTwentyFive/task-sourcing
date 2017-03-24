@@ -6,10 +6,12 @@
                 <p class="list-task-meta"><b>Created At:</b> {{ $task->created_at }}</p>
                 <p class="list-task-category"><b>Category:</b> {{ $task->category }}</p>
                 <p><b>Description:</b> {{ $task->description }}</p>
-                <a class="btn btn-primary" href="/tasks/{{ $task->id }}/edit">Edit</a>
-                {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
-                    {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
-                {{ Form::close() }}
+                @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
+                    <a class="btn btn-primary" href="/tasks/{{ $task->id }}/edit">Edit</a>
+                    {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
+                        {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                    {{ Form::close() }}
+                @endif
             </div>
         </div>
     </div>

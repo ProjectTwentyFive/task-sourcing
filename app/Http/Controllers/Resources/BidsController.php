@@ -7,6 +7,8 @@ use Taskr\Bid;
 use Taskr\Http\Controllers\Controller;
 use Taskr\Repositories\Bids;
 use Taskr\Task;
+use Auth;
+use DB;
 
 /**
  * Class BidsController
@@ -75,9 +77,9 @@ class BidsController extends Controller
         # if request query has user, add user id into the filter of the request
         if ($request->has('user')) {
             $user_id = $request->input('user')->id;
-            return DB::select('select * from bids where task_id = ? and user_id = ?', [$task->id, $user_id]);
+            return DB::select('select * from bids b, users u where b.task_id = ? and b.user_id = ? and u.id = b.user_id', [$task->id, $user_id]);
         } else {
-            return DB::select('select * from bids where task_id = ? and user_id = ?', [$task->id]);
+            return DB::select('select * from bids b, users u where b.task_id = ? and b.user_id = u.id', [$task->id]);
         }
     }
 
@@ -102,9 +104,10 @@ class BidsController extends Controller
      *
      * @param \Taskr\Bid $bid
      */
-    public function delete(Bid $bid)
+    public function destroy($id)
     {
-        return DB::delete('delete from bids where id = ?', [$bid->id]);
+        DB::delete('DELETE FROM bids WHERE id = ?', [$id]);
+        return back();
     }
 
     /**
@@ -114,7 +117,8 @@ class BidsController extends Controller
      */
     public function store(Task $task)
     {
-        $task->addBid(request('price'));
+        DB::insert('INSERT INTO Bids (user_id, task_id, price, created_at, updated_at) VALUES (?, ?, ?, ?, ?)',
+         [Auth::id(), $task->id, request('price'), date("Y-m-d H:i:s") ,date("Y-m-d H:i:s")]);
         return back();
     }
 }

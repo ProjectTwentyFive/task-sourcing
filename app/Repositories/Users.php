@@ -3,6 +3,7 @@
 namespace Taskr\Repositories;
 
 use Taskr\User;
+use Illuminate\support\Facades\DB;
 
 /**
  * Class Users is an repository which contains methods that combines
@@ -17,5 +18,11 @@ class Users
     public function all()
     {
 
+    }
+
+    public function getUser($id)
+    {
+        $user = DB::select('SELECT * FROM Users WHERE id=?', [$id]);
+        return $user[0];
     }
 }

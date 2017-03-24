@@ -9,8 +9,13 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="title">Task Title</label>
-                        <input type="text" class="form-control" id="title" name="title"
-                               placeholder="Building a cupboard">
+                        <input type="text" class="form-control" id="title" name="title" list="generic_tasks"
+                               placeholder="Building a cupboard" onchange="fillCategory(value)">
+                        <datalist id="generic_tasks">
+                            @foreach($generic_tasks as $task)
+                                <option id="{{ $task->name }}" value="{{ $task->name }}" category="{{ $task->category }}">
+                            @endforeach
+                        </datalist>
                     </div>
                     <div class="form-group">
                         <label for="body">Task Description</label>
@@ -21,8 +26,18 @@
                         <input type="text" class="form-control" id="category" name="category"
                                placeholder="Craftsmanship">
                     </div>
-                    <button type="submit" class="btn btn-primary">Create</button>
 
+                    <div class="form-group{{ $errors->has('start_date') ? 'has-error' : '' }}">
+                        <label for="title">Start Date</label>
+                        <Input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD HH:DD:SS">
+                    </div>
+
+                    <div class="form-group{{ $errors->has('end_date') ? 'has-error' : '' }}">
+                        <label for="title">End Date</label>
+                        <Input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD HH:DD:SS">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create</button>
                     @include('layouts.errors')
                 </form>
             </div>
