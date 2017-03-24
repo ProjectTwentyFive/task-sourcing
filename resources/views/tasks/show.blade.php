@@ -24,6 +24,7 @@
             <div class="bids">
                 <ul class="list-group">
                     @foreach($task->bids as $bid)
+                        @if ($task->status == 0 || $bid->selected == 'true')
                         <li class="list-group-item">
                             <strong>
                                 {{ $bid->created_at->diffForHumans() }}: &nbsp;
@@ -48,6 +49,7 @@
                             {{ Form::close() }}
                             @endif
                         </li>
+                        @endif
                     @endforeach
                 </ul>
             </div>
