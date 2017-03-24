@@ -91,14 +91,6 @@ class TasksController extends Controller
         return redirect('/tasks');
     }
 
-    public function store(Request $request)
-    {
-        $this->validateTask($request);
-        $this->tasksRepo->insert($request->input('title'), $request->input('description'), $request->input('category', null));
-
-        return redirect('/tasks');
-    }
-
     private function validateTask(Request $request) {
         $this->validate($request, [
             'title' => 'required|max:15',
@@ -106,12 +98,19 @@ class TasksController extends Controller
             'start_date' => 'nullable|date|after_or_equal:today',
             'end_date' => 'nullable|date|after:today'
         ]);
+    }
 
-        $title = request('title');
-        $description = request('description');
-        $category = request('category', null);
-        $start_date = request('start_date', null);
-        $end_date = request('end_date', null);
+    public function store(Request $request)
+    {
+        $this->validateTask($request);
+
+        $title = $request->input('title');
+        $description = $request->input('description');
+        $category = $request->input('category', null);
+        $start_date = $request->input('start_date', null);
+        $end_date = $request->input('end_date', null);
+        $ownerId = Auth::id();
+        $defaultStatus = 0;
 
         if ($start_date != '' && $end_date != '') {
             DB::insert("INSERT INTO tasks (title, description, category, owner, status, start_date, end_date) values (
@@ -147,6 +146,6 @@ class TasksController extends Controller
             {$defaultStatus})");
         }
 
-        return redirect('/');
+        return redirect('/tasks');
     }
 }

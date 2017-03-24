@@ -117,8 +117,8 @@ class BidsController extends Controller
      */
     public function store(Task $task)
     {
-        DB::insert('INSERT INTO Bids (user_id, task_id, price, created_at, updated_at) VALUES (?, ?, ?, ?, ?)',
-         [Auth::id(), $task->id, request('price'), date("Y-m-d H:i:s") ,date("Y-m-d H:i:s")]);
+        DB::insert('INSERT INTO Bids (user_id, task_id, price) VALUES (?, ?, ?)',
+         [Auth::id(), $task->id, request('price')]);
         return back();
     }
 }

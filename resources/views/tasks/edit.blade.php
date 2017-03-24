@@ -7,7 +7,7 @@
                 <h1>Edit Task</h1>
                 <form method="POST" action="/tasks/{{ $task->id }}">
                     {{ csrf_field() }}
-                    {!! method_field('patch') !!}
+                    <input type="hidden" name="_method" value="patch">
                     <div class="form-group">
                         <label for="title">Task Title</label>
                         <input type="text" class="form-control" id="title" name="title"
