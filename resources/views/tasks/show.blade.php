@@ -37,18 +37,16 @@
                 <h3>Bids</h3>
                 <div class="bids">
                     <ul class="list-group">
-                        @if(sizeOf($task->bids) <= 0)
+                        @if(sizeOf($bids) <= 0)
                             <li class="list-group-item clearfix">
                                 There are currently no bids for this task.
                             </li>
                         @else
-                        @foreach($task->bids as $bid)
+                        @foreach($bids as $bid)
                             @if ($task->status == 0 || $bid->selected == 'true')
                                 <li class="list-group-item clearfix">
-                                    <strong>
-                                        {{ $bid->created_at->diffForHumans() }}: &nbsp;
-                                    </strong>
-                                    {{$bid->user_id}} ${{ $bid->price }} &nbsp;
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $bid->created_at)->diffForHumans()}}:&nbsp;
+                                    <strong>{{$bid->first_name}} {{$bid->last_name}}</strong> bid <strong>${{ $bid->price }}</strong>&nbsp;
                                     @if ($bid->selected == 'true')
                                         <span class="label label-success">Winning Bid</span>
                                     @endif
