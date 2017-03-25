@@ -4,11 +4,13 @@
             <div class="panel panel-default">
             <div class="panel-body">
             <div class="list-task">
-                <h3 class="list-task-title">{{ $task->title }}</h3>
+                <h3 class="list-task-title">
+                    {{ $task->title }}
+                </h3>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="list-task-meta"><b>Created at:</b> {{ $task->created_at }}</p>
+                        <p class="list-task-meta"><b>Owner:</b> {{$task->first_name}} {{$task->last_name}}</p>
                     </div>
                     <div class="col-md-6">
                         <p class="list-task-start_time"><b>Start Time:</b> {{ $task->start_date }}</p>

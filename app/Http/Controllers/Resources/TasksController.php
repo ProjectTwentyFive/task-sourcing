@@ -59,8 +59,9 @@ class TasksController extends Controller
             $id = Auth::id();
             $user = $this->usersRepo->getUser($id);
             $bids = $this->bidsRepo->getBids($task->id);
+            $taskOwner = $this->usersRepo->getUser($task->owner);
         }
-        return view('tasks.show', compact('task', 'user', 'bids'));
+        return view('tasks.show', compact('task', 'user', 'bids', 'taskOwner'));
     }
 
     public function create()

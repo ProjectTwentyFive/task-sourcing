@@ -20,6 +20,7 @@
             <h3>{{ $task->title }}</h3>
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <p><b>Owner: </b> {{$taskOwner->first_name}} {{$taskOwner->last_name}}</p>
                     <p><b>Created at:</b> {{ $task->created_at }}</p>
                     <p><b>Category:</b> {{ $task->category }}</p>
                     <p><b>Start Time:</b> {{ $task->start_date }}</p>
