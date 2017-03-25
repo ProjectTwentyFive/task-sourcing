@@ -5,7 +5,7 @@
         @if(Auth::check())
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h1>Dashboard</h1>
+                <h3>Dashboard</h3>
             </div>
         </div>
 
@@ -16,7 +16,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Your Tasks
+                            Your Created Tasks
                             <a href="tasks/create" style="color:#3097D1; float:right">Create Task</a>
                         </h3>
                     </div>
