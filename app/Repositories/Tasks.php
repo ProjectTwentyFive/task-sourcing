@@ -42,12 +42,8 @@ class Tasks
     }
 
     public function updateStatus($id, $status) {
-        DB::update("UPDATE tasks SET status = ? WHERE id = ?", [$status, $id]);
-    }
-
-    public function setStatus($id, $newStatus) {
-        if ($newStatus == 0 || $newStatus == 1 || $newStatus == 2) {
-            DB::update("update tasks set status = ? where id = ?", [$newStatus, $id]);
+        if ($status == 0 || $status == 1 || $status == 2) {
+            DB::update("UPDATE tasks SET status = ? WHERE id = ?", [$status, $id]);
         }
     }
 
