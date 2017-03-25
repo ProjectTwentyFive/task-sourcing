@@ -1,12 +1,13 @@
 @extends ('layouts.app')
 
 @section('content')
+<div class="container">
 
     <!-- status bar -->
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             @if ($task->status == 2)
-                <div class="alert alert-success" role="alert">This task has been marked as complete by the owner.</div>
+                <div class="alert alert-success" role="alert">This task has been marked as completed by the owner.</div>
             @elseif ($task->status == 1)
                 <div class="alert alert-warning" role="alert">Bidding is no longer opened for this task because a bidder has been selected by the owner.</div>
             @endif
@@ -16,7 +17,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
 
-            <h1>{{ $task->title }}</h1>
+            <h3>{{ $task->title }}</h3>
             <div class="panel panel-default">
                 <div class="panel-body">
                     <p><b>Created at:</b> {{ $task->created_at }}</p>
@@ -33,19 +34,26 @@
     @if ($task->status != 2)
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                <h3>Bids</h3>
                 <div class="bids">
                     <ul class="list-group">
+                        @if(sizeOf($task->bids) <= 0)
+                            <li class="list-group-item clearfix">
+                                There are currently no bids for this task.
+                            </li>
+                        @else
                         @foreach($task->bids as $bid)
                             @if ($task->status == 0 || $bid->selected == 'true')
-                                @if ($bid->selected == 'true')
-                                <strong>Winning Bid</strong>
-                                @endif
-                                <li class="list-group-item">
+                                <li class="list-group-item clearfix">
                                     <strong>
                                         {{ $bid->created_at->diffForHumans() }}: &nbsp;
                                     </strong>
-                                    {{$bid->user_id}} ${{ $bid->price }}
+                                    {{$bid->user_id}} ${{ $bid->price }} &nbsp;
+                                    @if ($bid->selected == 'true')
+                                        <span class="label label-success">Winning Bid</span>
+                                    @endif
 
+                                    <span class="pull-right">
                                     @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
                                         @if ($bid->selected)
                                             {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $task->id, $bid->id, 'false']]) }}
@@ -63,9 +71,11 @@
                                         {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
                                     {{ Form::close() }}
                                     @endif
+                                    </span>
                                 </li>
                             @endif
                         @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -97,6 +107,7 @@
 
         <!-- action buttons -->
         @if (Auth::check() && ($user->is_admin || ($user->id == $task->owner)))
+        </br>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
             <div class="btn-toolbar">
@@ -114,7 +125,7 @@
                 <div class="btn-group">
                     @if ($task->status != 2)
                         {{ Form::open(['method' => 'GET', 'route' => ['tasks.updateStatus', $task->id, 2]]) }}
-                            {{ Form::submit('Mark Task Complete', ['class' => 'btn btn-success']) }}
+                            {{ Form::submit('Mark Task Completed', ['class' => 'btn btn-success']) }}
                         {{ Form::close() }}
                     @endif
                 </div>
@@ -124,4 +135,5 @@
         @endif
     @endif
 
+</div>
 @endsection
