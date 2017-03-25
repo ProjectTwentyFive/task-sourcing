@@ -1,6 +1,18 @@
 @extends ('layouts.app')
 
 @section('content')
+
+    <!-- status bar -->
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            @if ($task->status == 2)
+                <div class="alert alert-success" role="alert">This task has been marked as complete by the owner.</div>
+            @elseif ($task->status == 1)
+                <div class="alert alert-warning" role="alert">Bidding is no longer opened for this task because a bidder has been selected by the owner.</div>
+            @endif
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="list-task">
@@ -83,5 +95,19 @@
                 </div>
             </div>
         @endif
+
+        <!-- complete button -->
+        @if (Auth::check() && ($user->is_admin || ($user->id == $task->owner)))
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                @if ($task->status != 2)
+                    {{ Form::open(['method' => 'GET', 'route' => ['tasks.updateStatus', $task->id, 2]]) }}
+                        {{ Form::submit('Complete Task', ['class' => 'btn btn-success']) }}
+                    {{ Form::close() }}
+                @endif
+            </div>
+        </div>
+        @endif
     @endif
+
 @endsection
