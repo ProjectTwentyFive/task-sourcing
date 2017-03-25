@@ -5,7 +5,23 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="list-task">
                 <h4 class="list-task-title">{{ $task->title }}</h4>
-                <p class="list-task-meta"><b>Status:</b> {{ $task->status }}</p>
+                <p class="list-task-meta"><b>Status:</b>
+                    @php
+                        switch($task->status) {
+                            case 0:
+                                print("opened");
+                                break;
+                            case 1:
+                                print("closed");
+                                break;
+                            case 2:
+                                print("completed");
+                                break;
+                            default:
+                                break;
+                        }
+                    @endphp
+                </p>
                 <p class="list-task-meta"><b>Created at:</b> {{ $task->created_at }}</p>
                 <p class="list-task-category"><b>Category:</b> {{ $task->category }}</p>
                 <p class="list-task-start_time"><b>Start Time:</b> {{ $task->start_date }}</p>
@@ -36,7 +52,7 @@
                                     <strong>
                                         {{ $bid->created_at->diffForHumans() }}: &nbsp;
                                     </strong>
-                                    {{$bid->user_id}} ({{ $bid->price }})
+                                    {{$bid->user_id}} ${{ $bid->price }}
 
                                     @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
                                         @if ($bid->selected)
@@ -69,11 +85,14 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="card">
                         <div class="card-block">
+                            <p>Make a bid</p>
                             <form method="POST" action="/tasks/{{$task->id}}/bids">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <label for="price" class="col-md-4 control-label">Price</label>
-                                    <input type="text" id="price" name="price" class="form-control">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input type="text" id="price" name="price" class="form-control" placeholder="Price">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Bid</button>

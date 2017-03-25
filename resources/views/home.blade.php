@@ -37,7 +37,6 @@
                             <td>{{$task->category}}</td>
                             <td>{{$task->start_date}}</td>
                             <td>{{$task->end_date}}</td>
-                            <td>{{$task->status}}</td>
                             <td>
                                 @php
                                     switch($task->status) {
