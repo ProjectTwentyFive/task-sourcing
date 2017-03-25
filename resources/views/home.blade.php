@@ -54,7 +54,12 @@
                                 @endphp
                             </td>
                             <td>
+                                @if($task->status != 2)
                                 <a href="tasks/{{$task->id}}/edit" class="btn btn-primary">Edit</a>
+                                @else
+                                <!-- ghetto placeholder so the list is more pleasing to the eye -->
+                                <a style="visibility:hidden" class="btn btn-primary">a</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
