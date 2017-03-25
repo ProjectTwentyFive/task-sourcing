@@ -15,42 +15,22 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="list-task">
-                <h4 class="list-task-title">{{ $task->title }}</h4>
-                <p class="list-task-meta"><b>Status:</b>
-                    @php
-                        switch($task->status) {
-                            case 0:
-                                print("opened");
-                                break;
-                            case 1:
-                                print("closed");
-                                break;
-                            case 2:
-                                print("completed");
-                                break;
-                            default:
-                                break;
-                        }
-                    @endphp
-                </p>
-                <p class="list-task-meta"><b>Created at:</b> {{ $task->created_at }}</p>
-                <p class="list-task-category"><b>Category:</b> {{ $task->category }}</p>
-                <p class="list-task-start_time"><b>Start Time:</b> {{ $task->start_date }}</p>
-                <p class="list-task-end_time"><b>End Time:</b> {{ $task->end_date }}</p>
-                <p><b>Description:</b> {{ $task->description }}</p>
-                @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
-                    <a class="btn btn-primary" href="/tasks/{{ $task->id }}/edit">Edit</a>
-                    {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
-                        {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
-                    {{ Form::close() }}
-                @endif
+
+            <h1>{{ $task->title }}</h1>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p><b>Created at:</b> {{ $task->created_at }}</p>
+                    <p><b>Category:</b> {{ $task->category }}</p>
+                    <p><b>Start Time:</b> {{ $task->start_date }}</p>
+                    <p><b>End Time:</b> {{ $task->end_date }}</p>
+                    <p><b>Description:</b> {{ $task->description }}</p>
+                </div>
             </div>
+
         </div>
     </div>
 
     @if ($task->status != 2)
-        <hr>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="bids">
@@ -92,7 +72,6 @@
         </div>
 
          @if (Auth::check() && ($user->is_admin || ($user->id != $task->owner && $task->status == 0)))
-            <hr>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="card">
@@ -116,15 +95,30 @@
             </div>
         @endif
 
-        <!-- complete button -->
+        <!-- action buttons -->
         @if (Auth::check() && ($user->is_admin || ($user->id == $task->owner)))
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                @if ($task->status != 2)
-                    {{ Form::open(['method' => 'GET', 'route' => ['tasks.updateStatus', $task->id, 2]]) }}
-                        {{ Form::submit('Complete Task', ['class' => 'btn btn-success']) }}
-                    {{ Form::close() }}
+            <div class="btn-toolbar">
+                <!-- edit and delete button -->
+                @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
+                    <div class="btn-group"><a class="btn btn-primary" href="/tasks/{{ $task->id }}/edit">Edit</a></div>
+                    <div class="btn-group">
+                        {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
+                            {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                        {{ Form::close() }}
+                    </div>
                 @endif
+
+                <!-- complete button -->
+                <div class="btn-group">
+                    @if ($task->status != 2)
+                        {{ Form::open(['method' => 'GET', 'route' => ['tasks.updateStatus', $task->id, 2]]) }}
+                            {{ Form::submit('Mark Task Complete', ['class' => 'btn btn-success']) }}
+                        {{ Form::close() }}
+                    @endif
+                </div>
+            </div>
             </div>
         </div>
         @endif
