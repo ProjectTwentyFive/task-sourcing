@@ -126,6 +126,7 @@
                             <th>End</th>
                         </tr>
                         @foreach ($selectedBids as $selectedBid)
+                        @if($selectedBid->status == 1)
                         <tr onclick="window.document.location='tasks/{{$selectedBid->task_id}}';">
                             <td>{{$selectedBid->title}}</td>
                             <td>{{$selectedBid->first_name}} {{$selectedBid->last_name}}</td>
@@ -133,6 +134,7 @@
                             <td>{{$selectedBid->start_date}}</td>
                             <td>{{$selectedBid->end_date}}</td>
                         </tr>
+                        @endif
                         @endforeach
                     </table>
                     @else
@@ -144,6 +146,46 @@
                     @endif
                 </div>
             </div>
+
+            <!-- YOUR ASSIGNED COMPLETED TASKS PANEL -->
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Your Completed Assigned Tasks
+                        </h3>
+                    </div>
+                    @if (sizeOf($selectedBids)>0)
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Title</th>
+                            <th>Owner</th>
+                            <th>Price</th>
+                            <th>Start</th>
+                            <th>End</th>
+                        </tr>
+                        @foreach ($selectedBids as $selectedBid)
+                        @if($selectedBid->status == 2)
+                        <tr onclick="window.document.location='tasks/{{$selectedBid->task_id}}';">
+                            <td>{{$selectedBid->title}}</td>
+                            <td>{{$selectedBid->first_name}} {{$selectedBid->last_name}}</td>
+                            <td>{{$selectedBid->price}}</td>
+                            <td>{{$selectedBid->start_date}}</td>
+                            <td>{{$selectedBid->end_date}}</td>
+                        </tr>
+                        @endif
+                        @endforeach
+                    </table>
+                    @else
+                    <div class="panel-body">
+                        You currently have no completed assigned tasks. Click
+                        <a href="tasks">here</a>
+                        to find tasks to complete.
+                    </div>
+                    @endif
+                </div>
+            </div>
+
             @endif
         </div>
     </div>
