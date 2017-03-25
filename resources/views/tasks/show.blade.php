@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    @if ($task->status == 0)
+    @if ($task->status != 2)
         <hr>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -45,7 +45,7 @@
                                     @endif
                                 @endif
 
-                                @if (Auth::check() && ($user->is_admin || $user->id == $bid->user_id))
+                                @if (Auth::check() && ($user->is_admin || ($user->id == $bid->user_id && $task->status == 0)))
                                 {{ Form::open(['method' => 'DELETE', 'route' => ['bid.destroy', $bid->id]]) }}
                                     {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
                                 {{ Form::close() }}
@@ -58,9 +58,8 @@
             </div>
         </div>
 
-        <hr>
-
-        @if (Auth::check() && ($user->is_admin || $user->id != $task->owner))
+         @if (Auth::check() && ($user->is_admin || ($user->id != $task->owner && $task->status == 0)))
+            <hr>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="card">
