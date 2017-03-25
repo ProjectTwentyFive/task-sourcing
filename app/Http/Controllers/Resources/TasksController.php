@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Taskr\Http\Controllers\Controller;
 use Taskr\Repositories\Tasks;
 use Taskr\Repositories\Users;
+use Taskr\Repositories\Bids;
 use Illuminate\Support\Facades\Validator;
 use Taskr\Task;
 use Illuminate\Http\Request;
@@ -22,11 +23,13 @@ class TasksController extends Controller
 {
     protected $tasksRepo;
     protected $usersRepo;
+    protected $bidsRepo;
 
-    public function __construct(Tasks $tasks, Users $users)
+    public function __construct(Tasks $tasks, Users $users, Bids $bids)
     {
         $this->tasksRepo = $tasks;
         $this->usersRepo = $users;
+        $this->bidsRepo = $bids;
     }
 
     /*
@@ -51,11 +54,13 @@ class TasksController extends Controller
     public function show(Task $task)
     {
         $user = new stdClass();
+        $bids = [];
         if (Auth::check()) {
             $id = Auth::id();
             $user = $this->usersRepo->getUser($id);
+            $bids = $this->bidsRepo->getBids($task->id);
         }
-        return view('tasks.show', compact('task', 'user'));
+        return view('tasks.show', compact('task', 'user', 'bids'));
     }
 
     public function create()
