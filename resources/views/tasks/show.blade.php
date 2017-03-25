@@ -27,30 +27,33 @@
                     <ul class="list-group">
                         @foreach($task->bids as $bid)
                             @if ($task->status == 0 || $bid->selected == 'true')
-                            <li class="list-group-item">
-                                <strong>
-                                    {{ $bid->created_at->diffForHumans() }}: &nbsp;
-                                </strong>
-                                {{$bid->user_id}} ({{ $bid->price }})
+                                @if ($bid->selected == 'true')
+                                <strong>Winning Bid</strong>
+                                @endif
+                                <li class="list-group-item">
+                                    <strong>
+                                        {{ $bid->created_at->diffForHumans() }}: &nbsp;
+                                    </strong>
+                                    {{$bid->user_id}} ({{ $bid->price }})
 
-                                @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
-                                    @if ($bid->selected)
-                                        {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $task->id, $bid->id, 'false']]) }}
-                                            {{ Form::submit('Unselect', ['class' => 'btn btn-warning']) }}
-                                        {{ Form::close() }}
-                                    @else
-                                        {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $task->id, $bid->id, 'true']]) }}
-                                            {{ Form::submit('Select', ['class' => 'btn btn-success']) }}
-                                        {{ Form::close() }}
+                                    @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
+                                        @if ($bid->selected)
+                                            {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $task->id, $bid->id, 'false']]) }}
+                                                {{ Form::submit('Unselect', ['class' => 'btn btn-warning']) }}
+                                            {{ Form::close() }}
+                                        @else
+                                            {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $task->id, $bid->id, 'true']]) }}
+                                                {{ Form::submit('Select', ['class' => 'btn btn-success']) }}
+                                            {{ Form::close() }}
+                                        @endif
                                     @endif
-                                @endif
 
-                                @if (Auth::check() && ($user->is_admin || ($user->id == $bid->user_id && $task->status == 0)))
-                                {{ Form::open(['method' => 'DELETE', 'route' => ['bid.destroy', $bid->id]]) }}
-                                    {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
-                                {{ Form::close() }}
-                                @endif
-                            </li>
+                                    @if (Auth::check() && ($user->is_admin || ($user->id == $bid->user_id && $task->status == 0)))
+                                    {{ Form::open(['method' => 'DELETE', 'route' => ['bid.destroy', $bid->id]]) }}
+                                        {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                                    {{ Form::close() }}
+                                    @endif
+                                </li>
                             @endif
                         @endforeach
                     </ul>
