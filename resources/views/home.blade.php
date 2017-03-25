@@ -8,10 +8,6 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">Dashboard</h3>
                     </div>
-
-                    <div class="panel-body">
-                        Welcome to Taskr.
-                    </div>
                 </div>
             </div>
             @if(Auth::check())
@@ -31,6 +27,7 @@
                             <th>Title</th>
                             <th>Category</th>
                             <th>Status</th>
+                            <th>Start Date</th>
                             <th>End Date</th>
                         </tr>
                         @foreach ($tasks as $task)
@@ -38,6 +35,7 @@
                             <td>{{$task->title}}</td>
                             <td>{{$task->category}}</td>
                             <td>{{$task->status}}</td>
+                            <td>{{$task->start_date}}</td>
                             <td>{{$task->end_date}}</td>
                         </tr>
                         @endforeach
@@ -64,7 +62,6 @@
                     @if (sizeOf($bids)>0)
                     <table class="table">
                         <tr>
-                            <th>Task ID</th>
                             <th>Title</th>
                             <th>Owner</th>
                             <th>Price</th>
@@ -72,7 +69,6 @@
                         </tr>
                         @foreach ($bids as $bid)
                         <tr>
-                            <td>{{$bid->task_id}}</td>
                             <td>{{$bid->title}}</td>
                             <td>{{$bid->first_name}} {{$bid->last_name}}</td>
                             <td>{{$bid->price}}</td>

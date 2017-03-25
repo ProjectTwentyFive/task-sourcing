@@ -6,8 +6,10 @@
             <div class="list-task">
                 <h4 class="list-task-title">{{ $task->title }}</h4>
                 <p class="list-task-meta"><b>Created at:</b> {{ $task->created_at }}</p>
-                <p class="list-task-category"><b>Category</b>{{ $task->category }}</p>
-                <p><b>Description</b>{{ $task->description }}</p>
+                <p class="list-task-category"><b>Category:</b> {{ $task->category }}</p>
+                <p class="list-task-start_time"><b>Start Time:</b> {{ $task->start_date }}</p>
+                <p class="list-task-end_time"><b>End Time:</b> {{ $task->end_date }}</p>
+                <p><b>Description:</b> {{ $task->description }}</p>
                 @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
                     <a class="btn btn-primary" href="/tasks/{{ $task->id }}/edit">Edit</a>
                     {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
@@ -29,7 +31,7 @@
                             <strong>
                                 {{ $bid->created_at->diffForHumans() }}: &nbsp;
                             </strong>
-                            {{$bid->user_id}} ({{ $bid->price }})
+                            {{$bid->user_id}} ${{ $bid->price }}
 
                             @if (Auth::check() && ($user->is_admin || $user->id == $bid->user_id))
                             {{ Form::open(['method' => 'DELETE', 'route' => ['bid.destroy', $bid->id]]) }}
@@ -52,8 +54,10 @@
                     <form method="POST" action="/tasks/{{$task->id}}/bids">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="price" class="col-md-4 control-label">Price</label>
-                            <input type="text" id="price" name="price" class="form-control">
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" id="price" name="price" class="form-control" placeholder="Make a bid">
+                            </div>
                         </div>
 
                         <div class="form-group">

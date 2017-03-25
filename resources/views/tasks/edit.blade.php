@@ -10,8 +10,20 @@
                     <input type="hidden" name="_method" value="patch">
                     <div class="form-group">
                         <label for="title">Task Title</label>
-                        <input type="text" class="form-control" id="title" name="title"
-                               placeholder="Building a cupboard" value="{{ $task->title }}">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Common Task <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    @foreach($generic_tasks as $generic_task)
+                                        <li onclick="selectTask('{{ $generic_task->name }}', '{{ $generic_task->category }}')">
+                                            <a>{{ $generic_task->name }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control" id="title" name="title"
+                               placeholder="Building a cupboard" aria-label="..." value="{{ $task->title }}">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="body">Task Description</label>
@@ -21,6 +33,17 @@
                         <label for="title">Task Category</label>
                         <input type="text" class="form-control" id="category" name="category"
                                placeholder="Craftsmanship" value = "{{ $task->category }}">
+                    </div>
+                    <div class="form-group{{ $errors->has('start_date') ? 'has-error' : '' }}">
+                        <label for="title">Start Date</label>
+                        <Input type="text" class="form-control" id="start_date" name="start_date"
+                        placeholder="YYYY-MM-DD HH:mm" value="{{ $task->start_date }}">
+                    </div>
+
+                    <div class="form-group{{ $errors->has('end_date') ? 'has-error' : '' }}">
+                        <label for="title">End Date</label>
+                        <Input type="text" class="form-control" id="end_date" name="end_date"
+                        value="{{ $task->end_date }}" placeholder="YYYY-MM-DD HH:mm">
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
 

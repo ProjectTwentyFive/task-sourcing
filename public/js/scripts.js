@@ -1,6 +1,6 @@
 'use strict'
 
-function fillCategory(taskName) {
-    var category = document.getElementById(taskName).getAttribute("category")
+function selectTask(name, category) {
+    document.getElementById("title").value = name
     document.getElementById("category").value = category
 }
