@@ -2,15 +2,14 @@
 
 @section('content')
     <div class="container">
+        @if(Auth::check())
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Dashboard</h3>
-                    </div>
-                </div>
+                <h1>Dashboard</h1>
             </div>
-            @if(Auth::check())
+        </div>
+
+        <div class="row">
 
             <!-- YOUR TASKS PANEL -->
             <div class="col-md-8 col-md-offset-2">

@@ -1,12 +1,13 @@
 @extends ('layouts.app')
 
 @section('content')
+<div class="container">
 
     <!-- status bar -->
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             @if ($task->status == 2)
-                <div class="alert alert-success" role="alert">This task has been marked as complete by the owner.</div>
+                <div class="alert alert-success" role="alert">This task has been marked as completed by the owner.</div>
             @elseif ($task->status == 1)
                 <div class="alert alert-warning" role="alert">Bidding is no longer opened for this task because a bidder has been selected by the owner.</div>
             @endif
@@ -15,57 +16,44 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="list-task">
-                <h4 class="list-task-title">{{ $task->title }}</h4>
-                <p class="list-task-meta"><b>Status:</b>
-                    @php
-                        switch($task->status) {
-                            case 0:
-                                print("opened");
-                                break;
-                            case 1:
-                                print("closed");
-                                break;
-                            case 2:
-                                print("completed");
-                                break;
-                            default:
-                                break;
-                        }
-                    @endphp
-                </p>
-                <p class="list-task-meta"><b>Created at:</b> {{ $task->created_at }}</p>
-                <p class="list-task-category"><b>Category:</b> {{ $task->category }}</p>
-                <p class="list-task-start_time"><b>Start Time:</b> {{ $task->start_date }}</p>
-                <p class="list-task-end_time"><b>End Time:</b> {{ $task->end_date }}</p>
-                <p><b>Description:</b> {{ $task->description }}</p>
-                @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
-                    <a class="btn btn-primary" href="/tasks/{{ $task->id }}/edit">Edit</a>
-                    {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
-                        {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
-                    {{ Form::close() }}
-                @endif
+
+            <h3>{{ $task->title }}</h3>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p><b>Created at:</b> {{ $task->created_at }}</p>
+                    <p><b>Category:</b> {{ $task->category }}</p>
+                    <p><b>Start Time:</b> {{ $task->start_date }}</p>
+                    <p><b>End Time:</b> {{ $task->end_date }}</p>
+                    <p><b>Description:</b> {{ $task->description }}</p>
+                </div>
             </div>
+
         </div>
     </div>
 
     @if ($task->status != 2)
-        <hr>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                <h3>Bids</h3>
                 <div class="bids">
                     <ul class="list-group">
+                        @if(sizeOf($task->bids) <= 0)
+                            <li class="list-group-item clearfix">
+                                There are currently no bids for this task.
+                            </li>
+                        @else
                         @foreach($task->bids as $bid)
                             @if ($task->status == 0 || $bid->selected == 'true')
-                                @if ($bid->selected == 'true')
-                                <strong>Winning Bid</strong>
-                                @endif
-                                <li class="list-group-item">
+                                <li class="list-group-item clearfix">
                                     <strong>
                                         {{ $bid->created_at->diffForHumans() }}: &nbsp;
                                     </strong>
-                                    {{$bid->user_id}} ${{ $bid->price }}
+                                    {{$bid->user_id}} ${{ $bid->price }} &nbsp;
+                                    @if ($bid->selected == 'true')
+                                        <span class="label label-success">Winning Bid</span>
+                                    @endif
 
+                                    <span class="pull-right">
                                     @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
                                         @if ($bid->selected)
                                             {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $task->id, $bid->id, 'false']]) }}
@@ -83,16 +71,17 @@
                                         {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
                                     {{ Form::close() }}
                                     @endif
+                                    </span>
                                 </li>
                             @endif
                         @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
         </div>
 
          @if (Auth::check() && ($user->is_admin || ($user->id != $task->owner && $task->status == 0)))
-            <hr>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="card">
@@ -116,18 +105,35 @@
             </div>
         @endif
 
-        <!-- complete button -->
+        <!-- action buttons -->
         @if (Auth::check() && ($user->is_admin || ($user->id == $task->owner)))
+        </br>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                @if ($task->status != 2)
-                    {{ Form::open(['method' => 'GET', 'route' => ['tasks.updateStatus', $task->id, 2]]) }}
-                        {{ Form::submit('Complete Task', ['class' => 'btn btn-success']) }}
-                    {{ Form::close() }}
+            <div class="btn-toolbar">
+                <!-- edit and delete button -->
+                @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
+                    <div class="btn-group"><a class="btn btn-primary" href="/tasks/{{ $task->id }}/edit">Edit</a></div>
+                    <div class="btn-group">
+                        {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
+                            {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                        {{ Form::close() }}
+                    </div>
                 @endif
+
+                <!-- complete button -->
+                <div class="btn-group">
+                    @if ($task->status != 2)
+                        {{ Form::open(['method' => 'GET', 'route' => ['tasks.updateStatus', $task->id, 2]]) }}
+                            {{ Form::submit('Mark Task Completed', ['class' => 'btn btn-success']) }}
+                        {{ Form::close() }}
+                    @endif
+                </div>
+            </div>
             </div>
         </div>
         @endif
     @endif
 
+</div>
 @endsection
