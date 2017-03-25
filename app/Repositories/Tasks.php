@@ -31,8 +31,14 @@ class Tasks
         DB::delete("DELETE FROM tasks WHERE id = ?", [$id]);
     }
 
-    public function update($id, $title, $description, $category) {
-        DB::update("update tasks set title = ?, description = ?, category = ? where id = ?", [$title, $description, $category, $id]);
+    public function insert($title, $description, $category, $owner, $status, $start_date, $end_date) {
+        DB::insert("INSERT INTO tasks (title, description, category, owner, status, start_date, end_date) values (?, ?, ?, ?, ?, ?, ?)",
+            [$title, $description, $category, $owner, $status, $start_date, $end_date]);
+    }
+
+    public function update($id, $title, $description, $category, $start_date, $end_date) {
+        DB::update("update tasks set title = ?, description = ?, category = ?, start_date = ?, end_date = ? where id = ?",
+            [$title, $description, $category, $start_date, $end_date, $id]);
     }
 
     public function updateStatus($id, $status) {

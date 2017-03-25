@@ -61,12 +61,13 @@ class TasksController extends Controller
     public function create()
     {
         $generic_tasks = (object)DB::select("select * from generic_tasks");
-        return view('tasks.create')->with(compact('generic_tasks'));
+        return view('tasks.create', compact('generic_tasks'));
     }
 
     public function edit(Task $task)
     {
-        return view('tasks.edit', compact('task'));
+        $generic_tasks = (object)DB::select("select * from generic_tasks");
+        return view('tasks.edit', compact('task', 'generic_tasks'));
     }
 
     /*
@@ -81,7 +82,12 @@ class TasksController extends Controller
     public function update(Request $request, Task $task)
     {
         $this->validateTask($request);
-        $this->tasksRepo->update($task->id, $request->input('title'), $request->input('description'), $request->input('category'));
+        $this->tasksRepo->update($task->id,
+            $request->input('title'),
+            $request->input('description'),
+            $request->input('category'),
+            $request->input('start_date'),
+            $request->input('end_date'));
         return redirect('/tasks');
     }
 
@@ -103,57 +109,23 @@ class TasksController extends Controller
         $this->validate($request, [
             'title' => 'required|max:15',
             'description' => 'required',
-            'start_date' => 'nullable|date|after_or_equal:today',
-            'end_date' => 'nullable|date|after:today'
+            'category' => 'required',
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after_or_equal:today'
         ]);
     }
 
     public function store(Request $request)
     {
         $this->validateTask($request);
-
-        $title = $request->input('title');
-        $description = $request->input('description');
-        $category = $request->input('category', null);
-        $start_date = $request->input('start_date', null);
-        $end_date = $request->input('end_date', null);
-        $ownerId = Auth::id();
         $defaultStatus = 0;
-
-        if ($start_date != '' && $end_date != '') {
-            DB::insert("INSERT INTO tasks (title, description, category, owner, status, start_date, end_date) values (
-            '{$title}',
-            '{$description}',
-            '{$category}',
-            {$ownerId},
-            {$defaultStatus},
-            '{$start_date}',
-            '{$end_date}')");
-        } else if ($start_date != '') {
-            DB::insert("INSERT INTO tasks (title, description, category, owner, status, start_date) values (
-            '{$title}',
-            '{$description}',
-            '{$category}',
-            {$ownerId},
-            {$defaultStatus},
-            '{$start_date}')");
-        } else if ($end_date != '') {
-            DB::insert("INSERT INTO tasks (title, description, category, owner, status, end_date) values (
-            '{$title}',
-            '{$description}',
-            '{$category}',
-            {$ownerId},
-            {$defaultStatus},
-            '{$end_date}')");
-        } else {
-            DB::insert("INSERT INTO tasks (title, description, category, owner, status) values (
-            '{$title}',
-            '{$description}',
-            '{$category}',
-            {$ownerId},
-            {$defaultStatus})");
-        }
-
+        $this->tasksRepo->insert($request->input('title'),
+            $request->input('description'),
+            $request->input('category'),
+            Auth::id(),
+            $defaultStatus,
+            $request->input('start_date'),
+            $request->input('end_date'));
         return redirect('/tasks');
     }
 }
