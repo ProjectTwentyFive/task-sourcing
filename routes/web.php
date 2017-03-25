@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     // this should be a post or a patch but Laravel gives a MethodNotAllowed error if it is anything but get
     Route::get('/tasks/{task}/status/{status}', 'Resources\TasksController@updateStatus')->name('tasks.updateStatus');
 
-    Route::post('/bids/{bid}/{selected}', 'Resources\BidsController@update')->name('bid.update');
+    Route::post('tasks/{task}/bids/{bid}/{selected}', 'Resources\BidsController@update')->name('bid.update');
     Route::post('/tasks/{task}/bids', 'Resources\BidsController@store');
     Route::patch('/tasks/{task}/bids/{bid}', 'Resources\BidsController@update');
     Route::delete('/bids/{bid}', 'Resources\BidsController@destroy')->name('bid.destroy');

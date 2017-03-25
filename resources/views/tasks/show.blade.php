@@ -33,11 +33,11 @@
 
                             @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
                                 @if ($bid->selected)
-                                    {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $bid->id, 'false']]) }}
+                                    {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $task->id, $bid->id, 'false']]) }}
                                         {{ Form::submit('Unselect', ['class' => 'btn btn-warning']) }}
                                     {{ Form::close() }}
                                 @else
-                                    {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $bid->id, 'true']]) }}
+                                    {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $task->id, $bid->id, 'true']]) }}
                                         {{ Form::submit('Select', ['class' => 'btn btn-success']) }}
                                     {{ Form::close() }}
                                 @endif

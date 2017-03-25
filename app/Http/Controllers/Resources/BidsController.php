@@ -92,13 +92,13 @@ class BidsController extends Controller
      *
      * @internal param $id
      */
-    public function update($id, $isSelected)
+    public function update($task_id, $bid_id, $isSelected)
     {
-        DB::update('UPDATE bids SET selected = ? WHERE id = ?', [$isSelected, $id]);
+        DB::update('UPDATE bids SET selected = ? WHERE id = ?', [$isSelected, $bid_id]);
         // update the task status
         $status = ($isSelected == 'true') ? 1: 0;
 
-        return redirect()->action('Resources\TasksController@updateStatus', ['id' => $id, 'status' => $status]);
+        return redirect()->action('Resources\TasksController@updateStatus', ['id' => $task_id, 'status' => $status]);
     }
 
     /**
