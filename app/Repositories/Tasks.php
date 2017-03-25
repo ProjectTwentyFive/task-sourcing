@@ -17,7 +17,7 @@ class Tasks
 {
     public function all()
     {
-        $tasks = DB::select('select * from tasks');
+        $tasks = DB::select('select tasks.*, users.first_name, users.last_name from tasks INNER JOIN users ON tasks.owner = users.id');
         return $tasks;
     }
 
