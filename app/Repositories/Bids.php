@@ -27,4 +27,18 @@ class Bids
             AND b.task_id = t.id AND t.owner = u.id', [$id]);
         return $bids;
     }
+
+    public function getOpenedBids($id)
+    {
+        $bids = DB::select('SELECT * FROM Bids b, Tasks t, Users u WHERE user_id=?
+            AND b.task_id = t.id AND t.owner = u.id AND t.status=0', [$id]);
+        return $bids;
+    }
+
+    public function getSelectedBids($id)
+    {
+        $bids = DB::select('SELECT * FROM Bids b, Tasks t, Users u WHERE user_id=?
+            AND b.task_id = t.id AND t.owner = u.id AND b.selected=true', [$id]);
+        return $bids;
+    }
 }

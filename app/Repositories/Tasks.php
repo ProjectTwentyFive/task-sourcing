@@ -41,10 +41,14 @@ class Tasks
             [$title, $description, $category, $start_date, $end_date, $id]);
     }
 
+    public function updateStatus($id, $status) {
+        DB::update("UPDATE tasks SET status = ? WHERE id = ?", [$status, $id]);
+    }
+
     public function setStatus($id, $newStatus) {
         if ($newStatus == 0 || $newStatus == 1 || $newStatus == 2) {
             DB::update("update tasks set status = ? where id = ?", [$newStatus, $id]);
         }
     }
- 
+
  }
