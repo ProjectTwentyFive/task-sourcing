@@ -13,11 +13,11 @@ Taskr is task sourcing platform for people to outsource tasks to others who want
 
 ### Using Homestead (Recommended)
 1. Install and Configure Homestead by following this [guide](https://laravel.com/docs/5.4/homestead).
-1.1. When configuring the `sites` in `homestead.yaml`, use the code block below and replace the folder path with the actual path
+    1. When configuring the `sites` in `homestead.yaml`, use the code block below and replace the folder path with the actual path
     ```
-    sites:
-         - map: homestead.app
-          to: {folder_path}/public
+        sites:
+        - map: homestead.app
+        to: {folder_path}/public
     ```
 2. Start Homestead by `vagrant up` and SSH into Homestead using `vagrant ssh`.
 3. Navigate into the project folder within the SSH session and run `composer install` to get PHP dependencies.
@@ -27,7 +27,7 @@ Taskr is task sourcing platform for people to outsource tasks to others who want
 7. Login to PostgreSQL database by running `psql -U homestead -h localhost` and create database using `CREATE DATABASE taskr` within `psql` shell.
 8. Generate an application key for laravel by running the command `php artisan key:generate`.
 9. Run database migrations to setup the database tables automatically using `php artisan migrate`.
-9.1. You can also execute database setup code using the SQL file provided `psql -U homestead -h localhost example.sql`.
+    1. You can also execute database setup code using the SQL file provided `psql -U homestead -h localhost example.sql`.
 10. If configured properly in the guide found in step 1, your application should be accessible from your local machine through the domain you have configured.
 
 ### Using LAMP Stack
