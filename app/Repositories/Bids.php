@@ -41,4 +41,10 @@ class Bids
             AND b.task_id = t.id AND t.owner = u.id AND b.selected=true', [$id]);
         return $bids;
     }
+
+    public function getBids($taskId)
+    {
+        $bids = DB::select('SELECT b.*, u.first_name, u.last_name FROM Bids b INNER JOIN Users u ON u.id = b.user_id WHERE b.task_id=?', [$taskId]);
+        return $bids;
+    }
 }
