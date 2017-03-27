@@ -17,7 +17,7 @@ class Tasks
 {
     public function all()
     {
-        $tasks = DB::select('select tasks.*, users.first_name, users.last_name from tasks INNER JOIN users ON tasks.owner = users.id');
+        $tasks = DB::select('SELECT tasks.*, users.first_name, users.last_name FROM tasks INNER JOIN users ON tasks.owner = users.id');
         return $tasks;
     }
 
@@ -27,24 +27,27 @@ class Tasks
         return $tasks;
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         DB::delete("DELETE FROM tasks WHERE id = ?", [$id]);
     }
 
-    public function insert($title, $description, $category, $owner, $status, $start_date, $end_date) {
-        DB::insert("INSERT INTO tasks (title, description, category, owner, status, start_date, end_date) values (?, ?, ?, ?, ?, ?, ?)",
+    public function insert($title, $description, $category, $owner, $status, $start_date, $end_date)
+    {
+        DB::insert("INSERT INTO tasks (title, description, category, owner, status, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?)",
             [$title, $description, $category, $owner, $status, $start_date, $end_date]);
     }
 
-    public function update($id, $title, $description, $category, $start_date, $end_date) {
-        DB::update("update tasks set title = ?, description = ?, category = ?, start_date = ?, end_date = ? where id = ?",
+    public function update($id, $title, $description, $category, $start_date, $end_date)
+    {
+        DB::update("UPDATE tasks SET title = ?, description = ?, category = ?, start_date = ?, end_date = ? WHERE id = ?",
             [$title, $description, $category, $start_date, $end_date, $id]);
     }
 
-    public function updateStatus($id, $status) {
+    public function updateStatus($id, $status)
+    {
         if ($status == 0 || $status == 1 || $status == 2) {
             DB::update("UPDATE tasks SET status = ? WHERE id = ?", [$status, $id]);
         }
     }
-
- }
+}
