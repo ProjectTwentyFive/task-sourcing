@@ -41,6 +41,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users', 'Resources\UsersController@index');
 });
 
+Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {
+    Route::get('/admin', 'DashboardController@index');
+    Route::get('/admin/users', 'UsersController@index');
+    Route::get('/admin/tasks', 'TasksController@index');
+    Route::get('/admin/bids', 'BidsController@index');
+});
+
 /*
  * Unauthenticated API Routes should be placed here.
  */
