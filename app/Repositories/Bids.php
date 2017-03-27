@@ -17,7 +17,7 @@ class Bids
 {
     public function all()
     {
-        $tasks = DB::select('select * from bids');
+        $tasks = DB::select('SELECT * FROM bids');
         return $tasks;
     }
 
@@ -44,7 +44,26 @@ class Bids
 
     public function getBids($taskId)
     {
-        $bids = DB::select('SELECT b.*, u.first_name, u.last_name FROM Bids b INNER JOIN Users u ON u.id = b.user_id WHERE b.task_id=?', [$taskId]);
+        $bids = DB::select('SELECT b.*, u.first_name, u.last_name FROM Bids b INNER JOIN Users u ON u.id = b.user_id WHERE b.task_id=?',
+            [$taskId]);
         return $bids;
+    }
+
+    public function deleteBid($id)
+    {
+        $deleted = DB::delete('DELETE FROM users WHERE id = ?', [$id]);
+        return $deleted;
+    }
+
+    public function insertBid($taskId, $userId, $price)
+    {
+        $bid = DB::insert('INSERT INTO users (task_id, user_id, price) VALUES (?, ?, ?)', [$taskId, $userId, $price]);
+        return $bid;
+    }
+
+    public function updateBid($bid)
+    {
+        DB::update('UPDATE users SET task_id = ?, user_id = ?, price = ? WHERE id = ?',
+            [$bid->task_id, $bid->user_id, $bid->price, $bid->id]);
     }
 }
