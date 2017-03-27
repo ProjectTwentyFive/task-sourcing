@@ -44,6 +44,11 @@ Route::group(['middleware' => 'auth'], function () {
 /*
  * Unauthenticated API Routes should be placed here.
  */
-Auth::routes();
 
-Route::get('/', 'HomeController@index');
+Route::get('/register', 'RegistrationController@create');
+Route::post('/register', 'RegistrationController@store')->name('register');
+
+Route::get('/login', 'SessionsController@create')->name('login');
+Route::get('/logout', 'SessionsController@create')->name('logout');
+
+Route::get('/', 'HomeController@index')->name('home');
