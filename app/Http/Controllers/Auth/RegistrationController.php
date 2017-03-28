@@ -1,8 +1,9 @@
 <?php
 
-namespace Taskr\Http\Controllers;
+namespace Taskr\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Taskr\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
