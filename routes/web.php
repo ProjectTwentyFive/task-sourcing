@@ -48,7 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/register', 'RegistrationController@create');
 Route::post('/register', 'RegistrationController@store')->name('register');
 
-Route::get('/login', 'SessionsController@create')->name('login');
-Route::get('/logout', 'SessionsController@create')->name('logout');
+Route::get('/login', 'SessionsController@create');
+Route::post('/login', 'SessionsController@store')->name('login');
+
+Route::post('/logout', 'SessionsController@destroy')->name('logout');
 
 Route::get('/', 'HomeController@index')->name('home');
