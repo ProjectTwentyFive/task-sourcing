@@ -1,4 +1,4 @@
-@extends ('layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
@@ -7,43 +7,88 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Register</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{route('register')}}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                             {{ csrf_field() }}
 
-                            <div class="form-group">
-                                <label for="first_name">First Name:</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name">
+                            <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                                <label for="first_name" class="col-md-4 control-label">First Name</label>
+
+                                <div class="col-md-6">
+                                    <input id="first_name" type="text" class="form-control" name="first_name"
+                                           value="{{ old('first_name') }}" required autofocus>
+
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                                <label for="last_name" class="col-md-4 control-label">Last Name</label>
+
+                                <div class="col-md-6">
+                                    <input id="last_name" type="text" class="form-control" name="last_name"
+                                           value="{{ old('last_name') }}" required autofocus>
+
+                                    @if ($errors->has('last_name'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-md-4 control-label">Email Address</label>
+
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control" name="email"
+                                           value="{{ old('email') }}" required>
+
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <label for="password" class="col-md-4 control-label">Password</label>
+
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control" name="password" required>
+
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="last_name">Last Name:</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name">
+                                <label for="password_confirmation" class="col-md-4 control-label">Confirm Password</label>
+
+                                <div class="col-md-6">
+                                    <input id="password_confirmation" type="password" class="form-control"
+                                           name="password_confirmation" required>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="name">Email:</label>
-                                <input type="text" class="form-control" id="email" name="email">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Register
+                                    </button>
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="name">Password:</label>
-                                <input type="password" class="form-control" id="password" name="password">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="name">Confirm Password:</label>
-                                <input type="password" class="form-control" id="password_confirmation"
-                                       name="password_confirmation">
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Register</button>
-                            </div>
-
-                            @include ('layouts.errors')
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 @endsection
