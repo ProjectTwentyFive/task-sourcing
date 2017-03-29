@@ -75,7 +75,14 @@ class TasksController extends Controller
         $generic_tasks = (object)DB::select("select * from generic_tasks");
         return view('tasks.edit', compact('task', 'generic_tasks'));
     }
-
+    
+    public function search($query)
+    {
+        $tasks = Task::where('title','LIKE', "%$query%")->get();
+        //->orWhere('created_at','=', "$query")->orWhere('category','LIKE',"%$query%")->orWhere('start_date','=',"$query")->orWhere('end_date','=',"%$query%")->get();
+        
+        return view('tasks.search')->withDetails($tasks)->withQuery($query);
+    }
     /*
     |--------------------------------------------------------------------------
     | Resource Methods
