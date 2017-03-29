@@ -19,7 +19,7 @@
 	        </thead>
 	        <tbody>
 	            @foreach($details as $task)
-	            <tr>
+	            <tr onclick="window.document.location='tasks/{{$task->task_id}}';">
 	                <td>{{$task->title}}</td>
 	                <td>{{$task->create_at}}</td>
 	                <td>{{$task->category}}</td>
