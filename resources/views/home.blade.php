@@ -23,6 +23,11 @@
                     @if (sizeOf($tasks)>0)
                     <table class="table table-hover">
                         <tr>
+                        <form action="tasks/search" method="GET">
+                            <td> Search tasks: <input type="text" name ="q"> </td>
+                            <td> <button type ="submit">Search </button> </td>
+                        </form>                        
+                        </tr>
                             <th>Title</th>
                             <th>Category</th>
                             <th>Start</th>
