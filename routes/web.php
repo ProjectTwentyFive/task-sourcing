@@ -30,7 +30,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/tasks/{task}/bids', 'Resources\BidsController@store');
     Route::patch('/tasks/{task}/bids/{bid}', 'Resources\BidsController@update');
     Route::delete('/bids/{bid}', 'Resources\BidsController@destroy')->name('bid.destroy');
-    Route::any('/bids/{task}/bids/maxprice', 'Resources\BidsController@findmax');
+    Route::any('/tasks/maxprice', 'Resources\BidsController@findmax');
+    Route::any('/tasks/countbids', 'Resources\BidsController@countbids');
 
 
     Route::delete('/users/{user}', 'Resources\UsersController@destroy')->name('user.destroy');
