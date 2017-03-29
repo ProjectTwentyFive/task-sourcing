@@ -78,7 +78,10 @@ class TasksController extends Controller
     
     public function search($query)
     {
-        $tasks = Task::where('title','LIKE', "%$query%")->get();
+        $tasks = (object)DB::select("SELECT * FROM tasks WHERE (title LIKE '%query%' OR start_date LIKE '%query%' OR end_date LIKE '%query%' OR created_at LIKE '%query%' OR category LIKE '%query%')";
+        
+        //SELECT * FROM projectitem WHERE (description LIKE '%$keywords%' OR item LIKE '%$keywords%')";
+        //$tasks = Task::where('title','LIKE', "%$query%")->get();
         //->orWhere('created_at','=', "$query")->orWhere('category','LIKE',"%$query%")->orWhere('start_date','=',"$query")->orWhere('end_date','=',"%$query%")->get();
         
         return view('tasks.search')->withDetails($tasks)->withQuery($query);
