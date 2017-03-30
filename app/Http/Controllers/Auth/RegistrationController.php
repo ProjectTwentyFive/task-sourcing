@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use Taskr\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Taskr\Repositories\Logins;
 
 class RegistrationController extends Controller
 {
+    protected $loginsRepo;
+
+    public function __construct(Logins $logins)
+    {
+        $this->loginsRepo = $logins;
+    }
+
     public function create()
     {
         return view('registration.create');
@@ -38,7 +46,7 @@ class RegistrationController extends Controller
             $user->last_name = request('last_name');
             $user->email = request('email');
             $user->is_admin = request('is_admin');
-
+            session(['last_login_id' => $this->loginsRepo->recordLogin($user->id)]);
             // Login the user into laravel authentication and redirect to home
             auth()->login($user);
             return redirect()->home();
