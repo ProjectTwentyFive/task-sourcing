@@ -23,10 +23,16 @@
                     @if (sizeOf($tasks)>0)
                     <table class="table table-hover">
                         <tr>
+                        <form action="tasks/search" method="GET">
+                            <td> Search tasks: <input type="text" name ="q"> </td>
+                            <td> <button type ="submit">Search </button> </td>
+                        </form>                        
+                        </tr>
                             <th>Title</th>
                             <th>Category</th>
                             <th>Start</th>
                             <th>End</th>
+                            <th>Max Bid Price<th>
                             <th>Status</th>
                             <th><!-- edit button placeholder--></th>
                         </tr>
@@ -36,6 +42,7 @@
                             <td>{{$task->category}}</td>
                             <td>{{$task->start_date}}</td>
                             <td>{{$task->end_date}}</td>
+                            <td>{{$task->max_bid_price}}</td>
                             <td>
                                 @php
                                     switch($task->status) {

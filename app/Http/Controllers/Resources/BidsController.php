@@ -82,8 +82,17 @@ class BidsController extends Controller
             return DB::select('select * from bids b, users u where b.task_id = ? and b.user_id = u.id', [$task->id]);
         }
     }
-
-
+    
+    public function maxprice(Task $task)
+    {
+        return DB::maxprice('SELECT MAX(price) FROM bids b, WHERE b.task_title = $task.task_title'); 
+    }
+    
+    public function countbids(Task $task)
+    {
+        return DB::countbids('SELECT COUNT(bid) FROM tasks t, WHERE t.task_title = $task.task_title');
+    }    
+    
     /**
      * Update the selected field of the bid, whether is it true or false.
      *
