@@ -43,7 +43,11 @@ Taskr is task sourcing platform for people to outsource tasks to others who want
 9. Navigate to the site based on your Apache settings using your browser.
 
 ## Database Models and Manipulation
-Due to the restrictions against ORMs (Eloquent), the project requires the execution of raw queries instead. To understand how to do that in Laravel, take a look at their [documentation](https://laravel.com/docs/5.4/database#running-queries) to learn more. 
+Due to the restrictions against ORMs (Eloquent), the project requires the execution of raw queries instead. To understand how to do that in Laravel, take a look at their [documentation](https://laravel.com/docs/5.4/database#running-queries) to learn more.
+
+## Populate the database with fake data
+Run the SQL queries in database/beta-taskr.sql
+User with credentials u/test@gmail.com p/123456 has all data needed to explore all of taskr's functionality.
 
 ## Learning Laravel
 Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
