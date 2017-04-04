@@ -31,16 +31,4 @@ class Task extends Model
     | methods for code readability and reuse.
     |
     */
-
-    //TODO: Need to change to execute raw queries instead
-    //TODO: Need to access UserID of bid owner
-    public function bids()
-    {
-        return $this->hasMany(Bid::class);
-    }
-
-    public function owner()
-    {
-        return $this->belongsTo(User::class);
-    }
 }

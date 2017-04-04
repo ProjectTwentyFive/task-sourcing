@@ -16,7 +16,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Your Created Tasks
+                            Your Created Tasks <b>({{ $numTasks }})</b>
                             <a href="tasks/create" style="color:#3097D1; float:right">Create Task</a>
                         </h3>
                     </div>
@@ -27,8 +27,8 @@
                             <th>Category</th>
                             <th>Start</th>
                             <th>End</th>
+                            <th>Bids</th>
                             <th>Status</th>
-                            <th><!-- edit button placeholder--></th>
                         </tr>
                         @foreach ($tasks as $task)
                         <tr onclick="window.document.location='tasks/{{$task->id}}';">
@@ -36,6 +36,11 @@
                             <td>{{$task->category}}</td>
                             <td>{{$task->start_date}}</td>
                             <td>{{$task->end_date}}</td>
+                            <td>{{$task->total_bids}}
+                            @if($task->new_bids > 0)
+                            <span class="label label-danger">{{$task->new_bids}} new</span>
+                            @endif
+                            </td>
                             <td>
                                 @php
                                     switch($task->status) {
@@ -52,14 +57,6 @@
                                             break;
                                     }
                                 @endphp
-                            </td>
-                            <td>
-                                @if($task->status != 2)
-                                <a href="tasks/{{$task->id}}/edit" class="btn btn-primary">Edit</a>
-                                @else
-                                <!-- ghetto placeholder so the list is more pleasing to the eye -->
-                                <a style="visibility:hidden" class="btn btn-primary">a</a>
-                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -79,7 +76,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Your Pending Bids
+                            Your Pending Bids <b>({{ $numOpenBids }})</b>
                             <a href="tasks" style="color:#3097D1; float:right">View Tasks</a>
                         </h3>
                     </div>
@@ -106,7 +103,7 @@
                     <div class="panel-body">
                         You currently have no pending bids. Click
                         <a href="tasks">here</a>
-                        to find tasks to complete.
+                        to find tasks to bid on.
                     </div>
                     @endif
                 </div>
@@ -117,7 +114,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Your Assigned Tasks
+                            Your Assigned Tasks <b>({{$numSelectedBids}})</b>
                         </h3>
                     </div>
                     @if (sizeOf($selectedBids)>0)
