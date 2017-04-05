@@ -42,6 +42,7 @@
                                     <i class="fa fa-user fa-fw" aria-hidden="true"></i> Profile
                                 </a>
                             </li>
+                            <li class="divider"></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
