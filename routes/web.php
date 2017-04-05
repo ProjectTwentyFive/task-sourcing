@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/tasks', 'Resources\TasksController@store');
     Route::patch('/tasks/{task}', 'Resources\TasksController@update');
     Route::delete('/tasks/{task}', 'Resources\TasksController@destroy')->name('task.destroy');
-    Route::get('/tasks/create', 'Resources\TasksController@create');
+    Route::get('/tasks/create', 'Resources\TasksController@create')->name('task.create');
     Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
     // this should be a post or a patch but Laravel gives a MethodNotAllowed error if it is anything but get
     Route::get('/tasks/{task}/status/{status}', 'Resources\TasksController@updateStatus')->name('tasks.updateStatus');
@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', 'Resources\UsersController@edit')->name('user.profile');
     Route::get('/users/edit', 'Resources\UsersController@edit');
 
-    Route::get('/tasks', 'Resources\TasksController@index');
+    Route::get('/tasks', 'Resources\TasksController@index')->name('tasks.index');
     Route::get('/tasks/{task}', 'Resources\TasksController@show');
     Route::get('/tasks/{task}/bids/{bid}', 'Resources\BidsController@show');
     Route::get('/users/{user}', 'Resources\UsersController@show');

@@ -1,13 +1,8 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading "><h3 class="panel-title"><b>{{ $task->title }}</b></h3></div>
             <div class="panel-body">
-            <div class="list-task">
-                <h3 class="list-task-title">
-                    {{ $task->title }}
-                </h3>
-
                 <div class="row">
                     <div class="col-md-6">
                         <p class="list-task-meta"><b>Owner:</b> {{$task->first_name}} {{$task->last_name}}</p>
@@ -37,14 +32,11 @@
 
                         <div class="btn-group">
                             {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
-                                {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                            {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
                             {{ Form::close() }}
                         </div>
                     @endif
                 </div>
-                </br>
-            </div>
-            </div>
             </div>
         </div>
     </div>
