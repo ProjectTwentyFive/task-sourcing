@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +17,14 @@
 
 
 Route::group(['middleware' => 'auth'], function () {
+
+  /*  Route::get('/',function(){
+
+        return "This is Home Page ";
+    });
+    */
+});
+
     Route::post('/tasks', 'Resources\TasksController@store');
     Route::patch('/tasks/{task}', 'Resources\TasksController@update');
     Route::delete('/tasks/{task}', 'Resources\TasksController@destroy')->name('task.destroy');
@@ -24,6 +32,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tasks/{task}/edit', 'Resources\TasksController@edit');
     // this should be a post or a patch but Laravel gives a MethodNotAllowed error if it is anything but get
     Route::get('/tasks/{task}/status/{status}', 'Resources\TasksController@updateStatus')->name('tasks.updateStatus');
+   // Route::get('/tasks/search/{query}', ['uses' => 'Resources\TasksController@search', 'as' => 'search']);
+ 
+   Route::any('/tasks/search','Resources\TasksController@search');
+
+
 
     Route::post('tasks/{task}/bids/{bid}/{selected}', 'Resources\BidsController@update')->name('bid.update');
     Route::post('/tasks/{task}/bids', 'Resources\BidsController@store');
@@ -36,21 +49,27 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/tasks', 'Resources\TasksController@index');
     Route::get('/tasks/{task}', 'Resources\TasksController@show');
+
     Route::get('/tasks/{task}/bids/{bid}', 'Resources\BidsController@show');
     Route::get('/users/{user}', 'Resources\UsersController@show');
     Route::get('/users', 'Resources\UsersController@index');
-});
+    
+
 
 /*
  * Unauthenticated API Routes should be placed here.
  */
+Auth::routes();
 
-Route::get('/register', 'Auth\RegistrationController@create');
-Route::post('/register', 'Auth\RegistrationController@store')->name('register');
+Route::get('/', 'HomeController@index');
 
-Route::get('/login', 'Auth\SessionsController@create');
-Route::post('/login', 'Auth\SessionsController@store')->name('login');
+ Route::get('test',function(){
 
-Route::post('/logout', 'Auth\SessionsController@destroy')->name('logout');
+     $user_id = \Illuminate\Support\Facades\Auth::user()->id;
 
-Route::get('/', 'HomeController@index')->name('home');
+     return \Illuminate\Support\Facades\DB::table('bids')->join('tasks','bids.user_id','=','tasks.owner')->where('bids.user_id',$user_id)->count() ;
+
+ });
+
+
+ ?>

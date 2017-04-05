@@ -18,14 +18,15 @@ class CreateTasksTable extends Migration
             $table->text('title');
             $table->text('description');
             $table->text('category');
-            $table->integer('owner');
+            $table->integer('owner')->unsigned();
             $table->integer('status');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 
+
             /* Schema constraints */
-            $table->foreign('owner')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('owner')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

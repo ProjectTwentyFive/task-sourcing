@@ -32,32 +32,41 @@ class HomeController extends Controller
             $tasks = $this->tasksRepo->belongsTo($id);
             $bids = $this->bidsRepo->getOpenedBids($id);
             $selectedBids = $this->bidsRepo->getSelectedBids($id);
-            $numOpenBids = $this->bidsRepo->getNumOpenedBids($id);
-            $numTasks = $this->tasksRepo->getNumTasks($id);
-            $numSelectedBids = $this->bidsRepo->getNumSelectedBids($id);
 
             // formatting times
-            foreach($tasks as $task){
+            foreach ($tasks as $task) {
                 $strToTime = strToTime($task->start_date);
                 $task->start_date = date('Y-m-d H:i', $strToTime);
                 $strToTime = strToTime($task->end_date);
                 $task->end_date = date('Y-m-d H:i', $strToTime);
             }
 
-            foreach($bids as $bid){
+            foreach ($bids as $bid) {
                 $strToTime = strToTime($bid->start_date);
                 $bid->start_date = date('Y-m-d H:i', $strToTime);
                 $strToTime = strToTime($bid->end_date);
                 $bid->end_date = date('Y-m-d H:i', $strToTime);
             }
 
-            foreach($selectedBids as $selectedBid){
+            foreach ($selectedBids as $selectedBid) {
                 $strToTime = strToTime($selectedBid->start_date);
                 $selectedBid->start_date = date('Y-m-d H:i', $strToTime);
                 $strToTime = strToTime($selectedBid->end_date);
                 $selectedBid->end_date = date('Y-m-d H:i', $strToTime);
             }
         }
-        return view('home', compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids'));
+
+
+        $user_id = \Illuminate\Support\Facades\Auth::user()->id;
+
+        $maxprice= \Illuminate\Support\Facades\DB::table('bids')->join('tasks','bids.user_id','=','tasks.owner')->where('bids.user_id',$user_id)->max('price');
+
+        $user_id = \Illuminate\Support\Facades\Auth::user()->id;
+
+        $countbids= \Illuminate\Support\Facades\DB::table('bids')->join('tasks','bids.user_id','=','tasks.owner')->where('bids.user_id',$user_id)->count() ;
+
+
+        return view('home', compact('tasks', 'bids', 'selectedBids'))->with('maxprice',$maxprice)->with('countbids',$countbids);
     }
+
 }

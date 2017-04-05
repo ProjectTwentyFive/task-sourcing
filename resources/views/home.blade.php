@@ -1,34 +1,73 @@
+<!--
 @extends('layouts.app')
+
 
 @section('content')
     <div class="container">
-        @if(Auth::check())
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3>Dashboard</h3>
-            </div>
-        </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Dashboard</h3>
 
-        <div class="row">
+                    </div>
+                </div>
+            </div>
+            @if(Auth::check())
 
             <!-- YOUR TASKS PANEL -->
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Your Created Tasks <b>({{ $numTasks }})</b>
+                            Your Tasks
                             <a href="tasks/create" style="color:#3097D1; float:right">Create Task</a>
                         </h3>
                     </div>
                     @if (sizeOf($tasks)>0)
+                    
+         					 <form action="tasks/search" method="GET" role="search" name="myform">
+                              
+                             
+
+                                 <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
+
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="q"
+                                        placeholder="Search users">
+
+                                        <input type="submit" value="Search" name="submit" class="btn btn-default">
+
+                                        
+                                        
+                                   
+                                </div>
+
+                           
+
+                         
+                           </form>
+
                     <table class="table table-hover">
+                        <tr>
+                      
+                       
+                        </tr>
+                        <tr>
+                            @foreach ($tasks as $key=> $task)
+                            <div>
+                                 <a href = "tasks">{{$task->title}}</a>
+                    </tr>
+                            @endforeach
                         <tr>
                             <th>Title</th>
                             <th>Category</th>
                             <th>Start</th>
                             <th>End</th>
-                            <th>Bids</th>
                             <th>Status</th>
+                            <th>Max Bid </th>
+                            <th>Total Bids </th>
+                            <th><!-- edit button placeholder--></th>
                         </tr>
                         @foreach ($tasks as $task)
                         <tr onclick="window.document.location='tasks/{{$task->id}}';">
@@ -36,11 +75,6 @@
                             <td>{{$task->category}}</td>
                             <td>{{$task->start_date}}</td>
                             <td>{{$task->end_date}}</td>
-                            <td>{{$task->total_bids}}
-                            @if($task->new_bids > 0)
-                            <span class="label label-danger">{{$task->new_bids}} new</span>
-                            @endif
-                            </td>
                             <td>
                                 @php
                                     switch($task->status) {
@@ -57,6 +91,12 @@
                                             break;
                                     }
                                 @endphp
+                            </td>
+                            <td>{{ $maxprice }} </td>
+
+                            <td> {{ $countbids }} </td>
+                            <td>
+                                <a href="tasks/{{$task->id}}/edit" class="btn btn-primary">Edit</a>
                             </td>
                         </tr>
                         @endforeach
@@ -76,7 +116,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Your Pending Bids <b>({{ $numOpenBids }})</b>
+                            Your Pending Bids
                             <a href="tasks" style="color:#3097D1; float:right">View Tasks</a>
                         </h3>
                     </div>
@@ -103,7 +143,7 @@
                     <div class="panel-body">
                         You currently have no pending bids. Click
                         <a href="tasks">here</a>
-                        to find tasks to bid on.
+                        to find tasks to complete.
                     </div>
                     @endif
                 </div>
@@ -114,7 +154,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Your Assigned Tasks <b>({{$numSelectedBids}})</b>
+                            Your Assigned Tasks
                         </h3>
                     </div>
                     @if (sizeOf($selectedBids)>0)
@@ -191,3 +231,5 @@
         </div>
     </div>
 @endsection
+-->
+<p> Home Page </p>

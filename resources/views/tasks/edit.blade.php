@@ -46,7 +46,7 @@
                         value="{{ $task->end_date }}" placeholder="YYYY-MM-DD HH:mm">
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a class="btn btn-default" href="{{ URL::previous() }}">Cancel</a>
+
                     @include('layouts.errors')
                 </form>
             </div>

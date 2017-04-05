@@ -28,4 +28,14 @@ class Bid extends Model
     | methods for code readability and reuse.
     |
     */
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
