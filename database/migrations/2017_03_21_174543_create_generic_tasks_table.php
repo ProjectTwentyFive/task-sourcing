@@ -16,7 +16,7 @@ class CreateGenericTasksTable extends Migration
         Schema::create('generic_tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('category');
+            $table->string('category')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }

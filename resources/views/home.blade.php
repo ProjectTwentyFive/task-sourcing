@@ -80,7 +80,7 @@
                             <a href="tasks" style="color:#3097D1; float:right">View Tasks</a>
                         </h3>
                     </div>
-                    @if (sizeOf($bids)>0)
+                    @if ($numOpenBids>0)
                     <table class="table table-hover">
                         <tr>
                             <th>Title</th>
@@ -117,7 +117,7 @@
                             Your Assigned Tasks <b>({{$numSelectedBids}})</b>
                         </h3>
                     </div>
-                    @if (sizeOf($selectedBids)>0)
+                    @if ($numSelectedBids>0)
                     <table class="table table-hover">
                         <tr>
                             <th>Title</th>
@@ -127,7 +127,6 @@
                             <th>End</th>
                         </tr>
                         @foreach ($selectedBids as $selectedBid)
-                        @if($selectedBid->status == 1)
                         <tr onclick="window.document.location='tasks/{{$selectedBid->task_id}}';">
                             <td>{{$selectedBid->title}}</td>
                             <td>{{$selectedBid->first_name}} {{$selectedBid->last_name}}</td>
@@ -135,7 +134,6 @@
                             <td>{{$selectedBid->start_date}}</td>
                             <td>{{$selectedBid->end_date}}</td>
                         </tr>
-                        @endif
                         @endforeach
                     </table>
                     @else
@@ -153,10 +151,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Your Completed Assigned Tasks
+                            Tasks You Have Completed <b>({{$numCompletedBids}})</b>
                         </h3>
                     </div>
-                    @if (sizeOf($selectedBids)>0)
+                    @if ($numCompletedBids>0)
                     <table class="table table-hover">
                         <tr>
                             <th>Title</th>
@@ -165,16 +163,14 @@
                             <th>Start</th>
                             <th>End</th>
                         </tr>
-                        @foreach ($selectedBids as $selectedBid)
-                        @if($selectedBid->status == 2)
-                        <tr onclick="window.document.location='tasks/{{$selectedBid->task_id}}';">
-                            <td>{{$selectedBid->title}}</td>
-                            <td>{{$selectedBid->first_name}} {{$selectedBid->last_name}}</td>
-                            <td>{{$selectedBid->price}}</td>
-                            <td>{{$selectedBid->start_date}}</td>
-                            <td>{{$selectedBid->end_date}}</td>
+                        @foreach ($completedBids as $completedBid)
+                        <tr onclick="window.document.location='tasks/{{$completedBid->task_id}}';">
+                            <td>{{$completedBid->title}}</td>
+                            <td>{{$completedBid->first_name}} {{$completedBid->last_name}}</td>
+                            <td>{{$completedBid->price}}</td>
+                            <td>{{$completedBid->start_date}}</td>
+                            <td>{{$completedBid->end_date}}</td>
                         </tr>
-                        @endif
                         @endforeach
                     </table>
                     @else
@@ -182,6 +178,41 @@
                         You currently have no completed assigned tasks. Click
                         <a href="tasks">here</a>
                         to find tasks to complete.
+                    </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- TASKS COMPLETED FOR YOU -->
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Tasks Completed For You <b>({{$numTasksCompletedForYou}})</b>
+                        </h3>
+                    </div>
+                    @if ($numTasksCompletedForYou>0)
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Title</th>
+                            <th>Completed By</th>
+                            <th>Price</th>
+                            <th>Start</th>
+                            <th>End</th>
+                        </tr>
+                        @foreach ($tasksCompletedForYou as $taskCompleteForYou)
+                        <tr onclick="window.document.location='tasks/{{$taskCompletedForYou->task_id}}';">
+                            <td>{{$taskCompletedForYou->title}}</td>
+                            <td>{{$taskCompletedForYou->first_name}} {{$taskCompletedForYou->last_name}}</td>
+                            <td>{{$taskCompletedForYou->price}}</td>
+                            <td>{{$taskCompletedForYou->start_date}}</td>
+                            <td>{{$taskCompletedForYou->end_date}}</td>
+                        </tr>
+                        @endforeach
+                    </table>
+                    @else
+                    <div class="panel-body">
+                        Currently no tasks have been completed for you. Mark your tasks as complete for them to appear here.
                     </div>
                     @endif
                 </div>

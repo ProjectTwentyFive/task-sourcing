@@ -61,4 +61,13 @@ class Tasks
         return array_filter(
             DB::select('SELECT COUNT(*) FROM Tasks t WHERE t.owner = ?', [$id]))[0]->count;
     }
+
+    public function getTasksCompletedForYou($id) {
+        return DB::select('SELECT * FROM Tasks t, Bids b, Users u WHERE t.owner = ? AND t.status=2 AND b.task_id = t.id AND b.selected = true AND u.id = b.user_id', [$id]);
+    }
+
+    public function getNumTasksCompletedForYou($id) {
+        return array_filter(
+            DB::select('SELECT COUNT(*) FROM Tasks t WHERE t.owner = ? AND t.status=2', [$id]))[0]->count;
+    }
 }
