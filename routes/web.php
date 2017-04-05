@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users', 'Resources\UsersController@index');
 
     Route::post('/logout', 'Auth\SessionsController@destroy')->name('logout');
+
+    Route::get('/admin', 'AdminController@index')->name('admin');
 });
 
 /*
