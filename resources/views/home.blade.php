@@ -234,7 +234,8 @@
                         @endif
                             <i class="fa fa-edit fa-3x" aria-hidden="true"></i>
                             <span style="vertical-align:10px">
-                                &nbsp;&nbsp;&nbsp;Task Creator: create a task to unlock this achievement
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Task Creator: create a task to unlock this achievement
                             </span>
                         </p>
 
@@ -254,9 +255,24 @@
                         @endphp
                             <i class="fa fa-check-circle-o fa-3x" aria-hidden="true"></i>
                             <span style="vertical-align:10px">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Task Completer: complete a task to unlock this achievement
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Task Completer: complete a task to unlock this achievement
                             </span>
                         </p>
+
+                        <!-- Achievement: Created all the category of common tasks -->
+                        @if ($isCommonTasksCreator)
+                        <p style="color:green;">
+                        @else
+                        <p style="color:lightgrey;">
+                        @endif
+                            <i class="fa fa-handshake-o fa-3x" aria-hidden="true"></i>
+                            <span style="vertical-align:10px">
+                                &nbsp;&nbsp;
+                                Common Category Boss: create a task for every common category
+                            </span>
+                        </p>
+
                     </div>
                 </div>
             </div>
