@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    @if ($task->status != 2)
+    @if ($task->status >= 0 && $task->status <=2)
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp; Bids</h3>
@@ -44,7 +44,7 @@
                             </li>
                         @else
                         @foreach($bids as $bid)
-                            @if ($task->status == 0 || $bid->selected == 'true')
+                            @if (($task->status >= 0 && $task->status <=2) || $bid->selected == 'true')
                                 <li class="list-group-item clearfix">
                                     {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $bid->created_at)->diffForHumans()}}:&nbsp;
                                     <strong>{{$bid->first_name}} {{$bid->last_name}}</strong> bid <strong>${{ $bid->price }}</strong>&nbsp;
