@@ -107,9 +107,16 @@ class UsersController extends Controller
             $sql .= ', password = ?';
             array_push($input, Hash::make(request('password')));
         }
+
+        // Administrative function
+        if (Auth::check() && $this->isAdmin() && !empty(request('is_admin'))) {
+            $sql .= ', is_admin = ?';
+            array_push($input, request('is_admin'));
+        }
+
         $sql .= ' WHERE email = ?';
         array_push($input, Auth::user()->email);
-
+        
         // Update the user in the database
         $isUpdated = DB::update($sql, $input);
 
