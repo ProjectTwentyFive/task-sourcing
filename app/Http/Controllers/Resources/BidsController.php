@@ -108,7 +108,7 @@ class BidsController extends Controller
      */
     public function destroy($id)
     {
-        DB::delete('DELETE FROM bids WHERE id = ?', [$id]);
+        $this->bidsRepo->deleteBid($id);
         return back();
     }
 
@@ -119,8 +119,7 @@ class BidsController extends Controller
      */
     public function store(Task $task)
     {
-        DB::insert('INSERT INTO Bids (user_id, task_id, price) VALUES (?, ?, ?)',
-         [Auth::id(), $task->id, request('price')]);
+        $this->bidsRepo->insertBid($task->id, Auth::id(), request('price'));
         return back();
     }
 }

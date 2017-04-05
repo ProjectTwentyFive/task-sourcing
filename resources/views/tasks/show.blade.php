@@ -35,7 +35,13 @@
     @if ($task->status >= 0 && $task->status <=2)
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp; Bids</h3>
+                <h3><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp; {{ $numBids }}
+                @if ($numBids == 1)
+                    Bid
+                @else
+                    Bids
+                @endif
+                </h3>
                 <div class="bids">
                     <ul class="list-group">
                         @if(sizeOf($bids) <= 0)

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Taskr\Repositories\Logins;
 
+use Carbon\Carbon;
+
 class RegistrationController extends Controller
 {
     protected $loginsRepo;
@@ -33,8 +35,9 @@ class RegistrationController extends Controller
         ]);
 
         // Create and save the user
-        $isCreated = DB::insert('INSERT INTO users (first_name, last_name, email, password, is_admin) VALUES (?, ?, ?, ?, ?)',
-            [request('first_name'), request('last_name'), request('email'), Hash::make(request('password')), false]);
+        // Should not be manually entering created_at but database would not store local time by default no matter what I did
+        $isCreated = DB::insert('INSERT INTO users (first_name, last_name, email, password, is_admin, created_at) VALUES (?, ?, ?, ?, ?, ?)',
+            [request('first_name'), request('last_name'), request('email'), Hash::make(request('password')), false, Carbon::now()]);
 
         if ($isCreated) {
             $results = DB::select('SELECT * FROM users WHERE email = ?', [request('email')]);

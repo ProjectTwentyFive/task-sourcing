@@ -5,6 +5,8 @@ namespace Taskr\Repositories;
 use Taskr\Bid;
 use Illuminate\support\Facades\DB;
 
+use Carbon\Carbon;
+
 /**
  * Class Bids is an repository which contains methods that combines
  * business log and data manipulation for Bid objects. It also
@@ -51,19 +53,20 @@ class Bids
 
     public function deleteBid($id)
     {
-        $deleted = DB::delete('DELETE FROM users WHERE id = ?', [$id]);
+        $deleted = DB::delete('DELETE FROM Bids b WHERE id = ?', [$id]);
         return $deleted;
     }
 
     public function insertBid($taskId, $userId, $price)
     {
-        $bid = DB::insert('INSERT INTO users (task_id, user_id, price) VALUES (?, ?, ?)', [$taskId, $userId, $price]);
+        // Should not be manually entering created_at but database would not store local time by default no matter what I did
+        $bid = DB::insert('INSERT INTO Bids (task_id, user_id, price, created_at) VALUES (?, ?, ?, ?)', [$taskId, $userId, $price, Carbon::now()]);
         return $bid;
     }
 
     public function getNumOpenedBids($id) {
         return array_filter(
-            DB::select('SELECT COUNT(*) FROM Bids b, Tasks t WHERE user_id = ? AND b.task_id = t.id AND t.status = 0', [$id]))[0]->count;
+            DB::select('SELECT COUNT(*) FROM Bids b, Tasks t WHERE b.user_id = ? AND b.task_id = t.id AND t.status = 0', [$id]))[0]->count;
     }
 
     public function getNumSelectedBids($id) {
@@ -71,9 +74,25 @@ class Bids
             DB::select('SELECT COUNT(*) FROM Bids b WHERE b.user_id = ? AND b.selected=true', [$id]))[0]->count;
     }
 
+    public function getNumBids($id) {
+        return array_filter(
+            DB::select('SELECT COUNT(*) FROM Bids b WHERE b.task_id = ?', [$id]))[0]->count;
+    }
+
     public function updateBid($bid)
     {
         DB::update('UPDATE users SET task_id = ?, user_id = ?, price = ? WHERE id = ?',
             [$bid->task_id, $bid->user_id, $bid->price, $bid->id]);
+    }
+
+    public function getCompletedBids($id) {
+        return DB::select('SELECT * FROM Bids b, Tasks t, Users u WHERE b.task_id = t.id AND b.selected=true AND t.status = 2 AND b.user_id = ? AND t.owner = u.id',
+                [$id]);
+    }
+
+    public function getNumCompletedBids($id) {
+        return array_filter(
+            DB::select('SELECT COUNT(*) FROM Bids b, Tasks t WHERE b.task_id = t.id AND b.selected=true AND t.status = 2 AND b.user_id = ?',
+                [$id]))[0]->count;
     }
 }

@@ -38,7 +38,12 @@ class HomeController extends Controller
             $numOpenBids = $this->bidsRepo->getNumOpenedBids($id);
             $numTasks = $this->tasksRepo->getNumTasks($id);
             $numSelectedBids = $this->bidsRepo->getNumSelectedBids($id);
-
+            $completedBids = $this->bidsRepo->getCompletedBids($id);
+            $numCompletedBids = $this->bidsRepo->getNumCompletedBids($id);
+            $tasksCompletedForYou = $this->tasksRepo->getTasksCompletedForYou($id);
+            $numTasksCompletedForYou = $this->tasksRepo->getNumTasksCompletedForYou($id);
+            $isCommonTasksCreator = $this->usersRepo->checkIfUserCreatedTasksOfAllGenericCategory($id);
+          
             // formatting times
             foreach($tasks as $task){
                 $strToTime = strToTime($task->start_date);
@@ -61,9 +66,18 @@ class HomeController extends Controller
                 $selectedBid->end_date = date('Y-m-d H:i', $strToTime);
             }
 
-            $isCommonTasksCreator = $this->usersRepo->checkIfUserCreatedTasksOfAllGenericCategory($id);
-        }
+            foreach($completedBids as $completedBid) {
+                $completedBid->start_date = date('Y-m-d H:i', strToTime($completedBid->start_date));
+                $completedBid->end_date = date('Y-m-d H:i', strToTime($completedBid->end_date));
+            }
 
-        return view('home', compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids', 'isCommonTasksCreator'));
+            foreach($tasksCompletedForYou as $taskCompletedForYou) {
+                $taskCompletedForYou->start_date = date('Y-m-d H:i', strToTime($taskCompletedForYou->start_date));
+                $taskCompletedForYou->end_date = date('Y-m-d H:i', strToTime($taskCompletedForYou->end_date));
+            }
+        }
+        return view('home', compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids', 'completedBids',
+            'numCompletedBids', 'tasksCompletedForYou', 'numTasksCompletedForYou', 'isCommonTasksCreator'));
+        }
     }
 }
