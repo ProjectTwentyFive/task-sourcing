@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/bids/{bid}', 'Resources\BidsController@destroy')->name('bid.destroy');
 
     Route::delete('/users/{user}', 'Resources\UsersController@destroy')->name('user.destroy');
-    Route::post('/users', 'Resources\UsersController@store');
+    Route::post('/users', 'Resources\UsersController@store')->name('user.create');
     Route::patch('/users/{user}', 'Resources\UsersController@update');
     Route::get('/profile', 'Resources\UsersController@edit')->name('user.profile');
     Route::get('/users/edit', 'Resources\UsersController@edit');
