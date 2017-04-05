@@ -33,7 +33,7 @@ class RegistrationController extends Controller
         ]);
 
         // Create and save the user
-        $isCreated = DB::insert('insert into users (first_name, last_name, email, password, is_admin) values (?, ?, ?, ?, ?)',
+        $isCreated = DB::insert('INSERT INTO users (first_name, last_name, email, password, is_admin) VALUES (?, ?, ?, ?, ?)',
             [request('first_name'), request('last_name'), request('email'), Hash::make(request('password')), false]);
 
         if ($isCreated) {

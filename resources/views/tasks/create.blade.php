@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h1> Publish New Task</h1>
+                <h3><i class="fa fa-plus-square" aria-hidden="true"></i> &nbsp;Create Task</h3>
                 <form method="POST" action="/tasks">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -45,6 +45,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Create</button>
+                    <a class="btn btn-default" href="{{ URL::previous() }}">Cancel</a>
                     @include('layouts.errors')
                 </form>
             </div>

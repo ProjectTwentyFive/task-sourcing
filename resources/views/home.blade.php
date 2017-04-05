@@ -5,7 +5,7 @@
         @if(Auth::check())
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3>Dashboard</h3>
+                <h3><i class="fa fa-tachometer fa-fw" aria-hidden="true"></i> &nbsp;Dashboard</h3>
             </div>
         </div>
 
@@ -15,10 +15,14 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Your Created Tasks <b>({{ $numTasks }})</b>
-                            <a href="tasks/create" style="color:#3097D1; float:right">Create Task</a>
+                        <h3 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: normal;
+                                   width: 75%; padding-top: 6px;" class="panel-title pull-left">
+                            <i class="fa fa-rocket" aria-hidden="true"></i> &nbsp;Your Created Tasks <b>({{ $numTasks }})</b>
                         </h3>
+                        <a class="btn btn-primary btn-sm pull-right" href="{{route('task.create')}}">
+                            <i class="fa fa-plus fa-fw" aria-hidden="true"></i> &nbsp;Create Task
+                        </a>
+                        <div class="clearfix"></div>
                     </div>
                     @if (sizeOf($tasks)>0)
                     <table class="table table-hover">
@@ -45,13 +49,13 @@
                                 @php
                                     switch($task->status) {
                                         case 0:
-                                            print("opened");
+                                            print("Opened");
                                             break;
                                         case 1:
-                                            print("closed");
+                                            print("Closed");
                                             break;
                                         case 2:
-                                            print("completed");
+                                            print("Completed");
                                             break;
                                         default:
                                             break;
@@ -75,10 +79,14 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Your Pending Bids <b>({{ $numOpenBids }})</b>
-                            <a href="tasks" style="color:#3097D1; float:right">View Tasks</a>
+                        <h3 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: normal;
+                                   width: 75%; padding-top: 6px;" class="panel-title pull-left">
+                            <i class="fa fa-pause" aria-hidden="true"></i> &nbsp;Your Pending Bids <b>({{ $numOpenBids }})</b>
                         </h3>
+                        <a class="btn btn-success btn-sm pull-right" href="{{route('tasks.index')}}">
+                            <i class="fa fa-search fa-fw" aria-hidden="true"></i> &nbsp;View Tasks
+                        </a>
+                        <div class="clearfix"></div>
                     </div>
                     @if ($numOpenBids>0)
                     <table class="table table-hover">
@@ -114,7 +122,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Your Assigned Tasks <b>({{$numSelectedBids}})</b>
+                            <i class="fa fa-play" aria-hidden="true"></i> &nbsp;Your Assigned Tasks <b>({{$numSelectedBids}})</b>
                         </h3>
                     </div>
                     @if ($numSelectedBids>0)
@@ -151,7 +159,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
+<<<<<<< HEAD
                             Tasks You Have Completed <b>({{$numCompletedBids}})</b>
+=======
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> &nbsp;Your Completed Assigned Tasks
+>>>>>>> master
                         </h3>
                     </div>
                     @if ($numCompletedBids>0)

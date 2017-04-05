@@ -32,10 +32,10 @@
         </div>
     </div>
 
-    @if ($task->status != 2)
+    @if ($task->status >= 0 && $task->status <=2)
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3>{{ $numBids }}
+                <h3><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp; {{ $numBids }}
                 @if ($numBids == 1)
                     Bid
                 @else
@@ -50,7 +50,7 @@
                             </li>
                         @else
                         @foreach($bids as $bid)
-                            @if ($task->status == 0 || $bid->selected == 'true')
+                            @if (($task->status >= 0 && $task->status <=2) || $bid->selected == 'true')
                                 <li class="list-group-item clearfix">
                                     {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $bid->created_at)->diffForHumans()}}:&nbsp;
                                     <strong>{{$bid->first_name}} {{$bid->last_name}}</strong> bid <strong>${{ $bid->price }}</strong>&nbsp;
@@ -92,12 +92,12 @@
                     <div class="card">
                         <div class="card-block">
                             <p>Make a bid</p>
-                            <form method="POST" action="/tasks/{{$task->id}}/bids">
+                            <form method="POST" action="/tasks/{{$task->id}}/bids" data-toggle="validator">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">$</span>
-                                        <input type="text" id="price" name="price" class="form-control" placeholder="Price">
+                                        <input type="number" id="price" name="price" class="form-control" placeholder="Price" required step="0.01" min="0.01">
                                     </div>
                                 </div>
                                 <div class="form-group">
