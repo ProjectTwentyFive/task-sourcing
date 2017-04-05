@@ -15,7 +15,6 @@
 | Migration => create_tasks_table
 */
 
-
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/tasks', 'Resources\TasksController@store');
     Route::patch('/tasks/{task}', 'Resources\TasksController@update');
@@ -43,13 +42,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users', 'Resources\UsersController@index');
 
     Route::post('/logout', 'Auth\SessionsController@destroy')->name('logout');
-});
-
-Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {
-    Route::get('/admin', 'DashboardController@index');
-    Route::get('/admin/users', 'UsersController@index');
-    Route::get('/admin/tasks', 'TasksController@index');
-    Route::get('/admin/bids', 'BidsController@index');
 });
 
 /*
