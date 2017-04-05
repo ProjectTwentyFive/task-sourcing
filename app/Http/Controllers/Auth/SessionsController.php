@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use Taskr\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Taskr\Repositories\Logins;
 
 class SessionsController extends Controller
 {
+    protected $loginsRepo;
 
-    public function __construct()
+    public function __construct(Logins $logins)
     {
+        $this->loginsRepo = $logins;
         $this->middleware('guest', ['except' => 'destroy']);
     }
 
@@ -44,7 +47,7 @@ class SessionsController extends Controller
             $user->last_name = request('last_name');
             $user->email = request('email');
             $user->is_admin = request('is_admin');
-
+            session(['last_login_id' => $this->loginsRepo->recordLogin($user->id)]);
             auth()->login($user);
             return redirect()->home();
         } else {
@@ -61,6 +64,7 @@ class SessionsController extends Controller
      */
     public function destroy()
     {
+        $this->loginsRepo->recordLogout(session('last_login_id'));
         auth()->logout();
         return redirect()->home();
     }

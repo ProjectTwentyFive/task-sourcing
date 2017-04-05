@@ -32,6 +32,9 @@ class HomeController extends Controller
             $tasks = $this->tasksRepo->belongsTo($id);
             $bids = $this->bidsRepo->getOpenedBids($id);
             $selectedBids = $this->bidsRepo->getSelectedBids($id);
+            $numOpenBids = $this->bidsRepo->getNumOpenedBids($id);
+            $numTasks = $this->tasksRepo->getNumTasks($id);
+            $numSelectedBids = $this->bidsRepo->getNumSelectedBids($id);
 
             // formatting times
             foreach($tasks as $task){
@@ -55,6 +58,6 @@ class HomeController extends Controller
                 $selectedBid->end_date = date('Y-m-d H:i', $strToTime);
             }
         }
-        return view('home', compact('tasks', 'bids', 'selectedBids'));
+        return view('home', compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids'));
     }
 }

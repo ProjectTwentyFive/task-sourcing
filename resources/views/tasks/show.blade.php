@@ -111,7 +111,7 @@
             <div class="col-md-8 col-md-offset-2">
             <div class="btn-toolbar">
                 <!-- edit and delete button -->
-                @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
+                @if (Auth::check() && ($user->is_admin || $user->id == $task->owner) && $task->status != 2)
                     <div class="btn-group"><a class="btn btn-primary" href="/tasks/{{ $task->id }}/edit">Edit</a></div>
                     <div class="btn-group">
                         {{ Form::open(['method' => 'DELETE', 'route' => ['task.destroy', $task->id]]) }}
