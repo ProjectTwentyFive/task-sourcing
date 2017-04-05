@@ -192,10 +192,93 @@
                         to find tasks to complete.
                     </div>
                     @endif
+                    <!-- hacked up solution for when assigned tasks > 0, but completed tasks <= 0 -->
+                     @php
+                        $countCompleted = 0;
+                        foreach($selectedBids as $selectedBid) {
+                            if ($selectedBid->status == 2) {
+                                $countCompleted++;
+                            }
+                        }
+                        if ($countCompleted <= 0 && sizeOf($selectedBids) > 0) {
+                            echo '<div class="panel-body">
+                                You currently have no completed assigned tasks. Click
+                                <a href="tasks">here</a>
+                                to find tasks to complete.
+                            </div>';
+                        }
+                    @endphp
                 </div>
             </div>
 
             @endif
         </div>
+
+        <!-- Achievements Panel -->
+        @if(Auth::check())
+        <div class="row">
+
+            <div class="col-md-8 col-md-offset-2">
+                <h3><i class="fa fa-trophy fa-fw" aria-hidden="true"></i> &nbsp;Achievements</h3>
+            </div>
+
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <!-- Achievement: Create a task -->
+                        @if (sizeOf($tasks)>0)
+                        <p style="color:green;">
+                        @else
+                        <p style="color:lightgrey;">
+                        @endif
+                            <i class="fa fa-edit fa-3x" aria-hidden="true"></i>
+                            <span style="vertical-align:10px">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Task Creator: create a task to unlock this achievement
+                            </span>
+                        </p>
+
+                        <!-- Achievement: Complete a task -->
+                        @php
+                            $countCompleted = 0;
+                            foreach($selectedBids as $selectedBid) {
+                                if ($selectedBid->status == 2) {
+                                    $countCompleted++;
+                                }
+                            }
+                            if ($countCompleted > 0) {
+                                echo '<p style="color:green">';
+                            } else {
+                                echo '<p style="color:lightgrey">';
+                            }
+                        @endphp
+                            <i class="fa fa-check-circle-o fa-3x" aria-hidden="true"></i>
+                            <span style="vertical-align:10px">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Task Completer: complete a task to unlock this achievement
+                            </span>
+                        </p>
+
+                        <!-- Achievement: Created all the category of common tasks -->
+                        @if ($isCommonTasksCreator)
+                        <p style="color:green;">
+                        @else
+                        <p style="color:lightgrey;">
+                        @endif
+                            <i class="fa fa-handshake-o fa-3x" aria-hidden="true"></i>
+                            <span style="vertical-align:10px">
+                                &nbsp;&nbsp;
+                                Common Category Boss: create a task for every common category
+                            </span>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @endif
+
     </div>
 @endsection

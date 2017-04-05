@@ -5,16 +5,18 @@ namespace Taskr\Http\Controllers;
 use Auth;
 use Taskr\Repositories\Bids;
 use Taskr\Repositories\Tasks;
+use Taskr\Repositories\Users;
 
 class HomeController extends Controller
 {
 
     protected $tasksRepo, $bidsRepo;
 
-    public function __construct(Tasks $tasks, Bids $bids)
+    public function __construct(Tasks $tasks, Bids $bids, Users $users)
     {
         $this->tasksRepo = $tasks;
         $this->bidsRepo = $bids;
+        $this->usersRepo = $users;
     }
 
     /**
@@ -27,6 +29,7 @@ class HomeController extends Controller
         $tasks = [];
         $bids = [];
         $selectedBids = [];
+        $isCommonTasksCreator = false;
         if (Auth::check()) {
             $id = Auth::id();
             $tasks = $this->tasksRepo->belongsTo($id);
@@ -57,7 +60,10 @@ class HomeController extends Controller
                 $strToTime = strToTime($selectedBid->end_date);
                 $selectedBid->end_date = date('Y-m-d H:i', $strToTime);
             }
+
+            $isCommonTasksCreator = $this->usersRepo->checkIfUserCreatedTasksOfAllGenericCategory($id);
         }
-        return view('home', compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids'));
+
+        return view('home', compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids', 'isCommonTasksCreator'));
     }
 }
