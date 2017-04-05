@@ -44,7 +44,7 @@
                             </li>
                         @else
                         @foreach($bids as $bid)
-                            @if (($task->status >= 0 && $task->status <=2) || $bid->selected == 'true')
+                            @if ($task->status == 0 || $bid->selected == 'true')
                                 <li class="list-group-item clearfix">
                                     {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $bid->created_at)->diffForHumans()}}:&nbsp;
                                     <strong>{{$bid->first_name}} {{$bid->last_name}}</strong> bid <strong>${{ $bid->price }}</strong>&nbsp;
@@ -53,7 +53,7 @@
                                     @endif
 
                                     <span class="pull-right">
-                                    @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
+                                    @if (Auth::check() && ($user->is_admin || $user->id == $task->owner) &&  $task->status != 2)
                                         @if ($bid->selected)
                                             {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $task->id, $bid->id, 'false']]) }}
                                                 {{ Form::submit('Unselect', ['class' => 'btn btn-warning']) }}
