@@ -175,6 +175,20 @@ insert into tasks (title, description, category, owner, status, start_date, end_
 insert into tasks (title, description, category, owner, status, start_date, end_date)
     values ('Teach me how to not be deadweight again', 'i am a deadweight', 'Help', 20, 2, now(), '2017-02-05 11:11:11');
 
+-- tasks to ensure common category boss achievement is shown on test@gmail.com
+-- (achievement when a user creates a task for all the common task categories)
+-- tasks were place here to ensure the id ordering of previous tasks
+insert into tasks (title, description, category, owner, status, start_date, end_date)
+    values ('Clean my room', 'please help', 'Clean', 2, 0, now(), '2017-05-05 11:11:11');
+insert into tasks (title, description, category, owner, status, start_date, end_date)
+    values ('Wash my car', 'will pay well', 'Car Maintenance', 2, 0, now(), '2017-05-05 11:11:11');
+insert into tasks (title, description, category, owner, status, start_date, end_date)
+    values ('Buy tomatoes', 'need 6 to be exact', 'Groceries', 2, 0, now(), '2017-05-05 11:11:11');
+insert into tasks (title, description, category, owner, status, start_date, end_date)
+    values ('Wash my fish tank', 'I have no idea how to do', 'Pet Care', 2, 0, now(), '2017-05-05 11:11:11');
+insert into tasks (title, description, category, owner, status, start_date, end_date)
+    values ('Pull out weeds', 'I have backpain', 'Yard Work', 2, 0, now(), '2017-05-05 11:11:11');
+
 /*
  * BIDS
  */
