@@ -9,7 +9,6 @@
         </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <br/>
                 <form method="POST" action="/users/{{Auth::user()->id}}">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="patch">
