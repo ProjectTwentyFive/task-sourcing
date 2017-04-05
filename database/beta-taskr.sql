@@ -4,56 +4,56 @@
  */
 
 -- admin user
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('admin', 'admin', 'admin@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'true', now());
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('admin', 'admin', 'admin@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'true');
 
 -- this user has a full set of data
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('test', 'user', 'test@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('test', 'user', 'test@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
 
 -- regular users
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a1', 'a1', 'a1@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a2', 'a2', 'a2@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a3', 'a3', 'a3@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a4', 'a4', 'a4@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a5', 'a5', 'a5@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a6', 'a6', 'a6@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a7', 'a7', 'a7@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a8', 'a8', 'a8@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a9', 'a9', 'a9@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a10', 'a10', 'a10@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a11', 'a11', 'a11@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a12', 'a12', 'a12@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a13', 'a13', 'a13@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a14', 'a14', 'a14@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a15', 'a15', 'a15@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a16', 'a16', 'a16@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a17', 'a17', 'a17@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a18', 'a18', 'a18@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a19', 'a19', 'a19@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a20', 'a20', 'a20@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
-insert into Users(first_name, last_name, email, password, is_admin, created_at)
-    values ('a20', 'a20', 'a21@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false', now());
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a1', 'a1', 'a1@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a2', 'a2', 'a2@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a3', 'a3', 'a3@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a4', 'a4', 'a4@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a5', 'a5', 'a5@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a6', 'a6', 'a6@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a7', 'a7', 'a7@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a8', 'a8', 'a8@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a9', 'a9', 'a9@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a10', 'a10', 'a10@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a11', 'a11', 'a11@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a12', 'a12', 'a12@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a13', 'a13', 'a13@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a14', 'a14', 'a14@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a15', 'a15', 'a15@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a16', 'a16', 'a16@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a17', 'a17', 'a17@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a18', 'a18', 'a18@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a19', 'a19', 'a19@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a20', 'a20', 'a20@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
+insert into Users(first_name, last_name, email, password, is_admin)
+    values ('a20', 'a20', 'a21@gmail.com', '$2y$10$Nb7TVHDGRJejc9YI73BcJe95w2BeP7y32Eg8Dimv3CorB/BVB0p2m', 'false');
 
 /*
  * GENERIC TASKS
@@ -180,88 +180,88 @@ insert into tasks (title, description, category, owner, status, start_date, end_
  */
 
 -- bids that have been selected
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (20, 20, 12, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 21, 123, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (3, 22, 121, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (3, 23, 13, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (5, 24, 1, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (6, 25, 2, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 26, 112, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 27, 122, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (3, 28, 124, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (2, 29, 152, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (2, 30, 1211, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (18, 31, 3, true, now());
+insert into bids (user_id, task_id, price, selected)
+    values (20, 20, 12, true);
+insert into bids (user_id, task_id, price, selected)
+    values (1, 21, 123, true);
+insert into bids (user_id, task_id, price, selected)
+    values (3, 22, 121, true);
+insert into bids (user_id, task_id, price, selected)
+    values (3, 23, 13, true);
+insert into bids (user_id, task_id, price, selected)
+    values (5, 24, 1, true);
+insert into bids (user_id, task_id, price, selected)
+    values (6, 25, 2, true);
+insert into bids (user_id, task_id, price, selected)
+    values (1, 26, 112, true);
+insert into bids (user_id, task_id, price, selected)
+    values (1, 27, 122, true);
+insert into bids (user_id, task_id, price, selected)
+    values (3, 28, 124, true);
+insert into bids (user_id, task_id, price, selected)
+    values (2, 29, 152, true);
+insert into bids (user_id, task_id, price, selected)
+    values (2, 30, 1211, true);
+insert into bids (user_id, task_id, price, selected)
+    values (18, 31, 3, true);
 
 -- bids that have not been selected
 
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 20, 123, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (20, 21, 1244, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (5, 22, 1, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (14, 23, 134, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 24, 12, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 25, 22, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (3, 26, 1122, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (14, 27, 22, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (2, 28, 123, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (2, 29, 15, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (18, 30, 11, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (16, 31, 31, false, now());
+insert into bids (user_id, task_id, price, selected)
+    values (1, 20, 123, false);
+insert into bids (user_id, task_id, price, selected)
+    values (20, 21, 1244, false);
+insert into bids (user_id, task_id, price, selected)
+    values (5, 22, 1, false);
+insert into bids (user_id, task_id, price, selected)
+    values (14, 23, 134, false);
+insert into bids (user_id, task_id, price, selected)
+    values (1, 24, 12, false);
+insert into bids (user_id, task_id, price, selected)
+    values (1, 25, 22, false);
+insert into bids (user_id, task_id, price, selected)
+    values (3, 26, 1122, false);
+insert into bids (user_id, task_id, price, selected)
+    values (14, 27, 22, false);
+insert into bids (user_id, task_id, price, selected)
+    values (2, 28, 123, false);
+insert into bids (user_id, task_id, price, selected)
+    values (2, 29, 15, false);
+insert into bids (user_id, task_id, price, selected)
+    values (18, 30, 11, false);
+insert into bids (user_id, task_id, price, selected)
+    values (16, 31, 31, false);
 
 -- bids that have been selected (and these tasks are already completed)
 
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 32, 31, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 33, 31, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (2, 34, 31, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (3, 35, 31, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (4, 36, 31, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (5, 37, 31, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 38, 31, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (3, 39, 31, true, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (19, 40, 31, true, now());
+insert into bids (user_id, task_id, price, selected)
+    values (1, 32, 31, true);
+insert into bids (user_id, task_id, price, selected)
+    values (1, 33, 31, true);
+insert into bids (user_id, task_id, price, selected)
+    values (2, 34, 31, true);
+insert into bids (user_id, task_id, price, selected)
+    values (3, 35, 31, true);
+insert into bids (user_id, task_id, price, selected)
+    values (4, 36, 31, true);
+insert into bids (user_id, task_id, price, selected)
+    values (5, 37, 31, true);
+insert into bids (user_id, task_id, price, selected)
+    values (1, 38, 31, true);
+insert into bids (user_id, task_id, price, selected)
+    values (3, 39, 31, true);
+insert into bids (user_id, task_id, price, selected)
+    values (19, 40, 31, true);
 
 -- bids that have not been selected for tasks that are still open
 
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (2, 15, 311, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 16, 3133, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (2, 17, 1, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (1, 18, 31, false, now());
-insert into bids (user_id, task_id, price, selected, created_at)
-    values (2, 19, 131, false, now());
+insert into bids (user_id, task_id, price, selected)
+    values (2, 15, 311, false);
+insert into bids (user_id, task_id, price, selected)
+    values (1, 16, 3133, false);
+insert into bids (user_id, task_id, price, selected)
+    values (2, 17, 1, false);
+insert into bids (user_id, task_id, price, selected)
+    values (1, 18, 31, false);
+insert into bids (user_id, task_id, price, selected)
+    values (2, 19, 131, false);

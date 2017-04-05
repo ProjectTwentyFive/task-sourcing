@@ -5,6 +5,8 @@ namespace Taskr\Repositories;
 use Taskr\Bid;
 use Illuminate\support\Facades\DB;
 
+use Carbon\Carbon;
+
 /**
  * Class Bids is an repository which contains methods that combines
  * business log and data manipulation for Bid objects. It also
@@ -51,13 +53,14 @@ class Bids
 
     public function deleteBid($id)
     {
-        $deleted = DB::delete('DELETE FROM users WHERE id = ?', [$id]);
+        $deleted = DB::delete('DELETE FROM Bids b WHERE id = ?', [$id]);
         return $deleted;
     }
 
     public function insertBid($taskId, $userId, $price)
     {
-        $bid = DB::insert('INSERT INTO users (task_id, user_id, price) VALUES (?, ?, ?)', [$taskId, $userId, $price]);
+        // Should not be manually entering created_at but database would not store local time by default no matter what I did
+        $bid = DB::insert('INSERT INTO Bids (task_id, user_id, price, created_at) VALUES (?, ?, ?, ?)', [$taskId, $userId, $price, Carbon::now()]);
         return $bid;
     }
 

@@ -92,7 +92,7 @@ class TasksController extends Controller
         $this->tasksRepo->update($task->id,
             $request->input('title'),
             $request->input('description'),
-            $request->input('category'),
+            $request->input('category', ''),
             $request->input('start_date'),
             $request->input('end_date'));
         return redirect('/tasks');
@@ -128,7 +128,7 @@ class TasksController extends Controller
         $defaultStatus = 0;
         $this->tasksRepo->insert($request->input('title'),
             $request->input('description'),
-            $request->input('category', ""),
+            $request->input('category', ''),
             Auth::id(),
             $defaultStatus,
             $request->input('start_date'),

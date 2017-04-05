@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tasks/{task}/bids/{bid}', 'Resources\BidsController@show');
     Route::get('/users/{user}', 'Resources\UsersController@show');
     Route::get('/users', 'Resources\UsersController@index');
-    Route::get('/generic-tasks', 'Resources\GenericTasksController@index');
+    Route::get('/generic-tasks', 'Resources\GenericTasksController@index')->name('generic-tasks');
 
     Route::post('/logout', 'Auth\SessionsController@destroy')->name('logout');
 });

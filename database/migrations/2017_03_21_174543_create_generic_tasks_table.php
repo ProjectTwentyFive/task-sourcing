@@ -17,7 +17,7 @@ class CreateGenericTasksTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('category')->nullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->default(DB::raw('now()::timestamp'));
         });
     }
 

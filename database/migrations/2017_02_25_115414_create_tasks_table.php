@@ -17,12 +17,12 @@ class CreateTasksTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('description');
-            $table->string('category');
+            $table->string('category')->nullable();
             $table->integer('owner');
             $table->integer('status');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->default(DB::raw('now()::timestamp'));
 
             /* Schema constraints */
             $table->foreign('owner')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

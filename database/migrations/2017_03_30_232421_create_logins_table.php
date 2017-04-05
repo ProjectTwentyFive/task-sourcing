@@ -18,7 +18,7 @@ class CreateLoginsTable extends Migration
             $table->integer('user_id');
             $table->timestamp('login_time');
             $table->timestamp('logout_time')->nullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->default(DB::raw('now()::timestamp'));
 
             /* Schema constraints */
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

@@ -159,11 +159,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-<<<<<<< HEAD
-                            Tasks You Have Completed <b>({{$numCompletedBids}})</b>
-=======
-                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> &nbsp;Your Completed Assigned Tasks
->>>>>>> master
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> &nbsp;Your Completed Assigned Tasks <b>({{$numCompletedBids}})</b>
                         </h3>
                     </div>
                     @if ($numCompletedBids>0)
@@ -212,7 +208,7 @@
                             <th>Start</th>
                             <th>End</th>
                         </tr>
-                        @foreach ($tasksCompletedForYou as $taskCompleteForYou)
+                        @foreach ($tasksCompletedForYou as $taskCompletedForYou)
                         <tr onclick="window.document.location='tasks/{{$taskCompletedForYou->task_id}}';">
                             <td>{{$taskCompletedForYou->title}}</td>
                             <td>{{$taskCompletedForYou->first_name}} {{$taskCompletedForYou->last_name}}</td>
