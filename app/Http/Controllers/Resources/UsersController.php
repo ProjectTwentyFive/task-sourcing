@@ -19,7 +19,8 @@ class UsersController extends Controller
     }
 
     // Considered adding an isAdmin attribute to the constructor but we're not able to pick up the user id until after the user has been constructed
-    private function isAdmin() {
+    private function isAdmin()
+    {
         $id = Auth::id();
 
         return $this->usersRepo->getUser($id)->is_admin;
@@ -66,6 +67,14 @@ class UsersController extends Controller
     public function edit()
     {
         // Update User Profile
+        if (Auth::check() && $this->isAdmin()) {
+            return view('users.edit', compact('user'));
+        } elseif (Auth::check()) {
+            // Get ID of logged in User
+            return view('users.profile', compact('user'));
+        } else {
+            abort(403);
+        }
     }
 
     /*
@@ -92,9 +101,9 @@ class UsersController extends Controller
         return "Deleted user with id {$id}";
     }
 
-    // CREATE
     public function store()
     {
-
+        // TODO: Restrict to Administrator
+        // User creation method handled by Auth controllers.
     }
 }
