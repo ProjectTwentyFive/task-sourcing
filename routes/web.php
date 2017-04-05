@@ -29,8 +29,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/tasks/{task}/bids/{bid}', 'Resources\BidsController@update');
     Route::delete('/bids/{bid}', 'Resources\BidsController@destroy')->name('bid.destroy');
 
+    Route::get('/users', 'Resources\UsersController@index')->name('users.index');
+    Route::get('/users/create', 'Resources\UsersController@create')->name('user.create');
     Route::delete('/users/{user}', 'Resources\UsersController@destroy')->name('user.destroy');
-    Route::post('/users', 'Resources\UsersController@store')->name('user.create');
+    Route::post('/users', 'Resources\UsersController@store')->name('user.store');
     Route::patch('/users/{user}', 'Resources\UsersController@update');
     Route::get('/profile', 'Resources\UsersController@edit')->name('user.profile');
     Route::get('/users/edit', 'Resources\UsersController@edit');
@@ -39,7 +41,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tasks/{task}', 'Resources\TasksController@show');
     Route::get('/tasks/{task}/bids/{bid}', 'Resources\BidsController@show');
     Route::get('/users/{user}', 'Resources\UsersController@show');
-    Route::get('/users', 'Resources\UsersController@index');
 
     Route::post('/logout', 'Auth\SessionsController@destroy')->name('logout');
 

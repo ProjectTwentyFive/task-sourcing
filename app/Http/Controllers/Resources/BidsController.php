@@ -23,7 +23,7 @@ class BidsController extends Controller
     {
         $this->bidsRepo = $bids;
     }
-    
+
     /*
     |--------------------------------------------------------------------------
     | Resource Methods

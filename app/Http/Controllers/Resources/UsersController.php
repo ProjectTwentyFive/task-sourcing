@@ -63,6 +63,7 @@ class UsersController extends Controller
     {
         // User creation method handled by Auth controllers.
         if (Auth::check() && $this->isAdmin()) {
+            return view('users.create');
         } else {
             abort(403);
         }
@@ -116,7 +117,7 @@ class UsersController extends Controller
 
         $sql .= ' WHERE email = ?';
         array_push($input, Auth::user()->email);
-        
+
         // Update the user in the database
         $isUpdated = DB::update($sql, $input);
 
