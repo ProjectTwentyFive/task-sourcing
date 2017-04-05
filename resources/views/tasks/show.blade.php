@@ -86,12 +86,12 @@
                     <div class="card">
                         <div class="card-block">
                             <p>Make a bid</p>
-                            <form method="POST" action="/tasks/{{$task->id}}/bids">
+                            <form method="POST" action="/tasks/{{$task->id}}/bids" data-toggle="validator">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">$</span>
-                                        <input type="text" id="price" name="price" class="form-control" placeholder="Price">
+                                        <input type="number" id="price" name="price" class="form-control" placeholder="Price" required step="0.01" min="0.01">
                                     </div>
                                 </div>
                                 <div class="form-group">
