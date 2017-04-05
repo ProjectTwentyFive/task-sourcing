@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h1>Edit Task</h1>
+                <h3><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp;Edit Task</h3>
                 <form method="POST" action="/tasks/{{ $task->id }}">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="patch">

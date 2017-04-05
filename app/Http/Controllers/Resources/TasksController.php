@@ -111,7 +111,8 @@ class TasksController extends Controller
         return redirect('/tasks');
     }
 
-    private function validateTask(Request $request) {
+    private function validateTask(Request $request)
+    {
         $this->validate($request, [
             'title' => 'required|max:15',
             'description' => 'required',

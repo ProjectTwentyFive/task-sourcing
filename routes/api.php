@@ -16,14 +16,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
-/*
- * API Routes that requires authentication to process. Otherwise, redirected
- * to login page.
- */
-Route::group(['middleware' => 'auth', 'namespace' => 'Resources'], function () {
-    // Route::post('/tasks', 'TasksController@store');
-    // Route::patch('/tasks/{task}', 'TasksController@update');
-    // Route::delete('/tasks/{task}', 'TasksController@destroy');
-});
