@@ -5,16 +5,18 @@ namespace Taskr\Http\Controllers;
 use Auth;
 use Taskr\Repositories\Bids;
 use Taskr\Repositories\Tasks;
+use Taskr\Repositories\Users;
 
 class HomeController extends Controller
 {
 
     protected $tasksRepo, $bidsRepo;
 
-    public function __construct(Tasks $tasks, Bids $bids)
+    public function __construct(Tasks $tasks, Bids $bids, Users $users)
     {
         $this->tasksRepo = $tasks;
         $this->bidsRepo = $bids;
+        $this->usersRepo = $users;
     }
 
     /**
@@ -27,6 +29,7 @@ class HomeController extends Controller
         $tasks = [];
         $bids = [];
         $selectedBids = [];
+        $isCommonTasksCreator = false;
         if (Auth::check()) {
             $id = Auth::id();
             $tasks = $this->tasksRepo->belongsTo($id);
@@ -39,7 +42,8 @@ class HomeController extends Controller
             $numCompletedBids = $this->bidsRepo->getNumCompletedBids($id);
             $tasksCompletedForYou = $this->tasksRepo->getTasksCompletedForYou($id);
             $numTasksCompletedForYou = $this->tasksRepo->getNumTasksCompletedForYou($id);
-
+            $isCommonTasksCreator = $this->usersRepo->checkIfUserCreatedTasksOfAllGenericCategory($id);
+          
             // formatting times
             foreach($tasks as $task){
                 $strToTime = strToTime($task->start_date);
@@ -73,6 +77,7 @@ class HomeController extends Controller
             }
         }
         return view('home', compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids', 'completedBids',
-            'numCompletedBids', 'tasksCompletedForYou', 'numTasksCompletedForYou'));
+            'numCompletedBids', 'tasksCompletedForYou', 'numTasksCompletedForYou', 'isCommonTasksCreator'));
+        }
     }
 }
