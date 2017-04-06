@@ -37,10 +37,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', 'Resources\UsersController@profile')->name('user.profile');
     Route::get('/users/{user}/edit', 'Resources\UsersController@edit')->name('user.edit');
 
+    Route::post('/generic-tasks', 'Resources\GenericTasksController@store');
+    Route::patch('/generic-tasks/{genericTask}', 'Resources\GenericTasksController@update');
+    Route::delete('/generic-tasks/{genericTask}', 'Resources\GenericTasksController@destroy')->name('generic-task.destroy');
+    Route::get('/generic-tasks/create', 'Resources\GenericTasksController@create');
+    Route::get('/generic-tasks/{genericTask}/edit', 'Resources\GenericTasksController@edit');
+
     Route::get('/tasks', 'Resources\TasksController@index')->name('tasks.index');
     Route::get('/tasks/{task}', 'Resources\TasksController@show');
     Route::get('/tasks/{task}/bids/{bid}', 'Resources\BidsController@show');
     Route::get('/users/{user}', 'Resources\UsersController@show');
+
+    Route::get('/generic-tasks', 'Resources\GenericTasksController@index')->name('generic-tasks');
 
     Route::post('/logout', 'Auth\SessionsController@destroy')->name('logout');
 
