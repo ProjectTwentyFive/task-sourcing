@@ -49,6 +49,10 @@
                                 <i class="fa fa-tasks fa-fw" aria-hidden="true"></i> &nbsp;Create Task
                             </a>
 
+                            <a class="btn btn-info" href="{{route('generic-tasks')}}">
+                                <i class="fa fa-tasks fa-fw" aria-hidden="true"></i> &nbsp;Generic Tasks
+                            </a>
+
                         </div>
                     </div>
                 </div>
