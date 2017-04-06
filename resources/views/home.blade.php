@@ -304,6 +304,19 @@
                             </span>
                         </p>
 
+                        <!-- Achievement: Most completed tasks -->
+                        @if ($isMostCompletedTasksUser)
+                        <p style="color:green;">
+                        @else
+                        <p style="color:lightgrey;">
+                        @endif
+                            <i class="fa fa-superpowers fa-3x" aria-hidden="true"></i>
+                            <span style="vertical-align:10px">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Task Completer Leader: most completed tasks (current highest is {{$highestCompletedTasks}})
+                            </span>
+                        </p>
+
                     </div>
                 </div>
             </div>

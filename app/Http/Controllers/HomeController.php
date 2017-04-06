@@ -30,6 +30,8 @@ class HomeController extends Controller
         $bids = [];
         $selectedBids = [];
         $isCommonTasksCreator = false;
+        $highestCompletedTasks = 0;
+        $isMostCompletedTasksUser = false;
         if (Auth::check()) {
             $id = Auth::id();
             $tasks = $this->tasksRepo->belongsTo($id);
@@ -43,6 +45,15 @@ class HomeController extends Controller
             $tasksCompletedForYou = $this->tasksRepo->getTasksCompletedForYou($id);
             $numTasksCompletedForYou = $this->tasksRepo->getNumTasksCompletedForYou($id);
             $isCommonTasksCreator = $this->usersRepo->checkIfUserCreatedTasksOfAllGenericCategory($id);
+
+            // for most completed tasks achievement
+            $mostCompletedTasksUsers = $this->bidsRepo->getUserWithMostCompletedTasks();
+            foreach($mostCompletedTasksUsers as $user) {
+                $highestCompletedTasks = $user->count;
+                if ($user->user_id == $id) {
+                    $isMostCompletedTasksUser = true;
+                }
+            }
 
             // formatting times
             foreach ($tasks as $task) {
@@ -78,6 +89,7 @@ class HomeController extends Controller
         }
         return view('home',
             compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids', 'completedBids',
-                'numCompletedBids', 'tasksCompletedForYou', 'numTasksCompletedForYou', 'isCommonTasksCreator'));
+                'numCompletedBids', 'tasksCompletedForYou', 'numTasksCompletedForYou', 'isCommonTasksCreator',
+                'highestCompletedTasks', 'isMostCompletedTasksUser'));
     }
 }
