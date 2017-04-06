@@ -43,41 +43,41 @@ class HomeController extends Controller
             $tasksCompletedForYou = $this->tasksRepo->getTasksCompletedForYou($id);
             $numTasksCompletedForYou = $this->tasksRepo->getNumTasksCompletedForYou($id);
             $isCommonTasksCreator = $this->usersRepo->checkIfUserCreatedTasksOfAllGenericCategory($id);
-          
+
             // formatting times
-            foreach($tasks as $task){
+            foreach ($tasks as $task) {
                 $strToTime = strToTime($task->start_date);
                 $task->start_date = date('Y-m-d H:i', $strToTime);
                 $strToTime = strToTime($task->end_date);
                 $task->end_date = date('Y-m-d H:i', $strToTime);
             }
 
-            foreach($bids as $bid){
+            foreach ($bids as $bid) {
                 $strToTime = strToTime($bid->start_date);
                 $bid->start_date = date('Y-m-d H:i', $strToTime);
                 $strToTime = strToTime($bid->end_date);
                 $bid->end_date = date('Y-m-d H:i', $strToTime);
             }
 
-            foreach($selectedBids as $selectedBid){
+            foreach ($selectedBids as $selectedBid) {
                 $strToTime = strToTime($selectedBid->start_date);
                 $selectedBid->start_date = date('Y-m-d H:i', $strToTime);
                 $strToTime = strToTime($selectedBid->end_date);
                 $selectedBid->end_date = date('Y-m-d H:i', $strToTime);
             }
 
-            foreach($completedBids as $completedBid) {
+            foreach ($completedBids as $completedBid) {
                 $completedBid->start_date = date('Y-m-d H:i', strToTime($completedBid->start_date));
                 $completedBid->end_date = date('Y-m-d H:i', strToTime($completedBid->end_date));
             }
 
-            foreach($tasksCompletedForYou as $taskCompletedForYou) {
+            foreach ($tasksCompletedForYou as $taskCompletedForYou) {
                 $taskCompletedForYou->start_date = date('Y-m-d H:i', strToTime($taskCompletedForYou->start_date));
                 $taskCompletedForYou->end_date = date('Y-m-d H:i', strToTime($taskCompletedForYou->end_date));
             }
         }
-        return view('home', compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids', 'completedBids',
-            'numCompletedBids', 'tasksCompletedForYou', 'numTasksCompletedForYou', 'isCommonTasksCreator'));
-        }
+        return view('home',
+            compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids', 'completedBids',
+                'numCompletedBids', 'tasksCompletedForYou', 'numTasksCompletedForYou', 'isCommonTasksCreator'));
     }
 }

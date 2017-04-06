@@ -2,7 +2,6 @@
 
 namespace Taskr\Repositories;
 
-use Taskr\Bid;
 use Illuminate\support\Facades\DB;
 
 use Carbon\Carbon;
