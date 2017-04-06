@@ -212,7 +212,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Tasks Completed For You <b>({{$numTasksCompletedForYou}})</b>
+                            <i class="fa fa-heart" aria-hidden="true"></i> Tasks Completed For You <b>({{$numTasksCompletedForYou}})</b>
                         </h3>
                     </div>
                     @if ($numTasksCompletedForYou>0)

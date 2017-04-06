@@ -59,21 +59,26 @@ class Bids
     public function insertBid($taskId, $userId, $price)
     {
         // Should not be manually entering created_at but database would not store local time by default no matter what I did
-        $bid = DB::insert('INSERT INTO Bids (task_id, user_id, price, created_at) VALUES (?, ?, ?, ?)', [$taskId, $userId, $price, Carbon::now()]);
+        $bid = DB::insert('INSERT INTO Bids (task_id, user_id, price, created_at) VALUES (?, ?, ?, ?)',
+            [$taskId, $userId, $price, Carbon::now()]);
         return $bid;
     }
 
-    public function getNumOpenedBids($id) {
+    public function getNumOpenedBids($id)
+    {
         return array_filter(
-            DB::select('SELECT COUNT(*) FROM Bids b, Tasks t WHERE b.user_id = ? AND b.task_id = t.id AND t.status = 0', [$id]))[0]->count;
+            DB::select('SELECT COUNT(*) FROM Bids b, Tasks t WHERE b.user_id = ? AND b.task_id = t.id AND t.status = 0',
+                [$id]))[0]->count;
     }
 
-    public function getNumSelectedBids($id) {
+    public function getNumSelectedBids($id)
+    {
         return array_filter(
             DB::select('SELECT COUNT(*) FROM Bids b WHERE b.user_id = ? AND b.selected=true', [$id]))[0]->count;
     }
 
-    public function getNumBids($id) {
+    public function getNumBids($id)
+    {
         return array_filter(
             DB::select('SELECT COUNT(*) FROM Bids b WHERE b.task_id = ?', [$id]))[0]->count;
     }
@@ -84,14 +89,31 @@ class Bids
             [$bid->task_id, $bid->user_id, $bid->price, $bid->id]);
     }
 
-    public function getCompletedBids($id) {
+    public function getCompletedBids($id)
+    {
         return DB::select('SELECT * FROM Bids b, Tasks t, Users u WHERE b.task_id = t.id AND b.selected=true AND t.status = 2 AND b.user_id = ? AND t.owner = u.id',
-                [$id]);
+            [$id]);
     }
 
-    public function getNumCompletedBids($id) {
+    public function getNumCompletedBids($id)
+    {
         return array_filter(
             DB::select('SELECT COUNT(*) FROM Bids b, Tasks t WHERE b.task_id = t.id AND b.selected=true AND t.status = 2 AND b.user_id = ?',
                 [$id]))[0]->count;
     }
+
+    public function getBidsCount()
+    {
+        return array_filter(
+            DB::select('SELECT COUNT(*) FROM Bids')
+        )[0]->count;
+    }
+
+    public function getTasksBidsAverage()
+    {
+        return array_filter(
+            DB::select('SELECT AVG(bids_count) FROM (SELECT COUNT(*) as bids_count FROM Bids b, Tasks t WHERE b.task_id = t.id GROUP BY b.task_id) sq')
+        )[0]->avg;
+    }
+
 }

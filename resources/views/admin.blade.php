@@ -18,7 +18,37 @@
                             </h3>
                         </div>
                         <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6" align="center">
+                                    <i class="fa fa-users fa-fw" aria-hidden="true"></i> Users Signed Up
+                                    <h3>{{$usersCount}}</h3>
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    <i class="fa fa-gavel fa-fw" aria-hidden="true"></i> Number of Bids
+                                    <h3>{{$bidsCount}}</h3>
+                                </div>
+                            </div>
 
+                            <div class="row" style="margin-top: 20px;">
+                                <div class="col-md-6" align="center">
+                                    <i class="fa fa-rocket fa-fw" aria-hidden="true"></i> Task Completed Per Person
+                                    <h3>{{number_format($tasksCompletedPer, 2, '.', ',')}}</h3>
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    <i class="fa fa-plus-square fa-fw" aria-hidden="true"> </i>Task Created Per Person
+                                    <h3>{{number_format($tasksCreatedPer, 2, '.', ',')}}</h3>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 20px;">
+                                <div class="col-md-6" align="center">
+                                    <i class="fa fa-line-chart fa-fw" aria-hidden="true"></i> Bids Per Task
+                                    <h3>{{number_format($bidsAverage, 2, '.', ',')}}</h3>
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    <i class="fa fa-frown-o fa-fw" aria-hidden="true"></i> Unbidded Tasks
+                                    <h3>{{$unbiddedTasksCount}}</h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ class Users
 
     public function checkIfUserCreatedTasksOfAllGenericCategory($userid)
     {
-		$users = DB::select('
+        $users = DB::select('
 				SELECT u.id FROM users u WHERE NOT EXISTS(
 					SELECT g.category FROM generic_tasks g WHERE NOT EXISTS(
 						SELECT t.category FROM tasks t
@@ -36,11 +36,17 @@ class Users
 					)
 				)
 			');
-		foreach($users as $user) {
-			if ($user->id == $userid) {
-				return true;
-			}
-		}
-		return false;
-	}
+        foreach ($users as $user) {
+            if ($user->id == $userid) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getUsersCount()
+    {
+        $count = DB::select('SELECT count(*) FROM Users');
+        return $count[0]->count;
+    }
 }

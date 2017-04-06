@@ -72,4 +72,22 @@ class Tasks
         return array_filter(
             DB::select('SELECT COUNT(*) FROM Tasks t WHERE t.owner = ? AND t.status=2', [$id]))[0]->count;
     }
+
+    public function getUnbiddedTasksCount() {
+        return array_filter(
+            DB::select ('SELECT COUNT(*) FROM (SELECT * FROM Tasks t1 WHERE t1.id NOT IN (SELECT t2.id FROM Tasks t2, Bids b WHERE t2.id = b.task_id)) oalias')
+        )[0]->count;
+    }
+
+    public function getCompletedTasksAverage() {
+        return array_filter(
+            DB::select('SELECT AVG(tasks_count) FROM (SELECT COUNT(*) as tasks_count FROM Users u, Tasks t WHERE u.id = t.owner AND t.status = 2 GROUP BY u.id) sq')
+        )[0]->avg;
+    }
+
+    public function getCreatedTasksAverage() {
+        return array_filter(
+            DB::select('SELECT AVG(tasks_count) FROM (SELECT COUNT(*) as tasks_count FROM Users u, Tasks t WHERE u.id = t.owner GROUP BY u.id) sq')
+        )[0]->avg;
+    }
 }
