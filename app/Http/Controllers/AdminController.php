@@ -28,7 +28,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        if (Auth::check() && $this->isAdmin()) {
+        if (Auth::check() && Auth::User()->is_admin) {
             return view('admin');
         } else {
             abort(403);
