@@ -28,6 +28,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin');
+        if (Auth::check() && $this->isAdmin()) {
+            return view('admin');
+        } else {
+            abort(403);
+        }
     }
 }
