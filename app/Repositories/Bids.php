@@ -116,4 +116,20 @@ class Bids
         )[0]->avg;
     }
 
+    public function getUserWithMostCompletedTasks() {
+        return DB::select('
+                SELECT b.user_id, COUNT(*) AS count FROM bids b, tasks t
+                WHERE b.task_id = t.id
+                AND t.status = 2
+                AND b.selected = true
+                GROUP BY b.user_id
+                HAVING COUNT(*) >= ALL (
+                    SELECT COUNT(*) FROM bids b2, tasks t2
+                    WHERE b2.task_id = t2.id
+                    AND t2.status = 2
+                    AND b2.selected = true
+                    GROUP BY b2.user_id
+                )
+            ');
+    }
 }
