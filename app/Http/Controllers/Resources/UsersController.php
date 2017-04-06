@@ -170,7 +170,32 @@ class UsersController extends Controller
 
     public function store()
     {
-        // TODO: Restrict to Administrator
-        // User creation method handled by Auth controllers.
+        // Validate the form
+        $this->validate(request(), [
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed'
+        ]);
+
+        // Create and save the user
+        $isCreated = DB::insert('INSERT INTO users (first_name, last_name, email, password, is_admin) VALUES (?, ?, ?, ?, ?)',
+            [
+                request('first_name'),
+                request('last_name'),
+                request('email'),
+                Hash::make(request('password')),
+                request('is_admin')
+            ]);
+
+        if ($isCreated) {
+            return back()->with(['status' => 'Successfully added new user.']);
+        } else {
+            // throw some error that insertion has failed. violate unique constraints?
+            request()->flash();
+            return back()->withErrors([
+                'message' => 'There is something wrong with your registration. Try again later.'
+            ]);
+        }
     }
 }

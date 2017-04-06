@@ -37,6 +37,14 @@
                                name="password_confirmation">
                     </div>
 
+                    <div class="form-group">
+                        <label for="is_admin">Is Admin?</label>
+                        <select class="form-control" id="is_admin" name="is_admin">
+                            <option value="true" {{$user->is_admin ? 'selected' : ''}}>Yes</option>
+                            <option value="false" {{!$user->is_admin ? 'selected' : ''}}>No</option>
+                        </select>
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Edit</button>
                     <a class="btn btn-default" href="{{ route('users.index') }}">Cancel</a>
                     @include('layouts.errors')
