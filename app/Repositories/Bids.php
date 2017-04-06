@@ -132,4 +132,21 @@ class Bids
                 )
             ');
     }
+
+    public function getUserWithMostMoneyEarned() {
+        return DB::select('
+            SELECT b.user_id, SUM(b.price) AS sum FROM bids b, tasks t
+            WHERE b.task_id = t.id
+            AND t.status = 2
+            AND b.selected = true
+            GROUP BY b.user_id
+            HAVING SUM(b.price) >= ALL (
+                SELECT SUM(b2.price) FROM bids b2, tasks t2
+                WHERE b2.task_id = t2.id
+                AND t2.status = 2
+                AND b2.selected = true
+                GROUP BY b2.user_id
+            )
+        ');
+    }
 }

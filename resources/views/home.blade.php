@@ -317,6 +317,20 @@
                             </span>
                         </p>
 
+                        <!-- Achievement: Most money earned -->
+                        @if ($isMostMoneyEarnedUser)
+                        <p style="color:green;">
+                        @else
+                        <p style="color:lightgrey;">
+                        @endif
+                            <i class="fa fa-money fa-3x" aria-hidden="true"></i>
+                            <span style="vertical-align:10px">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                High Roller: most money earned from tasks (current highest is ${{$mostMoneyEarned}})
+                            </span>
+                        </p>
+
+
                     </div>
                 </div>
             </div>

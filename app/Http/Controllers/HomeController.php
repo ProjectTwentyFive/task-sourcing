@@ -32,6 +32,8 @@ class HomeController extends Controller
         $isCommonTasksCreator = false;
         $highestCompletedTasks = 0;
         $isMostCompletedTasksUser = false;
+        $mostMoneyEarned = 0;
+        $isMostMoneyEarnedUser = false;
         if (Auth::check()) {
             $id = Auth::id();
             $tasks = $this->tasksRepo->belongsTo($id);
@@ -52,6 +54,15 @@ class HomeController extends Controller
                 $highestCompletedTasks = $user->count;
                 if ($user->user_id == $id) {
                     $isMostCompletedTasksUser = true;
+                }
+            }
+
+            // for most money earned achievement
+            $mostMoneyEarnedUsers = $this->bidsRepo->getUserWithMostMoneyEarned();
+            foreach($mostMoneyEarnedUsers as $user) {
+                $mostMoneyEarned = $user->sum;
+                if ($user->user_id == $id) {
+                    $isMostMoneyEarnedUser = true;
                 }
             }
 
@@ -90,6 +101,6 @@ class HomeController extends Controller
         return view('home',
             compact('tasks', 'bids', 'selectedBids', 'numOpenBids', 'numTasks', 'numSelectedBids', 'completedBids',
                 'numCompletedBids', 'tasksCompletedForYou', 'numTasksCompletedForYou', 'isCommonTasksCreator',
-                'highestCompletedTasks', 'isMostCompletedTasksUser'));
+                'highestCompletedTasks', 'isMostCompletedTasksUser', 'mostMoneyEarned', 'isMostMoneyEarnedUser'));
     }
 }
