@@ -4,8 +4,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h2>Generic Tasks</h2>
-                <a href="generic-tasks/create" style="color:#3097D1; float:right">New Generic Task</a>
+                <h3 class="pull-left"><i class="fa fa-terminal fa-fw" aria-hidden="true"></i> Generic Tasks</h3>
+                <a class="btn btn-primary btn-sm pull-right h3" href="generic-tasks/create">
+                    <i class="fa fa-plus fa-fw" aria-hidden="true"></i> &nbsp;Create Generic Task
+                </a>
             </div>
         </div>
         @if (sizeOf($genericTasks) > 0)
@@ -18,6 +20,6 @@
                     <p>No Generic Tasks</p>
                 </div>
             </div>
-        @endif 
+        @endif
     </div>
 @endsection
