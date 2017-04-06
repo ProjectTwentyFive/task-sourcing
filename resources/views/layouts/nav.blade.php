@@ -42,6 +42,13 @@
                                     <i class="fa fa-user fa-fw" aria-hidden="true"></i> Profile
                                 </a>
                             </li>
+                            @if(Auth::check() && Auth::User()->is_admin)
+                            <li>
+                                <a href="{{ route('admin') }}">
+                                    <i class="fa fa-lock fa-fw" aria-hidden="true"></i> Admin Dashboard
+                                </a>
+                            </li>
+                            @endif
                             <li class="divider"></li>
                             <li>
                                 <a href="{{ route('logout') }}"

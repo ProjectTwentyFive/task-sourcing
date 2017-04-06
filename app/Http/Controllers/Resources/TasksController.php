@@ -59,9 +59,10 @@ class TasksController extends Controller
             $id = Auth::id();
             $user = $this->usersRepo->getUser($id);
             $bids = $this->bidsRepo->getBids($task->id);
+            $numBids = $this->bidsRepo->getNumBids($task->id);
             $taskOwner = $this->usersRepo->getUser($task->owner);
         }
-        return view('tasks.show', compact('task', 'user', 'bids', 'taskOwner'));
+        return view('tasks.show', compact('task', 'user', 'bids', 'numBids', 'taskOwner'));
     }
 
     public function create()
@@ -91,7 +92,7 @@ class TasksController extends Controller
         $this->tasksRepo->update($task->id,
             $request->input('title'),
             $request->input('description'),
-            $request->input('category'),
+            $request->input('category', ''),
             $request->input('start_date'),
             $request->input('end_date'));
         return redirect('/tasks');
@@ -114,9 +115,8 @@ class TasksController extends Controller
     private function validateTask(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:15',
+            'title' => 'required|max:255',
             'description' => 'required',
-            'category' => 'required',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after_or_equal:today'
         ]);
@@ -128,7 +128,7 @@ class TasksController extends Controller
         $defaultStatus = 0;
         $this->tasksRepo->insert($request->input('title'),
             $request->input('description'),
-            $request->input('category'),
+            $request->input('category', ''),
             Auth::id(),
             $defaultStatus,
             $request->input('start_date'),

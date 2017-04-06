@@ -32,10 +32,16 @@
         </div>
     </div>
 
-    @if ($task->status != 2)
+    @if ($task->status >= 0 && $task->status <=2)
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp; Bids</h3>
+                <h3><i class="fa fa-gavel" aria-hidden="true"></i>&nbsp; {{ $numBids }}
+                @if ($numBids == 1)
+                    Bid
+                @else
+                    Bids
+                @endif
+                </h3>
                 <div class="bids">
                     <ul class="list-group">
                         @if(sizeOf($bids) <= 0)
@@ -53,7 +59,7 @@
                                     @endif
 
                                     <span class="pull-right">
-                                    @if (Auth::check() && ($user->is_admin || $user->id == $task->owner))
+                                    @if (Auth::check() && ($user->is_admin || $user->id == $task->owner) &&  $task->status != 2)
                                         @if ($bid->selected)
                                             {{ Form::open(['method' => 'POST', 'route' => ['bid.update', $task->id, $bid->id, 'false']]) }}
                                                 {{ Form::submit('Unselect', ['class' => 'btn btn-warning']) }}
@@ -86,12 +92,12 @@
                     <div class="card">
                         <div class="card-block">
                             <p>Make a bid</p>
-                            <form method="POST" action="/tasks/{{$task->id}}/bids">
+                            <form method="POST" action="/tasks/{{$task->id}}/bids" data-toggle="validator">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">$</span>
-                                        <input type="text" id="price" name="price" class="form-control" placeholder="Price">
+                                        <input type="number" id="price" name="price" class="form-control" placeholder="Price" required step="0.01" min="0.01">
                                     </div>
                                 </div>
                                 <div class="form-group">
