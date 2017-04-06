@@ -1,5 +1,10 @@
 @extends ('layouts.app')
 
+@section('css')
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+@endsection
+
 @section ('content')
     <div class="container">
         <div class="row">
@@ -11,7 +16,9 @@
                         <label for="title">Task Title</label>
                         <div class="input-group">
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Common Task <span class="caret"></span></button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">Select Common Task <span
+                                            class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     @foreach($generic_tasks as $generic_task)
                                         <li onclick="selectTask('{{ $generic_task->name }}', '{{ $generic_task->category }}')">
@@ -21,27 +28,30 @@
                                 </ul>
                             </div>
                             <input type="text" class="form-control" id="title" name="title"
-                               placeholder="Building a cupboard" aria-label="...">
+                                   placeholder="Building a cupboard" aria-label="..." value="{{old ('title')}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="body">Task Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3"
+                                  value="{{old ('description')}}"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="title">Task Category</label>
                         <input type="text" class="form-control" id="category" name="category"
-                               placeholder="Craftsmanship">
+                               placeholder="Craftsmanship" value="{{old ('category')}}">
                     </div>
 
                     <div class="form-group{{ $errors->has('start_date') ? 'has-error' : '' }}">
                         <label for="title">Start Date</label>
-                        <Input type="text" class="form-control" id="start_date" name="start_date" placeholder="YYYY-MM-DD HH:mm">
+                        <Input type="text" class="form-control" id="start_date" name="start_date"
+                               placeholder="Start Date of Task" value="{{old ('start_date')}}">
                     </div>
 
                     <div class="form-group{{ $errors->has('end_date') ? 'has-error' : '' }}">
                         <label for="title">End Date</label>
-                        <Input type="text" class="form-control" id="end_date" name="end_date" placeholder="YYYY-MM-DD HH:mm">
+                        <Input type="text" class="form-control" id="end_date" name="end_date"
+                               placeholder="End Date of Task" value="{{old ('end_date')}}">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Create</button>
@@ -51,4 +61,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $(function () {
+            $('#start_date').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm'
+            });
+            $('#end_date').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD HH:mm'
+            });
+            $("#start_date").on("dp.change", function (e) {
+                $('#end_date').data("DateTimePicker").minDate(e.date);
+            });
+            $("#end_date").on("dp.change", function (e) {
+                $('#start_date').data("DateTimePicker").maxDate(e.date);
+            });
+        });
+    </script>
 @endsection
