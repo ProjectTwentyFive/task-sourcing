@@ -13,7 +13,7 @@
 
                 <div class="btn-toolbar">
                     <div class="btn-group">
-                        {{ Form::open(['method' => 'GET', 'route' => ['user.update', $user->id]]) }}
+                        {{ Form::open(['method' => 'GET', 'route' => ['user.edit', $user->id]]) }}
                         {{ Form::submit('Edit', ['class' => 'btn btn-primary']) }}
                         {{ Form::close() }}
                     </div>

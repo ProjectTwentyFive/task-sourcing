@@ -34,8 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/users/{user}', 'Resources\UsersController@destroy')->name('user.destroy');
     Route::post('/users', 'Resources\UsersController@store')->name('user.store');
     Route::patch('/users/{user}', 'Resources\UsersController@update');
-    Route::get('/profile', 'Resources\UsersController@edit')->name('user.profile');
-    Route::get('/users/edit', 'Resources\UsersController@edit')->name('user.update');
+    Route::get('/profile', 'Resources\UsersController@profile')->name('user.profile');
+    Route::get('/users/{user}/edit', 'Resources\UsersController@edit')->name('user.edit');
 
     Route::get('/tasks', 'Resources\TasksController@index')->name('tasks.index');
     Route::get('/tasks/{task}', 'Resources\TasksController@show');
