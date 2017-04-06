@@ -18,7 +18,7 @@ Taskr is task sourcing platform for people to outsource tasks to others who want
     ```
 2. Start Homestead by `vagrant up` and SSH into Homestead using `vagrant ssh`.
 3. Navigate into the project folder within the SSH session and run `composer install` to get PHP dependencies.
-4. Run `yarn` to install Javascript dependencies (e.g. jQuery, Bootstrap, etc.).
+4. Run `yarn --no-bin-links` to install Javascript dependencies (e.g. jQuery, Bootstrap, etc.).
 5. Run `cp .env.example .env` and modify the .env file using your favourite editor e.g. `nano`, `vim`, `sublime`
 6. From [Laravel Homestead](https://laravel.com/docs/5.4/homestead) guide, put in the username and password of the PostgreSQL into .env. defaults: `username: homestead, password: secret`
 7. Login to PostgreSQL database by running `psql -U homestead -h localhost` and create database using `CREATE DATABASE taskr` within `psql` shell.
@@ -41,6 +41,9 @@ Taskr is task sourcing platform for people to outsource tasks to others who want
     1. You can also execute database setup code using the SQL file provided `psql -U {your_username} -h localhost example.sql`.
 8. Ensure that your project folder is in your Apache folder (e.g. Linux - /var/www/html) and it has writable permissions.
 9. Navigate to the site based on your Apache settings using your browser.
+
+### Common Problems
+- If certain errors appear due to lack of dependencies or missing path. Remove `node-modules` and `yarn.lock`  and run `yarn --no-bin-links` to resolve.
 
 ## Database Models and Manipulation
 Due to the restrictions against ORMs (Eloquent), the project requires the execution of raw queries instead. To understand how to do that in Laravel, take a look at their [documentation](https://laravel.com/docs/5.4/database#running-queries) to learn more.
