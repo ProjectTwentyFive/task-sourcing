@@ -26,38 +26,6 @@ class BidsController extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    | View Methods
-    |--------------------------------------------------------------------------
-    |
-    | These methods should return views with the appropriate data bind to it.
-    |
-    */
-
-    /**
-     * Display a listing of the bid such as the bid details (date, cost, etc).
-     *
-     * @param \Taskr\Bid $bid
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function show(Bid $bid)
-    {
-        return view("bids.show");
-    }
-
-    /**
-     * Display a form to create a new bid. If this is not needed in finalized design decision, restrict this
-     * method to administrators only.
-     *
-     ** @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create()
-    {
-        return view("bids.create");
-    }
-
-    /*
-    |--------------------------------------------------------------------------
     | Resource Methods
     |--------------------------------------------------------------------------
     |
@@ -77,7 +45,8 @@ class BidsController extends Controller
         # if request query has user, add user id into the filter of the request
         if ($request->has('user')) {
             $user_id = $request->input('user')->id;
-            return DB::select('select * from bids b, users u where b.task_id = ? and b.user_id = ? and u.id = b.user_id', [$task->id, $user_id]);
+            return DB::select('select * from bids b, users u where b.task_id = ? and b.user_id = ? and u.id = b.user_id',
+                [$task->id, $user_id]);
         } else {
             return DB::select('select * from bids b, users u where b.task_id = ? and b.user_id = u.id', [$task->id]);
         }
@@ -87,16 +56,18 @@ class BidsController extends Controller
     /**
      * Update the selected field of the bid, whether is it true or false.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Taskr\Bid               $bid
+     * @param task_id
+     * @param $bid_id
+     * @param $is_selected
      *
      * @internal param $id
+     * @return void
      */
-    public function update($task_id, $bid_id, $isSelected)
+    public function update($task_id, $bid_id, $is_selected)
     {
-        DB::update('UPDATE bids SET selected = ? WHERE id = ?', [$isSelected, $bid_id]);
+        DB::update('UPDATE bids SET selected = ? WHERE id = ?', [$is_selected, $bid_id]);
         // update the task status
-        $status = ($isSelected == 'true') ? 1: 0;
+        $status = ($is_selected == 'true') ? 1 : 0;
 
         return redirect()->action('Resources\TasksController@updateStatus', ['id' => $task_id, 'status' => $status]);
     }
@@ -104,11 +75,13 @@ class BidsController extends Controller
     /**
      * This method must be restricted to administrator access as user should not be allowed to delete a bid.
      *
-     * @param \Taskr\Bid $bid
+     * @param $id
+     *
+     * @return void
      */
     public function destroy($id)
     {
-        DB::delete('DELETE FROM bids WHERE id = ?', [$id]);
+        $this->bidsRepo->deleteBid($id);
         return back();
     }
 
@@ -119,8 +92,7 @@ class BidsController extends Controller
      */
     public function store(Task $task)
     {
-        DB::insert('INSERT INTO Bids (user_id, task_id, price) VALUES (?, ?, ?)',
-         [Auth::id(), $task->id, request('price')]);
+        $this->bidsRepo->insertBid($task->id, Auth::id(), request('price'));
         return back();
     }
 }

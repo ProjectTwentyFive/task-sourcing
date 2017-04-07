@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use Taskr\Http\Controllers\Controller;
 use Taskr\Repositories\Tasks;
 use Taskr\Repositories\Users;
+use Taskr\Repositories\Bids;
 use Illuminate\Support\Facades\Validator;
 use Taskr\Task;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+use Taskr\User;
 
 /**
  * Class TasksController
@@ -23,11 +25,13 @@ class TasksController extends Controller
 {
     protected $tasksRepo;
     protected $usersRepo;
+    protected $bidsRepo;
 
-    public function __construct(Tasks $tasks, Users $users)
+    public function __construct(Tasks $tasks, Users $users, Bids $bids)
     {
         $this->tasksRepo = $tasks;
         $this->usersRepo = $users;
+        $this->bidsRepo = $bids;
     }
 
     /*
@@ -52,11 +56,15 @@ class TasksController extends Controller
     public function show(Task $task)
     {
         $user = new stdClass();
+        $bids = [];
         if (Auth::check()) {
             $id = Auth::id();
             $user = $this->usersRepo->getUser($id);
+            $bids = $this->bidsRepo->getBids($task->id);
+            $numBids = $this->bidsRepo->getNumBids($task->id);
+            $taskOwner = $this->usersRepo->getUser($task->owner);
         }
-        return view('tasks.show', compact('task', 'user'));
+        return view('tasks.show', compact('task', 'user', 'bids', 'numBids', 'taskOwner'));
     }
 
     public function create()
@@ -71,30 +79,6 @@ class TasksController extends Controller
         return view('tasks.edit', compact('task', 'generic_tasks'));
     }
 
-    public function search(Request $request)
-    {
-        $query = $request->q;
-        $tasks = Task::where('title','LIKE', "%$query%")->get();
-        //->orWhere('created_at','=', "$query")->orWhere('category','LIKE',"%$query%")->orWhere('start_date','=',"$query")->orWhere('end_date','=',"%$query%")->get();
-
-        Log::info($tasks);
-        return view('tasks.search')->with('details',$tasks)->with('query',$query);
-        // if(count($tasks) > 0){
-        //     return view('tasks.search')->withDetails($tasks)->withQuery($query);
-        // }
-        // else {
-        //     return view ('tasks.search')->withMessage('No such task found. Try searching again!');
-        // };
-
-        // $keyword= Input::get('q');
-
-        // $task = Task::find($keyword);
-
-        // return view::make('tasks.search', compact('tasks', 'user'));
-
-        // //$task->show();
-    }
-
     /*
     |--------------------------------------------------------------------------
     | Resource Methods
@@ -107,10 +91,10 @@ class TasksController extends Controller
     public function update(Request $request, Task $task)
     {
         $this->validateTask($request);
-        $this->tasksRepo->update($task->id, 
+        $this->tasksRepo->update($task->id,
             $request->input('title'),
             $request->input('description'),
-            $request->input('category'),
+            $request->input('category', ''),
             $request->input('start_date'),
             $request->input('end_date'));
         return redirect('/tasks');
@@ -130,11 +114,11 @@ class TasksController extends Controller
         return redirect('/tasks');
     }
 
-    private function validateTask(Request $request) {
+    private function validateTask(Request $request)
+    {
         $this->validate($request, [
-            'title' => 'required|max:15',
+            'title' => 'required|max:255',
             'description' => 'required',
-            'category' => 'required',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after_or_equal:today'
         ]);
@@ -146,11 +130,38 @@ class TasksController extends Controller
         $defaultStatus = 0;
         $this->tasksRepo->insert($request->input('title'),
             $request->input('description'),
-            $request->input('category'),
+            $request->input('category', ''),
             Auth::id(),
             $defaultStatus,
             $request->input('start_date'),
             $request->input('end_date'));
         return redirect('/tasks');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->q;
+//       / $tasks = Task::where('title','LIKE', "%$query%")->get();
+
+        $tasks=DB::select("SELECT * FROM tasks WHERE title LIKE '$query%'");
+        //->orWhere('created_at','=', "$query")->orWhere('category','LIKE',"%$query%")->orWhere('start_date','=',"$query")->orWhere('end_date','=',"%$query%")->get();
+
+        //Log::info($tasks);
+        return view('tasks.search')->with('details',$tasks)->with('query',$query);
+        // if(count($tasks) > 0){
+        //     return view('tasks.search')->withDetails($tasks)->withQuery($query);
+        // }
+        // else {
+        //     return view ('tasks.search')->withMessage('No such task found. Try searching again!');
+        // };
+
+        // $keyword= Input::get('q');
+
+        // $task = Task::find($keyword);
+
+        // return view::make('tasks.search', compact('tasks', 'user'));
+
+        // //$task->show();
+    }
+
 }

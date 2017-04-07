@@ -25,12 +25,12 @@
                         </h3>
                     </div>
                     @if (sizeOf($tasks)>0)
-                    
-         					 <form action="tasks/search" method="GET" role="search" name="myform">
-                              
-                             
 
-                                 <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
+         					 <form action="tasks/search" method="POST" role="search" name="myform">
+
+
+
+                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="q"
@@ -38,20 +38,20 @@
 
                                         <input type="submit" value="Search" name="submit" class="btn btn-default">
 
-                                        
-                                        
-                                   
+
+
+
                                 </div>
 
-                           
 
-                         
+
+
                            </form>
 
                     <table class="table table-hover">
                         <tr>
-                      
-                       
+
+
                         </tr>
                         <tr>
                             @foreach ($tasks as $key=> $task)
@@ -232,4 +232,3 @@
     </div>
 @endsection
 -->
-<p> Home Page </p>

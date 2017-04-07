@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGenericTasksTable extends Migration
+class CreatePasswordResetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateGenericTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('generic_tasks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('category');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token')->index();
+            $table->timestamp('created_at');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateGenericTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('generic_tasks');
+        Schema::dropIfExists('password_resets');
     }
 }
